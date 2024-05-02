@@ -1,0 +1,145 @@
+/* General font styling */
+html {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* Heading section styling */
+.heading {
+    background-color: black;
+    text-align: center;
+    box-shadow: 0px 6px 4px 1px rgba(0, 0, 0, 0.9);
+}
+
+/* Logo styling */
+#logo {
+    padding-top: 5px;
+}
+
+/* Tagline styling */
+#tagLine {
+    font-family: 'Courier New', Courier, monospace;
+    font-style: italic;
+    color: white;
+    margin-top:-15px ;
+}
+
+/* Main content area styling */
+.actionArea {
+    display: grid;
+    grid-template-columns: 25% 50% 25%;
+    text-align: center;
+}
+
+/* Communication board styling */
+#communicationBoard {
+    display: grid;
+    place-items: center;
+}
+
+/* Text output styling */
+#textOutput {
+    width: 98%;
+    height: 100%;
+    border-style: ridge;
+    border-color: rgb(36, 14, 14); 
+    margin: 20px; 
+}
+
+/* Placeholder text alignment */
+input::placeholder {
+    text-align: center;
+}
+
+/* List styling */
+ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+/* Title styling */
+#title {
+    font-size: 24px;
+    font-weight: 300;
+}
+
+/* Drop button styling */
+.dropBtn {
+    width: 100px;
+    padding: 0px 0px; 
+    margin-bottom: 5px;
+}
+
+/* Dropdown styling */
+.droDdown {
+    display: flex;
+    flex-direction: column;
+}
+
+.droDdown select {
+  display: none;
+  position: absolute;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Get questions button styling */
+#getQuestionsButton {
+    width: 318px;
+    height: 50px;
+    font-size: 16px;
+}
+
+/* Filters styling */
+#filters {
+    display: block;
+    justify-content: space-between;
+}
+
+/* Filter selection styling */
+.filterSelection {
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+/* Menu buttons styling */
+.menuButtons {
+    margin-top: 40px; 
+}
+
+/* Questions and responses styling */
+.correct {
+    background-color: green;
+    color: white;
+}
+
+.incorrect {
+    background-color: red;
+    color: white;
+}
+
+/* Filters table styling */
+table {
+    width: 99%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    margin-left: 0.5%;
+    margin-right: 0.5%;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+th, td {
+    border: 1px solid rgb(110, 105, 105);
+    padding: 8px;
+    text-align: left;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+th {
+    background-color: #333;
+    color: white;
+}

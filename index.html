@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <!-- Declares the character encoding for the HTML document -->
+        <meta charset="UTF-8">
+        <!-- Sets the viewport to scale with the device's width and initial zoom level -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Sets the title of the webpage -->
+        <title>Polymath</title>
+
+        <!-- Specifies the favicon for the webpage -->
+        <link rel="icon" type="image/x-icon" href="icons/fav.ico">
+
+        <!-- Links the external CSS file for styling -->
+        <link rel="stylesheet" type="text/css" href="style.css">
+
+        <!-- Includes the jQuery library for DOM manipulation and event handling -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <!-- Links the external JavaScript file for custom functionality -->
+        <script src="script.js"></script>
+    </head>
+
+    <body>
+        <!-- Container for the heading section of the webpage -->
+        <div class="heading">
+            <!-- Container for the logo image -->
+            <div id="logo">
+                <img src="images/logo.png" alt="logo" style="width: 100px; height: 100px;">
+            </div>
+            <!-- Container for the tagline text -->
+            <div id="tagLine">
+                <p>Unleash Your Inner Genius</p>
+            </div>
+        </div>
+
+        <!-- Container for the main content area -->
+        <div class="actionArea">
+            <!-- Container for player one's section -->
+            <div id="playerOne">
+                
+            </div>
+            <!-- Container for the communication board -->
+            <div id="communicationBoard">
+                <!-- Container for the filters -->
+                <div id="filters">
+                    <!-- Table for organizing filters and their headings -->
+                    <table id="filtersTable">
+                        <!-- Table header row -->
+                        <tr>
+                            <th>Difficulty</th>
+                            <th>Category</th>
+                            <th>Limit</th>
+                        </tr>
+                        <!-- Table data row for filters -->
+                        <tr>
+                            <td>
+                                <!-- Dropdown for selecting difficulty level -->
+                                <select id="difficulty" class="filterSelection">
+                                    <option value="easy"> Easy </option>
+                                    <option value="medium"> Medium </option>
+                                    <option value="hard"> Hard </option>
+                                </select>
+                            </td>
+                            <td>
+                                <!-- Dropdown for selecting category -->
+                                <select id="categories" class="filterSelection">
+                                    <option value="music">Music</option>
+                                    <option value="sport_and_leisure">Sport and Leisure</option>
+                                    <option value="film_and_tv">Film and TV</option>
+                                    <option value="arts_and_literature">Arts and Literature</option>
+                                    <option value="history">History</option>
+                                    <option value="society_and_culture">Society and Culture</option>
+                                    <option value="science">Science</option>
+                                    <option value="geography">Geography</option>
+                                    <option value="food_and_drink">Food and Drink</option>
+                                    <option value="general_knowledge">General Knowledge</option>
+                                </select>
+                            </td>
+                            <td>
+                                <!-- Dropdown for selecting limit -->
+                                <select id="limit" class="filterSelection">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="17">17</option>
+                                    <option value="18">18</option>
+                                    <option value="19">19</option>
+                                    <option value="20">20</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <!-- Button for getting questions -->
+                <button id="getQuestionsButton" onclick="getQuestions()">Get Question</button>
+                <!-- Title for the communication board -->
+                <p id="title">Communication Board</p>
+                <!-- Container for displaying text output -->
+                <div id="textOutput">
+                    
+                </div>
+            </div>
+            <!-- Container for player two's section -->
+            <div id="playerTwo">
+                
+            </div>
+        </div>
+
+    </body>
+
+    <footer>
+        <!-- Footer section, currently empty -->
+    </footer>
+
+</html>
