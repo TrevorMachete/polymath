@@ -33,7 +33,6 @@ The main JavaScript file contains the following functions:
 
 This project is licensed under the terms of the MIT license. See the LICENSE file for details.
 
-##Author
+## Author
 
-Trevor Machete (trevormachete@gmail.com)
-
+Trevor Machete (trevormachete@gmail.com).

@@ -30,8 +30,8 @@ html {
     text-align: center;
 }
 
-/* Communication board styling */
-#communicationBoard {
+/* User action area styling */
+#userActionArea {
     display: grid;
     place-items: center;
 }
