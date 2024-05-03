@@ -18,9 +18,16 @@
 
         <!-- Includes the jQuery library for DOM manipulation and event handling -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 
         <!-- Links the external JavaScript file for custom functionality -->
         <script src="script.js"></script>
+        <script src="firebaseConfig.js"></script>
+        <script src="auth.js"></script>
+       
+
     </head>
 
     <body>
@@ -54,15 +61,25 @@
                 </div>
 
                 <div id="playerOneName" class="playerName">
-                    <b>name sourced from profile</b>
+                    
                 </div>
 
                 <div class="controlButtons">
-                    <button id="PlayerOneLoginLogoutButton" class="loginLogoutButton">Log in | Register</button>
+                    <button id="playerOneLoginLogoutButton" class="loginLogoutButton" onclick="toggleLoginForm()">Log in | Register</button>
                     <button id="PlayerOneYieldButton" class="yieldButton">Yield</button>
                 </div>
 
                 <button id="PlayerOneChallengerMatchButton" class="challengerMatchButton">Match Challenger</button>
+
+                <!--Form to handle login-->
+                <div id="loginForm" style="display: none;">
+                    <input type="text" id="username" placeholder="Enter Username">
+                    <input type="text" id="email" placeholder="Enter Email">
+                    <input type="password" id="password" placeholder="Enter Password">
+                    <button onclick="login()">Log in</button>
+                    <button onclick="register()">Register</button>
+                  </div>
+
 
                 <!--Display the countdown for the answering player-->
                 <div id="PlayerOneCountdownTimer" class="countdownTimer">
@@ -194,7 +211,7 @@
                 </div>
 
                 <div class="controlButtons">
-                    <button id="PlayerTwoLoginLogoutButton" class="loginLogoutButton">Log in | Register</button>
+                    <button id="PlayerTwoLoginLogoutButton" class="loginLogoutButton" >Log in | Register</button>
                     <button id="PlayerTwoYieldButton" class="yieldButton">Yield</button>
                 </div>
 
