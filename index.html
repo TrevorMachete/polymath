@@ -37,13 +37,58 @@
             </div>
         </div>
 
+        <hr>
+
         <!-- Container for the main content area -->
         <div class="actionArea">
 
-            <!-- Container for player one's section -->
-            <div id="playerOne">
+            <!-- Container for player two's section -->
+            <div class="playerOne">
+
+                <h2>Player One</h2>
+
+                <!--Set an avatar for the player-->
+                <div id="playerOneAvatar" class="playerAvatar">
+                    <img src="" alt="avatar" style="    width: 100px;
+                    height: 100px; border-radius: 50%;">
+                </div>
+
+                <div id="playerOneName" class="playerName">
+                    <b>name sourced from profile</b>
+                </div>
+
+                <div class="controlButtons">
+                    <button id="PlayerOneLoginLogoutButton" class="loginLogoutButton">Log in | Register</button>
+                    <button id="PlayerOneYieldButton" class="yieldButton">Yield</button>
+                </div>
+
+                <button id="PlayerOneChallengerMatchButton" class="challengerMatchButton">Match Challenger</button>
+
+                <!--Display the countdown for the answering player-->
+                <div id="PlayerOneCountdownTimer" class="countdownTimer">
+                    <h5>Timer</h5>
+                </div>
+                
+                <!--Table to organise player performance-->
+                <table> 
+                    <tr>
+                        <th>Score</th>
+                            <tr>
+                            <td><div id="PlayerOneRoundOneScore" class="roundOneScore">Handle round one score with js</div></td>
+                            </tr>
+                            <tr>
+                            <td><div id="PlayerOneRoundTwoScore" class="roundTwoScore">handle round two score with js</div></td>
+                            </tr>
+                            <tr>
+                            <td><div id="PlayerOneResult" class="result">handle round result with js</div></td>
+                            </tr>
+                    </tr>
+                </table>
                 
             </div>
+
+            <!--Line dividing player section area and interaction area-->
+            <hr class="verticalLine">
 
             <!-- Container for the communication board -->
             <div id="userActionArea">
@@ -113,8 +158,13 @@
                     </table>
                 </div>
 
+                <!--Display current round-->
+                <div id="currentRoundDisplay">
+                    handle round display with js
+                </div>
+
                 <!-- Button for getting questions -->
-                <button id="getQuestionsButton" onclick="getQuestions()">Get Question</button>
+                <button id="getQuestionsButton" onclick="getQuestions()">Get Questions</button>
 
                 <!-- Title for the communication board -->
                 <p id="title">Communication Board</p>
@@ -125,8 +175,51 @@
                 </div>
             </div>
 
+            <!--Line dividing player section area and interaction area-->
+            <hr class="verticalLine">
+
             <!-- Container for player two's section -->
-            <div id="playerTwo">
+            <div class="playerTwo">
+
+                <h2>Player Two</h2>
+
+                <!--Set an avatar for the player-->
+                <div id="playerTwoAvatar" class="playerAvatar">
+                    <img src="" alt="avatar" style="    width: 100px;
+                    height: 100px; border-radius: 50%;">
+                </div>
+
+                <div id="playerTwoName" class="playerName">
+                    <b>name sourced from profile</b>
+                </div>
+
+                <div class="controlButtons">
+                    <button id="PlayerTwoLoginLogoutButton" class="loginLogoutButton">Log in | Register</button>
+                    <button id="PlayerTwoYieldButton" class="yieldButton">Yield</button>
+                </div>
+
+                <button id="PlayerTwoChallengerMatchButton" class="challengerMatchButton">Match Challenger</button>
+
+                <!--Display the countdown for the answering player-->
+                <div id="PlayerTwoCountdownTimer" class="countdownTimer">
+                    <h5>Timer</h5>
+                </div>
+                
+                <!--Table to organise player performance-->
+                <table>
+                    <tr>
+                        <th>Score</th>
+                            <tr>
+                            <td><div id="PlayerOneRoundOneScore" class="roundOneScore">Handle round one score with js</div></td>
+                            </tr>
+                            <tr>
+                            <td><div id="PlayerTwoRoundTwoScore" class="roundTwoScore">handle round two score with js</div></td>
+                            </tr>
+                            <tr>
+                            <td><div id="PlayerTwoResult" class="result">handle round result with js</div></td>
+                            </tr>
+                    </tr>
+                </table>
                 
             </div>
         </div>
