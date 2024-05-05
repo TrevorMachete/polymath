@@ -1,0 +1,28 @@
+function displayResults() {
+    console.log("displayResults function called"); // Log when the function is called
+
+    // Get the current user's ID
+    let userId = firebase.auth().currentUser.uid;
+
+    // Query the "questions" subcollection of the current user's document
+    db.collection("users").doc(userId).collection("questions").get().then((querySnapshot) => {
+        console.log("Query results:", querySnapshot); // Log the query results
+
+        querySnapshot.forEach((doc) => {
+            console.log("Document data:", doc.data()); // Log the document data
+
+            let data = doc.data();
+            console.log("Document data:", data); // Log the document data
+
+            let resultPara = document.createElement('p');
+            if(data.userAnswer === data.correctAnswer) {
+                resultPara.textContent = `Question: ${data.question} - Your answer: ${data.userAnswer} (Correct!)`;
+            } else {
+                resultPara.textContent = `Question: ${data.question} - Your answer: ${data.userAnswer} (Incorrect. The correct answer was ${data.correctAnswer})`;
+            }
+            document.getElementById('textOutput').appendChild(resultPara);
+        });
+    }).catch((error) => {
+        console.error("Error getting documents from 'questions' subcollection:", error); // Log any errors that occur
+    });
+}

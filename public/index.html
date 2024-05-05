@@ -2,18 +2,12 @@
 <html lang="en">
 
     <head>
-        <!-- Declares the character encoding for the HTML document -->
         <meta charset="UTF-8">
-        <!-- Sets the viewport to scale with the device's width and initial zoom level -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-        <!-- Sets the title of the webpage -->
+        
         <title>Polymath</title>
-
-        <!-- Specifies the favicon for the webpage -->
         <link rel="icon" type="image/x-icon" href="icons/fav.ico">
 
-        <!-- Links the external CSS file for styling -->
         <link rel="stylesheet" type="text/css" href="style.css">
 
         <!-- Includes the jQuery library for DOM manipulation and event handling -->
@@ -21,14 +15,13 @@
         <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-
         <script src="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.js"></script>
         <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.css" />
 
-        <!-- Links the external JavaScript file for custom functionality -->
-        <script src="firebaseConfig.js"></script>
-        <script src="script.js"></script>
-        <script src="auth.js"></script>
+        <script src="firebaseConfig.js"></script> <!--Firebase configuration-->
+        <script src="script.js"></script> <!--Script for handling game logic-->
+        <script src="auth.js"></script> <!--Script for handling authentication-->
+        <script src="roundDisplay.js"></script> <!--Script for displaying current round-->
        
 
     </head>
@@ -87,13 +80,13 @@
                     <tr>
                         <th>Score</th>
                             <tr>
-                            <td><div id="PlayerOneRoundOneScore" class="roundOneScore">Handle round one score with js</div></td>
+                            <td><div id="playerOneRoundOneScore" class="roundOneScore">Handle round one score with js</div></td>
                             </tr>
                             <tr>
-                            <td><div id="PlayerOneRoundTwoScore" class="roundTwoScore">handle round two score with js</div></td>
+                            <td><div id="playerOneRoundTwoScore" class="roundTwoScore">handle round two score with js</div></td>
                             </tr>
                             <tr>
-                            <td><div id="PlayerOneResult" class="result">handle round result with js</div></td>
+                            <td><div id="playerOneResult" class="result">handle round result with js</div></td>
                             </tr>
                     </tr>
                 </table>
@@ -214,7 +207,7 @@
                 <button id="PlayerTwoChallengerMatchButton" class="challengerMatchButton">Match Challenger</button>
 
                 <!--Display the countdown for the answering player-->
-                <div id="PlayerTwoCountdownTimer" class="countdownTimer">
+                <div id="playerTwoCountdownTimer" class="countdownTimer">
                     <h5>Timer</h5>
                 </div>
                 
