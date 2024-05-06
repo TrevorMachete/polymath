@@ -196,7 +196,7 @@ function startCountdownTimer() {
             playerTwoCountdownTimer.innerText = countdownDuration;
         } else {
             clearInterval(countdownTimerInterval);
-            document.getElementById('textOutput').innerText = 'Your countdown has ended';
+            document.getElementById('textOutput').innerText = 'Your countdown has lapsed';
         }
     }, 1000);
 }

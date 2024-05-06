@@ -1,3 +1,6 @@
+// Initialize Firestore
+var db = firebase.firestore();
+
 // Initialize an empty array to store scores
 let scores = [];
 console.log('Initialized scores:', scores);
@@ -66,17 +69,18 @@ function displayCurrentScore() {
 // Function to handle the submission of an answer for a question
 function handleAnswerSubmission(question, selectedAnswer, questionDiv) {
     let isCorrect = selectedAnswer === question.correctAnswer;
-    document.getElementById('textOutput').removeChild(questionDiv);11
+    document.getElementById('textOutput').removeChild(questionDiv);
+
     // Get the value of limit from the HTML options element
 let limit = document.getElementById('limit').value;
 
 // Calculate the delay of result display in milliseconds
-let delay = (5 * limit + 3) * 1000;
+let delay = (5 * limit + 1) * 1000;
     
     setTimeout(function() {
         let resultDiv = document.createElement('div');
         resultDiv.innerHTML = `<p>The correct answer is: ${question.correctAnswer}</p>`;
-        resultDiv.innerHTML += `<p>${isCorrect ? 'Correct!' : 'Incorrect.'}</p>`;
+        resultDiv.innerHTML += `<p>${isCorrect ? 'You\'re correct!' : 'You\'re incorrect.'}</p>`;
         document.getElementById('textOutput').appendChild(resultDiv);
         
     }, delay);
