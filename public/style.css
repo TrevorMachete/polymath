@@ -85,6 +85,10 @@ html {
     color: white;
 }
 
+#selectOutput {
+    display: none;
+}
+
 /* Placeholder text alignment */
 input::placeholder {
     text-align: center;

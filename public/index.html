@@ -23,6 +23,7 @@
         <script src="auth.js"></script> <!--Script for handling authentication-->
         <script src="roundDisplay.js"></script> <!--Script for displaying current round-->
         <script src="resultHandler.js"></script> <!--Script for handling round results-->
+        <script src="matchChallenger.js"></script> <!--Script for matching challengers-->
         
        
 
@@ -75,10 +76,12 @@
                 <!--Firebase UI container-->
                 <div id="firebaseui-auth-container"></div>
 
-                <button id="PlayerOneChallengerMatchButton" class="challengerMatchButton">Match Challenger</button>
+                <button id="playerOneChallengerMatchButton" class="challengerMatchButton">Match Challenger</button>
+                
+
 
                 <!--Display the countdown for the answering player-->
-                <div id="PlayerOneCountdownTimer" class="countdownTimer">
+                <div id="playerOneCountdownTimer" class="countdownTimer">
                     <h5>Timer</h5>
                 </div>
                 
@@ -185,7 +188,7 @@
 
                 <!-- Container for displaying text output -->
                 <div id="textOutput">
-                    
+                    <select id="selectOutput" size="5"></select>
                 </div>
             </div>
 
@@ -198,21 +201,21 @@
                 <h2>Player Two</h2>
 
                 <!--Set an avatar for the player-->
-                <div id="playerTwoAvatar" class="playerAvatar">
-                    <img src="" alt="avatar" style="    width: 100px;
-                    height: 100px; border-radius: 50%;">
+                <div class="playerAvatar">
+                    <img id="playerTwoAvatar" src="" alt="avatar" style="width: 100px; height: 100px; border-radius: 50%;">
                 </div>
+                
 
                 <div id="playerTwoName" class="playerName">
-                    <b>name sourced from profile</b>
+                    <b>Non Matched</b>
                 </div>
 
                 <div class="controlButtons">
-                    <button id="PlayerTwoLoginLogoutButton" class="loginLogoutButton" >Log in | Register</button>
-                    <button id="PlayerTwoYieldButton" class="yieldButton">Yield</button>
+                    <button id="PlayerTwoLoginLogoutButton" class="loginLogoutButton" ></button>
+                    <button id="PlayerTwoYieldButton" class="yieldButton"></button>
                 </div>
 
-                <button id="PlayerTwoChallengerMatchButton" class="challengerMatchButton">Match Challenger</button>
+                <button id="playerTwoChallengerMatchButton" class="challengerMatchButton"></button>
 
                 <!--Display the countdown for the answering player-->
                 <div id="playerTwoCountdownTimer" class="countdownTimer">
@@ -226,7 +229,7 @@
                     <tr>
                         <th>Score</th>
                             <tr>
-                            <td><div id="PlayerTwoRoundOneScore" class="roundOneScore">Handle round one score with js</div></td>
+                            <td><div id="playerTwoRoundOneScore" class="roundOneScore">Handle round one score with js</div></td>
                             </tr>
                             <tr>
                             <td><div id="PlayerTwoRoundTwoScore" class="roundTwoScore">handle round two score with js</div></td>
