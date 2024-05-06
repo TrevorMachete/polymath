@@ -15,41 +15,17 @@ let lastRoundDisplayed = 0;
 console.log('Initialized lastRoundDisplayed:', lastRoundDisplayed);
 
 // Function to clarify the last score based on the scores array
-function clarifyScore() {
-    if (currentRound !== lastRoundDisplayed) {lastScore = scores.length > 0? scores[scores.length - 1] : 0;
-    console.log('Clarified lastScore:', lastScore);
-    return;
-    }
-}
-
-// Function to update the score for a round based on whether the answer is correct
-function updateScoreForRound(isCorrect) {
-    if (isCorrect) {
-        currentScore += 1;
-    }
-
-    // Only run clarifyScore() when the conditions in clarifyScore hold
-    if (currentRound !== lastRoundDisplayed && currentRound !== 0) {
-        clarifyScore();
-        return;
-    }
-    
-    // Subtract the last score from the current score
-    currentScore = currentScore - lastScore;
-    console.log('Updated currentScore:', currentScore);
-    
-    // Update the score for the current round in the scores array
-    scores[currentRound] = currentScore;
-    console.log('Updated scores:', scores);
-}
-
-// Function to get the current score for a round
-function getCurrentScoreForRound() {
-    return scores[currentRound] || 0;
-}
+//function clarifyScore() {
+  //  if (currentRound !== lastRoundDisplayed) {lastScore = scores.length > 0? scores[scores.length - 1] : 0;
+    //console.log('Clarified lastScore:', lastScore);
+    //return;
+    //}
+//}
 
 // Function to display the current score for a round
 function displayCurrentScore() {
+
+    
     let currentScore = getCurrentScoreForRound();
     console.log('Current score for round:', currentScore);
     let scoreHistory = document.getElementById('scoreHistory');
@@ -73,6 +49,7 @@ function displayCurrentScore() {
     }
 }
 
+
 // Function to handle the submission of an answer for a question
 function handleAnswerSubmission(question, selectedAnswer, questionDiv) {
     let isCorrect = selectedAnswer === question.correctAnswer;
@@ -89,6 +66,43 @@ function handleAnswerSubmission(question, selectedAnswer, questionDiv) {
     displayCurrentScore();
 }
 
+// Function to get the current score for a round
+function getCurrentScoreForRound() {
+    return scores[currentRound] || 0;
+}
+
+
+// Function to update the score for a round based on whether the answer is correct
+function updateScoreForRound(isCorrect) {
+    if (isCorrect) {
+        currentScore += 1;
+    }
+
+    // Only run clarifyScore() when the conditions in clarifyScore hold
+    //if (currentRound !== lastRoundDisplayed && currentRound !== 0) {
+      //  clarifyScore();
+        //return;
+    //}
+    
+    // Subtract the last score from the current score
+    currentScore = currentScore - lastScore;
+    console.log('Updated currentScore:', currentScore);
+
+        // Update the score for the current round in the scores array
+        scores[currentRound] = currentScore;
+        console.log('Updated scores:', scores);
+    
+
+}
+
+
+// Function to get the current score for a round
+function getCurrentScoreForRound() {
+    return scores[currentRound] || 0;
+}
+
+
+
 // Function to start a new round
 function startNewRound() {
     currentRound += 1;
@@ -96,6 +110,4 @@ function startNewRound() {
     currentScore = 0;
     // Initialize the score for the current round in the scores array
     scores[currentRound] = currentScore;
-
 }
-
