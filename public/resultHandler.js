@@ -14,31 +14,23 @@ console.log('Initialized lastScore:', lastScore);
 let lastRoundDisplayed = 0;
 console.log('Initialized lastRoundDisplayed:', lastRoundDisplayed);
 
-// Function to clarify the last score based on the scores array
-//function clarifyScore() {
-  //  if (currentRound !== lastRoundDisplayed) {lastScore = scores.length > 0? scores[scores.length - 1] : 0;
-    //console.log('Clarified lastScore:', lastScore);
-    //return;
-    //}
-//}
-
 function resetScore() {
   
     var button = document.getElementById('getQuestionsButton');
     if (button) {
       button.addEventListener('click', function() {
         
-                // Reset the scores array
-                scores = [];
-                console.log('Reset scores:', scores);
+        // Reset the scores array
+        scores = [];
+        console.log('Reset scores:', scores);
         
-                // Reset currentScore
-                currentScore = 0;
-                console.log('Reset currentScore:', currentScore);
+        // Reset currentScore
+        currentScore = 0;
+        console.log('Reset currentScore:', currentScore);
         
-                // Reset lastScore
-                lastScore = 0;
-                console.log('Reset lastScore:', lastScore);
+        // Reset lastScore
+        lastScore = 0;
+        console.log('Reset lastScore:', lastScore);
   
       });
     } 
@@ -47,7 +39,6 @@ function resetScore() {
 
 // Function to display the current score for a round
 function displayCurrentScore() {
-
     
     let currentScore = getCurrentScoreForRound();
     console.log('Current score for round:', currentScore);
@@ -72,16 +63,23 @@ function displayCurrentScore() {
     }
 }
 
-
 // Function to handle the submission of an answer for a question
 function handleAnswerSubmission(question, selectedAnswer, questionDiv) {
     let isCorrect = selectedAnswer === question.correctAnswer;
+    document.getElementById('textOutput').removeChild(questionDiv);11
+    // Get the value of limit from the HTML options element
+let limit = document.getElementById('limit').value;
+
+// Calculate the delay of result display in milliseconds
+let delay = (5 * limit + 3) * 1000;
     
-    let resultDiv = document.createElement('div');
-    resultDiv.innerHTML = `<p>The correct answer is: ${question.correctAnswer}</p>`;
-    resultDiv.innerHTML += `<p>${isCorrect? 'Correct!' : 'Incorrect.'}</p>`;
-    document.getElementById('textOutput').appendChild(resultDiv);
-    document.getElementById('textOutput').removeChild(questionDiv);
+    setTimeout(function() {
+        let resultDiv = document.createElement('div');
+        resultDiv.innerHTML = `<p>The correct answer is: ${question.correctAnswer}</p>`;
+        resultDiv.innerHTML += `<p>${isCorrect ? 'Correct!' : 'Incorrect.'}</p>`;
+        document.getElementById('textOutput').appendChild(resultDiv);
+        
+    }, delay);
 
     // Update the score for the round based on whether the answer is correct
     updateScoreForRound(isCorrect);
@@ -94,18 +92,11 @@ function getCurrentScoreForRound() {
     return scores[currentRound] || 0;
 }
 
-
 // Function to update the score for a round based on whether the answer is correct
 function updateScoreForRound(isCorrect) {
     if (isCorrect) {
         currentScore += 1;
     }
-
-    // Only run clarifyScore() when the conditions in clarifyScore hold
-    //if (currentRound !== lastRoundDisplayed && currentRound !== 0) {
-      //  clarifyScore();
-        //return;
-    //}
     
     // Subtract the last score from the current score
     currentScore = currentScore - lastScore;
@@ -115,16 +106,12 @@ function updateScoreForRound(isCorrect) {
         scores[currentRound] = currentScore;
         console.log('Updated scores:', scores);
     
-
 }
-
 
 // Function to get the current score for a round
 function getCurrentScoreForRound() {
     return scores[currentRound] || 0;
 }
-
-
 
 // Function to start a new round
 function startNewRound() {
@@ -134,4 +121,3 @@ function startNewRound() {
     // Initialize the score for the current round in the scores array
     scores[currentRound] = currentScore;
 }
-

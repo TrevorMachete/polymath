@@ -157,11 +157,12 @@ function displayQuestions(data) {
 // Function to handle answer submission
 function handleAnswerSubmission(question, selectedAnswer, questionDiv) {
     let isCorrect = selectedAnswer === question.correctAnswer;
+
     let resultDiv = document.createElement('div');
     resultDiv.innerHTML = `<p>The correct answer is: ${question.correctAnswer}</p>`;
     resultDiv.innerHTML += `<p>${isCorrect ? 'Correct!' : 'Incorrect.'}</p>`;
     document.getElementById('textOutput').appendChild(resultDiv);
-    document.getElementById('textOutput').removeChild(questionDiv);
+    
 
     // Update the user's answer in Firestore
     db.collection("questions").where("question", "==", question.question)
