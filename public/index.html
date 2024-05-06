@@ -22,6 +22,8 @@
         <script src="script.js"></script> <!--Script for handling game logic-->
         <script src="auth.js"></script> <!--Script for handling authentication-->
         <script src="roundDisplay.js"></script> <!--Script for displaying current round-->
+        <script src="resultHandler.js"></script> <!--Script for handling round results-->
+        
        
 
     </head>
@@ -41,6 +43,11 @@
         </div>
 
         <hr>
+
+        <script>
+            // Initialize current round
+            let currentRound = 0;
+        </script>
         
         <!-- Container for the main content area -->
         <div class="actionArea">
@@ -166,7 +173,8 @@
 
                 <!--Display current round-->
                 <div id="currentRoundDisplay">
-                    handle round display with js
+                    
+                    ************************
                 </div>
 
                 <!-- Button for getting questions -->
@@ -210,13 +218,15 @@
                 <div id="playerTwoCountdownTimer" class="countdownTimer">
                     <h5>Timer</h5>
                 </div>
-                
+
+                <p id="scoreHistory">Score</p>
+
                 <!--Table to organise player performance-->
                 <table>
                     <tr>
                         <th>Score</th>
                             <tr>
-                            <td><div id="PlayerOneRoundOneScore" class="roundOneScore">Handle round one score with js</div></td>
+                            <td><div id="PlayerTwoRoundOneScore" class="roundOneScore">Handle round one score with js</div></td>
                             </tr>
                             <tr>
                             <td><div id="PlayerTwoRoundTwoScore" class="roundTwoScore">handle round two score with js</div></td>

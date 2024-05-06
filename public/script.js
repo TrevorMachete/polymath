@@ -121,8 +121,6 @@ function getQuestions() {
 }
 
 
-
-
 // Function to display questions and handle answer submission
 function displayQuestions(data) {
     document.getElementById('textOutput').innerHTML = '';
@@ -178,6 +176,9 @@ function handleAnswerSubmission(question, selectedAnswer, questionDiv) {
     .catch((error) => {
         console.log("Error updating user's answer: ", error);
     });
+
+    // Return the correctness of the answer
+    return isCorrect;
 }
 
 
@@ -195,8 +196,6 @@ function startCountdownTimer() {
         } else {
             clearInterval(countdownTimerInterval);
             document.getElementById('textOutput').innerText = 'Your countdown has ended';
-            // Call displayResults after a delay to allow for any final actions
-            setTimeout(displayResults, 3000); // Adjust the delay as needed
         }
     }, 1000);
 }
