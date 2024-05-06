@@ -22,6 +22,29 @@ console.log('Initialized lastRoundDisplayed:', lastRoundDisplayed);
     //}
 //}
 
+function resetScore() {
+  
+    var button = document.getElementById('getQuestionsButton');
+    if (button) {
+      button.addEventListener('click', function() {
+        
+                // Reset the scores array
+                scores = [];
+                console.log('Reset scores:', scores);
+        
+                // Reset currentScore
+                currentScore = 0;
+                console.log('Reset currentScore:', currentScore);
+        
+                // Reset lastScore
+                lastScore = 0;
+                console.log('Reset lastScore:', lastScore);
+  
+      });
+    } 
+    
+  }
+
 // Function to display the current score for a round
 function displayCurrentScore() {
 
@@ -111,3 +134,4 @@ function startNewRound() {
     // Initialize the score for the current round in the scores array
     scores[currentRound] = currentScore;
 }
+
