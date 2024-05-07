@@ -4,19 +4,23 @@ var db = firebase.firestore();
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
         // User is signed in.
-        document.getElementById('playerOneName').innerText = user.displayName;
-        document.getElementById('playerOneAvatar').src = user.photoURL || 'icons/avatar.jpeg';
+        var avatar = user.photoURL || 'icons/avatar.jpeg';
+        var username = user.displayName;
+
+        document.getElementById('playerOneName').innerText = username;
+        document.getElementById('playerOneAvatar').src = avatar;
         document.getElementById('playerOneLoginLogoutButton').innerText = 'Log Out';
-        
+
         // Set 'loggedIn' field to true in Firestore
         db.collection('users').doc(user.uid).update({
             loggedIn: true
         });
     } else {
         // User is signed out.
-        document.getElementById('playerOneName').innerText = '';
+        document.getElementById('playerOneName').innerText = 'Not Logged In';
         document.getElementById('playerOneAvatar').src = 'icons/avatar.jpeg';
         document.getElementById('playerOneLoginLogoutButton').innerText = 'Log in | Register';
+
     }
 });
 

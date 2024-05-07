@@ -85,9 +85,16 @@ html {
     color: white;
 }
 
+/* CSS */
 #selectOutput {
     display: none;
+    overflow: auto;
 }
+
+#selectOutput.visible {
+    display: block;
+}
+
 
 /* Placeholder text alignment */
 input::placeholder {
