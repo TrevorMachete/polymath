@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-
     // Get a reference to your Firebase database
     var db = firebase.firestore();
 
@@ -8,6 +7,16 @@ document.addEventListener('DOMContentLoaded', function() {
     var selectOutput = document.getElementById('selectOutput');
     var playerTwoName = document.getElementById('playerTwoName');
     var playerTwoAvatar = document.getElementById('playerTwoAvatar');
+
+    // Get the currently logged-in user's UID
+    var loggedInUserId;
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            loggedInUserId = user.uid;
+        } else {
+            console.log('No user is signed in.');
+        }
+    });
 
     // Load the saved user from localStorage
     var savedUser = JSON.parse(localStorage.getItem('selectedUser'));
@@ -79,6 +88,19 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (doc.exists && doc.data().loggedIn === false) {
                         alert(doc.data().username + ' has logged out.');
                     }
+                });
+
+                // Create a challenge document
+                db.collection('challenges').add({
+                    challenger: loggedInUserId, // Use the Firebase UID of the logged-in user (user one)
+                    challengee: selectedUserId,
+                    status: 'pending'
+                })
+                .then((docRef) => {
+                    console.log("Challenge document written with ID: ", docRef.id);
+                })
+                .catch((error) => {
+                    console.error("Error adding challenge document: ", error);
                 });
             } else {
                 console.log("No such document!");

@@ -22,7 +22,8 @@
         <script src="script.js"></script> <!--Script for handling game logic-->
         <script src="auth.js"></script> <!--Script for handling authentication-->
         <script src="roundDisplay.js"></script> <!--Script for displaying current round-->
-        <script src="resultHandler.js"></script> <!--Script for handling round results-->
+        <script src="playerOneResultHandler.js"></script> <!--Script for handling round results-->
+        <script src="playerTwoResultHandler.js"></script> <!--Script for handling round results-->
         <script src="matchChallenger.js"></script> <!--Script for matching challengers-->
         
        
@@ -46,8 +47,15 @@
         <hr>
 
         <script>
+            // The declarations that are here are accessed by multiple js files
+
             // Initialize current round
             let currentRound = 0;
+
+            // Initialize lastRoundDisplayed to 0
+            let lastRoundDisplayed = 0;
+            console.log('Initialized lastRoundDisplayed:', lastRoundDisplayed);
+
         </script>
         
         <!-- Container for the main content area -->
@@ -70,7 +78,7 @@
                 <div class="controlButtons">
                     <button id="playerOneLoginLogoutButton" class="loginLogoutButton" onclick="toggleLoader()">Login | Register</button>
 
-                    <button id="PlayerOneRestartButton" class="yieldButton">Restart</button>
+                    <button id="playerOneRestartButton" class="yieldButton">Restart</button>
                 </div>
 
                 <!--Firebase UI container-->
@@ -84,6 +92,8 @@
                 <div id="playerOneCountdownTimer" class="countdownTimer">
                     <h5>Timer</h5>
                 </div>
+
+                <p id="playerOneScoreHistory">Score</p>
                 
                 <!--Table to organise player performance-->
                 <table> 
@@ -181,7 +191,7 @@
                 </div>
 
                 <!-- Button for getting questions -->
-                <button id="getQuestionsButton" onclick="getQuestions(); resetScore();">Get Questions</button>
+                <button id="getQuestionsButton" onclick="getQuestions(); resetPlayerTwoScore(); resetPlayerOneScore();">Get Questions</button>
 
                 <!-- Title for the communication board -->
                 <p id="title">Communication Board</p>
@@ -222,7 +232,7 @@
                     <h5>Timer</h5>
                 </div>
 
-                <p id="scoreHistory">Score</p>
+                <p id="playerTwoScoreHistory">Score</p>
 
                 <!--Table to organise player performance-->
                 <table>
