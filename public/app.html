@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <title>Polymath</title>
+        <link rel="icon" type="image/x-icon" href="icons/fav.ico">
+
+        <link rel="stylesheet" type="text/css" href="style.css">
+
+        <!-- Includes the jQuery library for DOM manipulation and event handling -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-messaging.js"></script>
+        <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.css" />
+        
+
+        <script src="firebaseConfig.js"></script> <!--Firebase configuration-->
+        <script src="script.js"></script> <!--Script for handling game logic-->
+        <script src="auth.js"></script> <!--Script for handling authentication-->
+        <script src="roundDisplay.js"></script> <!--Script for displaying current round-->
+        <script src="playerOneResultHandler.js"></script> <!--Script for handling round results-->
+        <script src="playerTwoResultHandler.js"></script> <!--Script for handling round results-->
+        <script src="matchChallenger.js"></script> <!--Script for matching challengers-->
+        <script src="messages.js"></script>
+        <script src="notification.js"></script>
+        
+       
+
+    </head>
+
+    <body>
+        <div class="navigation" style="background-color: rgb(113, 113, 214);">
+
+            <div id="menu" >              
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a class="active" href="app.html">Game</a></li>
+                    <li ><a href="contact.html">About</a></li>
+                  </ul>
+            </div>
+        
+
+            <div id="logo">
+                <img src="images/logo.jpeg" style="width: 100px; height: 100px;">
+            </div>
+
+           
+            <div id="log">
+                    <img src="images/th.jpeg" style="width: 50px; height: 50px;">
+            </div>  
+    </div>
+
+        <hr>
+
+        <script>
+            // The declarations that are here are accessed by multiple js files
+
+            // Initialize current round
+            let currentRound = 0;
+
+            // Initialize lastRoundDisplayed to 0
+            let lastRoundDisplayed = 0;
+            console.log('Initialized lastRoundDisplayed:', lastRoundDisplayed);
+
+        </script>
+
+<div id="filters">
+    <!-- Table for organizing filters and their headings -->
+        <table id="filtersTable">
+            <!-- Table header row -->
+            <tr>
+                <th>Difficulty</th>
+                <th>Category</th>
+                <th>Limit</th>
+            </tr>
+            <!-- Table data row for filters -->
+            <tr>
+                <!-- Dropdown for selecting difficulty level -->
+                <td>
+                <select id="difficulty" class="filterSelection">
+                <option value="easy"> Easy </option>
+                <option value="medium"> Medium </option>
+                <option value="hard"> Hard </option>
+                </select>
+                </td>
+
+                <!-- Dropdown for selecting category -->
+                <td>
+                <select id="categories" class="filterSelection">
+                <option value="music">Music</option>
+                <option value="sport_and_leisure">Sport and Leisure</option>
+                <option value="film_and_tv">Film and TV</option>
+                <option value="arts_and_literature">Arts and Literature</option>
+                <option value="history">History</option>
+                <option value="society_and_culture">Society and Culture</option>
+                <option value="science">Science</option>
+                <option value="geography">Geography</option>
+                <option value="food_and_drink">Food and Drink</option>
+                <option value="general_knowledge">General Knowledge</option>
+                </select>
+                </td>
+
+                <!-- Dropdown for selecting limit -->
+                <td>
+                <select id="limit" class="filterSelection">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                </select>
+                </td>
+            </tr>
+        </table>
+    </div>
+        
+        <!-- Container for the main content area -->
+        <div class="actionArea" style="background-color: rgb(165, 178, 212);">
+
+            <!-- Container for player two's section -->
+            <div class="playerOne">
+
+                <h2>Player</h2>
+
+                <!--Set an avatar for the player-->
+                <div class="playerAvatar">
+                    <img id="playerOneAvatar" src="" alt="avatar" style="width: 100px; height: 100px; border-radius: 50%;">
+                </div>
+
+                <div id="playerOneName" class="playerName">
+                    
+                </div>
+
+                <div class="controlButtons">
+                    <button id="playerOneLoginLogoutButton" class="loginLogoutButton" onclick="toggleLoader()">Login | Register</button>
+                </div>
+
+
+                <!--Firebase UI container-->
+                <div id="firebaseui-auth-container"></div>
+
+
+                <!--Display the countdown for the answering player-->
+                <div id="playerOneCountdownTimer" class="countdownTimer">
+                    <h5>Timer</h5>
+                </div>
+
+                <p id="playerOneScoreHistory">Score</p>
+                
+            </div>
+
+            <!--Line dividing player section area and interaction area-->
+            <hr class="verticalLine">
+
+            <!-- Container for the communication board -->
+            <div id="userActionArea">
+                <!-- Container for the filters -->
+
+
+                <!--Display current round-->
+                <div id="currentRoundDisplay">
+                    
+                    ************************
+                </div>
+
+                <!-- Button for getting questions -->
+                <button id="getQuestionsButton" onclick="getQuestions(); resetPlayerOneScore();">Get Questions</button>
+
+                <!-- Title for the communication board -->
+                <p id="title">Communication Board</p>
+
+
+                <!-- Container for displaying text output -->
+                <div id="textOutput">
+                    <select id="selectOutput" size="5"></select>
+                </div>
+            </div>
+
+
+                
+            </div>
+        </div>
+   
+    </body>
+
+    <footer>
+        <div class="footer">
+
+            <div id="declarations">
+
+                <p>Powered by Firebase<br>
+                Graphics by Microsoft Design<br>
+                The Trivia Api<br></p>
+
+            </div>
+
+            <div id="socials">
+                <br>
+                Catch the developer
+                <br><br>
+                <a href="https://www.linkedin.com/in/trevor-machete-62636b127/">LinkedIn</a><br>
+                <a href="https://github.com/TrevorMachete/">GitHub</a><br>
+                <a href="https://twitter.com/trevormachete">Twitter</a><br>
+            </div>
+
+        </div>
+
+    </footer>
+
+    <footer>
+        <!-- Footer section, currently empty -->
+    </footer>
+
+</html>
