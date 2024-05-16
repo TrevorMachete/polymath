@@ -1,3 +1,31 @@
+// Initialize Firebase
+var db = firebase.firestore();
+
+firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        // User is signed in, call the function to fetch messages
+        fetchMessagesForCurrentUser();
+
+        // Store auth state
+        localStorage.setItem('authState', JSON.stringify(user));
+    } else {
+        // No user is signed in.
+        console.error("No user is signed in.");
+
+        // Clear the auth state
+        localStorage.removeItem('authState');
+    }
+});
+
+function getCurrentUser() {
+    const user = firebase.auth().currentUser;
+    if (user) {
+        return user.displayName; // Returns the username of the logged in user
+    } else {
+        return null;
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     // Set up event listeners to store selections in local storage
     document.getElementById('difficulty').addEventListener('change', function() {
@@ -24,40 +52,48 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     document.getElementById('getQuestionsButton').addEventListener('click', function() {
-        // Display a countdown popup
-        let countdownPopup = document.createElement('div');
-        countdownPopup.id = 'countdownPopup';
-        countdownPopup.style.position = 'fixed';
-        countdownPopup.style.left = '50%';
-        countdownPopup.style.top = '50%';
-        countdownPopup.style.transform = 'translate(-50%, -50%)';
-        countdownPopup.style.padding = '20px';
-        countdownPopup.style.backgroundColor = '#fff';
-        countdownPopup.style.border = '1px solid #000';
-        document.body.appendChild(countdownPopup);
+
+                // Check if the user is authenticated
+                if (!firebase.auth().currentUser) {
+                    console.error('User is not authenticated');
+                    return;
+                }
+
+                getQuestions().then(questions => {
+                    displayQuestions(questions);
+                }).catch(error => {
+                    console.error('Error fetching questions:', error);
+                });
+
+        document.getElementById('timer').innerText = '00:00';
+        // Get the countdown warning and timer elements
+        let countdownWarning = document.getElementById('countdownWarning');
+        let timer = document.getElementById('timer');
     
         let countdown = 5;
-        countdownPopup.innerText = 'Your countdown begins in ' + countdown + ' seconds';
+        countdownWarning.innerHTML = 'Your game begins in<br><br>';
+        timer.innerText = formatTime(countdown);
     
         let countdownInterval = setInterval(function() {
             countdown--;
             if (countdown > 0) {
-                countdownPopup.innerText = 'Your countdown begins in ' + countdown + ' seconds';
+                timer.innerText = formatTime(countdown);
             } else {
-                // Remove the popup and start the countdown timer
-                countdownPopup.parentNode.removeChild(countdownPopup);
+                // Clear the countdown warning and reset the timer
+                countdownWarning.innerText = '';
+                timer.innerText = '00:00';
                 clearInterval(countdownInterval);
                 startCountdownTimer();
     
-                // Fetch the questions
-                //getQuestions().then(questions => {
-                 //   displayQuestions(questions); // Display the questions after they are fetched
-                //}).catch(error => {
-                  //  console.error("Error getting questions: ", error);
-                //});
             }
         }, 1000);
     });
+    
+    function formatTime(seconds) {
+        let minutes = Math.floor(seconds / 60);
+        seconds %= 60;
+        return (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+    }   
     
 });
 
@@ -74,7 +110,12 @@ function getQuestions() {
         let queryString = Object.keys(params).map(key => key + '=' + encodeURIComponent(params[key])).join('&');
 
         fetch('https://the-trivia-api.com/api/questions?' + queryString)
-           .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
            .then(data => {
                 // Check if data is not undefined before proceeding
                 if (data && Array.isArray(data)) {
@@ -121,6 +162,15 @@ function getQuestions() {
 }
 
 
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+    }
+}
+
+
+
 // Function to display questions and handle answer submission
 function displayQuestions(data) {
     document.getElementById('textOutput').innerHTML = '';
@@ -129,8 +179,14 @@ function displayQuestions(data) {
             let questionDiv = document.createElement('div');
             questionDiv.innerHTML = `<p>${question.question}</p>`;
 
+            // Prepare all possible answers, including the correct one
+            let allPossibleAnswers = [...question.incorrectAnswers, question.correctAnswer];
+            
+            // Shuffle the array of answers
+            shuffleArray(allPossibleAnswers);
+
             let answersDiv = document.createElement('div');
-            question.incorrectAnswers.forEach(answer => {
+            allPossibleAnswers.forEach(answer => {
                 let answerButton = document.createElement('button');
                 answerButton.textContent = answer;
                 answerButton.addEventListener('click', function() {
@@ -138,13 +194,6 @@ function displayQuestions(data) {
                 });
                 answersDiv.appendChild(answerButton);
             });
-
-            let correctAnswerButton = document.createElement('button');
-            correctAnswerButton.textContent = question.correctAnswer;
-            correctAnswerButton.addEventListener('click', function() {
-                handleAnswerSubmission(question, correctAnswerButton.textContent, questionDiv);
-            });
-            answersDiv.appendChild(correctAnswerButton);
 
             questionDiv.appendChild(answersDiv);
             document.getElementById('textOutput').appendChild(questionDiv);
@@ -154,50 +203,37 @@ function displayQuestions(data) {
     }
 }
 
-// Function to handle answer submission
-function handleAnswerSubmission(question, selectedAnswer, questionDiv) {
-    let isCorrect = selectedAnswer === question.correctAnswer;
-
-    let resultDiv = document.createElement('div');
-    resultDiv.innerHTML = `<p>The correct answer is: ${question.correctAnswer}</p>`;
-    resultDiv.innerHTML += `<p>${isCorrect ? 'Correct!' : 'Incorrect.'}</p>`;
-    document.getElementById('textOutput').appendChild(resultDiv);
-    
-
-    // Update the user's answer in Firestore
-    db.collection("questions").where("question", "==", question.question)
-    .get()
-    .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-            doc.ref.update({
-                userAnswer: selectedAnswer
-            });
-        });
-    })
-    .catch((error) => {
-        console.log("Error updating user's answer: ", error);
-    });
-
-    // Return the correctness of the answer
-    return isCorrect;
-}
-
 
 // Function to start the countdown timer
 function startCountdownTimer() {
-    let playerTwoCountdownTimer = document.getElementById('playerTwoCountdownTimer');
+    let timer = document.getElementById('timer');
     let limit = parseInt(document.getElementById('limit').value);
     let countdownDuration = 5 * limit; // Default countdown duration to answer one question is 5 seconds
-    playerTwoCountdownTimer.innerText = countdownDuration;
+    timer.innerText = formatTime(countdownDuration);
 
     let countdownTimerInterval = setInterval(function() {
         countdownDuration--;
         if (countdownDuration > -1) {
-            playerTwoCountdownTimer.innerText = countdownDuration;
+            timer.innerText = formatTime(countdownDuration);
         } else {
             clearInterval(countdownTimerInterval);
-            document.getElementById('textOutput').innerText = 'Your countdown has lapsed';
+            document.getElementById('textOutput').innerText = 'Your time has elapsed';
         }
     }, 1000);
+
+    
 }
 
+function formatTime(seconds) {
+    let minutes = Math.floor(seconds / 60);
+    seconds %= 60;
+    return (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+}
+
+    // Retrieve auth state after page refresh
+    const storedAuthState = JSON.parse(localStorage.getItem('authState'));
+
+    // If there is a stored auth state, set the auth state
+    if (storedAuthState) {
+        firebase.auth().signInWithCredential(firebase.auth.AuthCredential.fromJSON(storedAuthState));
+    }

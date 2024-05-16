@@ -1,0 +1,691 @@
+body {
+    background-image: url('../images/bg.jpeg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .heading {
+    text-align: center;
+    color: #feb47b;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    margin-top: 0px;
+  }
+
+  .heading h1 {
+    text-align: center;
+    font-size: 50px;
+    font-weight: bold;
+    color: #feb47b;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    text-decoration: underline;
+  }
+
+  .heading p {
+    margin-top: -30px;
+    color: #d4742a;
+    font-size: 18px;
+    font-weight: bolder;
+    text-shadow: 2px 0px 4px rgba(1, 1, 1, 1);
+  }
+
+  ul
+    {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        
+      }
+      
+      li {
+        float: left;
+        border-right:1px solid #bbb;
+      }
+      
+      li:last-child {
+        border-right: none;
+      }
+      
+      li a {
+        display: block;
+        color: rgb(0, 0, 0);
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+      }
+      
+      li a:hover:not(.active) {
+        background-color: #f8f8f8;
+      }
+      
+      .active {
+        background-color: #04AA6D;
+        text-align: right;
+}
+
+/* List styling */
+ul, li {
+
+    margin-top: -5px;
+    padding: 0;
+}
+
+
+
+    /* Styling for the navigation bar with a gradient background */
+.nav-bar {
+    background-color: rgba(254, 180, 123, 0.1); /* 90% transparent */
+    overflow: hidden;
+    top: 0;
+    width: 100%;
+    height: 30px;
+    border: 1px solid #ccc;
+  }
+  
+  .nav-bar a {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .nav-bar a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  /* Styling for the observer list with alternating background colors */
+.observer-list {
+    width: 100%;
+    height: 50px;
+    border: 1px solid #ccc;
+    background-color: rgba(252, 252, 252, 0.5); /* 50% transparent */
+    margin-top: 10px;
+    position: static;
+  
+}
+
+@keyframes marquee {
+  0%   { transform: translate(400%, 0); }
+  100% { transform: translate(-100%, 0); }
+}
+
+.midElement {
+  color: rgb(59, 35, 2);
+  text-shadow: 0.5px 0.5px 0.5px rgba(255, 0, 0, 0.5);
+  font-size: 36px;
+  font-weight: bolder;
+  width: 70%;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(to right, rgba(255, 173, 6, 0.5), rgba(255, 16, 95, 0.1));
+  
+  /* Add this for the typing effect */
+  white-space: wrap;
+  overflow: hidden;
+  animation: typing 4s steps(40, end), blink-caret .75s step-end infinite;
+}
+
+/* Typing animation */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+/* Cursor animations */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: rgb(78, 46, 3); }
+}
+
+
+
+/* Styling for the challenges container */
+.challenges {
+  display: grid;
+  grid-template-columns: 33.3% 33.3% 33.3%;
+  width: 100%;
+  margin-top: 10px;
+  text-align: center;
+
+}
+
+/* Styling for the sub containers in the challenge container */
+.challenge {
+  border: 1px solid #ccc;
+  width: 100%;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.challenge h3 {
+  background-color: white;
+  padding: 10px;
+  margin-top: 0px;
+}
+
+   /* Container holding the image and the text */
+.playerOneContainer, .playerTwoContainer {
+    width: auto;
+   }
+ 
+.playerOneContainer {
+     text-align: center;
+   }
+ 
+.playerTwoContainer {
+     text-align: center;
+   }
+ 
+.getQuestionsButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.features {
+  text-align: center;
+  margin-top: 100px;
+}
+
+#aboutApp {
+  margin: 50px 50px 50px 50px;
+  text-align: justify;
+}
+
+.footer {
+  font-size: small;
+  margin-top: 20px;
+  color: white;
+  background-color: black;
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+.footer a {
+  text-decoration: none;
+}
+
+#socials {
+  text-align: right;
+  margin-right: 10px;
+}
+
+#declarations {
+  margin-left: 10px;
+}
+
+
+#getQuestionsButton {
+    background: linear-gradient(to right, #ff105f, #ffad06);
+    color: white;
+    border: none;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 50px;
+  
+}
+
+#getQuestionsButton:hover {
+    background: linear-gradient(to right, #ffad06, #ff105f);
+}
+
+
+
+.playNowButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#playNowButton {
+  background: linear-gradient(to right, #ff105f, #ffad06);
+  color: white;
+  border: none;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 50px;
+}
+
+#playNowButton:hover {
+  background: linear-gradient(to right, #ffad06, #ff105f);
+}
+
+.playNowButton a {
+  text-decoration: none;
+  padding-top: 350px;
+}
+
+
+
+  /* For the filters menu */
+  #filters {
+    display: grid;
+    grid-template-columns: 33.3% 33.3% 33.3%;
+    text-align: center;
+    margin-top: 5px;
+  }
+
+  form {
+    width: auto;
+    margin: 0;
+    padding: 0px;
+    border: 1px solid #cccccc;
+    border-radius: 0px;
+    background-color: #f8f8f8;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+select {
+    width: 100%;
+    padding: 3px;
+    border-radius: 0px;
+    border: 1px solid #04AA6D;
+    background-color: #04AA6D;
+    margin-bottom: 20px;
+ 
+}
+  
+  /* Styling for the player avatars with a circular border */
+  .avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid #feb47b;
+    background: linear-gradient(to right, #ff105f, #ffad06);
+    transition: transform 0.3s ease;
+}
+
+.avatar:hover {
+    transform: scale(1.1);
+}
+
+.playerName{
+    bottom: 20px;
+    left: 20px;
+    background-color: white;
+    color: black;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 50px;
+}
+
+.playerName h4 {
+   padding: 5px;
+}
+
+.avatars {
+    display: grid;
+    grid-template-columns: 33.3% 33.3% 33.3%;
+    justify-content: center;
+    place-items: center;
+    margin-top: 10px;
+}
+
+
+  #controlButtons button {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(to right, #ff105f, #ffad06);
+    color: white;
+    cursor: pointer;
+    transition: background 0.5s ease;
+}
+
+#controlButtons button:hover {
+    background: linear-gradient(to right, #ffad06, #ff105f);
+}
+
+.countdownTimer {
+  text-align: center;
+}
+
+@keyframes flash {
+  0% {opacity: 1;}
+  50% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+#countdownWarning {
+  text-align: center;
+  color: rgb(243, 243, 243);
+  font-size: 26px;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(255, 0, 0, 0.5);
+  animation: flash 1s linear infinite; /* Flashing effect */
+}
+
+#currentRoundDisplay {
+  font-size: 26px;
+  color: rgb(163, 4, 4);
+  font-weight: bold;
+}
+
+  #timer {
+    width: 300px;
+    height: 100px;
+    border: 2px solid #d6ec0a;
+    padding: 10px;
+    border-radius: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 6em;
+    color: rgb(163, 4, 4);
+}
+
+
+.game {
+    display: grid;
+    grid-template-columns: 25% 50% 25%;
+}
+  
+  /* Styling for the player scores with a shadow effect */
+.scoreP1 {
+    font-size: 20px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Styling for the question display with a box around it */
+.textOutput {
+    
+    font-weight: bold;
+    margin-bottom: 10px;
+    border: 1px solid #feb47b;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+  }
+  
+  /* Styling for the chat box with a scrollbar */
+#chatBoxP1 {
+    width: 100%;
+    height: 400px;
+    overflow-y: scroll;
+    border: 1px solid #feb47b;
+    border-radius: 5px;
+    margin-bottom: 10px;
+   
+  }
+  
+#chatBoxP1::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+#chatBoxP1::-webkit-scrollbar-thumb {
+    background: #feb47b;
+    border-radius: 5px;
+  }
+  
+.chat-messageP1 {
+    margin-bottom: 10px;
+  }
+
+  /* Styling for the scoreboard with a box around it */
+.scoreboardP1 {
+    border: 1px solid #feb47b;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+#playerOneScoreHistory {
+    border: 1px solid #feb47b;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    display: block; /* visible by default */
+  }
+
+  #playerTwoScoreHistory {
+    border: 1px solid #feb47b;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    display: block; /* visible by default */
+  }
+  
+  
+.boxP1 {
+    background-color: rgba(255, 255, 255, 0.5); /* semi-transparent */
+    display: none; /* initially hidden */
+}
+
+.displayButtonsP1 {
+
+    border-radius: 5px;
+    margin-bottom: 10px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+
+#scoreButtonP1, #chatButtonP1 {
+    background-color: transparent;
+    border: 1px solid #feb47b;
+    height: 30px;
+}
+
+#scoreButtonP1:hover, #chatButtonP1:hover {
+  background-color: white;
+  color: black;
+}
+
+.challengeButtons {
+
+  border-radius: 5px;
+  margin-bottom: 10px;
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+
+#acceptButton, #denyButton {
+  border: 1px solid #feb47b;
+  height: 30px;
+  display: none;
+}
+
+#acceptButton:hover, #denyButton:hover {
+  background-color: white;
+  color: black;
+}
+
+#acceptButton {
+  background-color: green;
+}
+
+#denyButton {
+  background-color:  red;
+}
+
+
+  /* Styling for the player scores with a shadow effect */
+.scoreP2 {
+    font-size: 20px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Styling for the chat box with a scrollbar */
+#chatBoxP2 {
+    width: 100%;
+    height: 400px;
+    overflow-y: scroll;
+    border: 1px solid #feb47b;
+    border-radius: 5px;
+    margin-bottom: 10px;
+   
+  }
+  
+#chatBoxP2::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+#chatBoxP2::-webkit-scrollbar-thumb {
+    background: #feb47b;
+    border-radius: 5px;
+  }
+  
+.chat-messageP2 {
+    margin-bottom: 10px;
+  }
+
+  /* Styling for the scoreboard with a box around it */
+.scoreboardP2 {
+    border: 1px solid #feb47b;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+#playerOneScoreHistory {
+    border: 1px solid #feb47b;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    display: block; /* visible by default */
+  }
+  
+.boxP2 {
+    background-color: rgba(255, 255, 255, 0.5); /* semi-transparent */
+    display: none; /* initially hidden */
+}
+
+.displayButtonsP2 {
+
+    border-radius: 5px;
+    margin-bottom: 10px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+#scoreButtonP2, #chatButtonP2 {
+    background-color: transparent;
+    border: 1px solid #feb47b;
+    height: 30px;
+}
+
+#scoreButtonP2:hover, #chatButtonP2:hover {
+    background-color: white;
+    color: black;
+  }
+
+/*This controls the highlighting of the control buttons*/
+#scoreButtonP1.active, #scoreButtonP2.active, #chatButtonP1.active, #chatButtonP2.active {
+    background-color: #fcfcfc; 
+    text-align: center;
+}
+
+#myBtn {
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed/sticky position */
+    bottom: 20px; /* Place the button at the bottom of the page */
+    right: 30px; /* Place the button 30px from the right */
+    z-index: 99; /* Make sure it does not overlap */
+    border: none; /* Remove borders */
+    outline: none; /* Remove outline */
+    background-color: red; /* Set a background color */
+    color: white; /* Text color */
+    cursor: pointer; /* Add a mouse pointer on hover */
+    padding: 15px; /* Some padding */
+    border-radius: 10px; /* Rounded corners */
+    font-size: 18px; /* Increase font size */
+}
+
+#myBtn:hover {
+    background-color: #555; /* Add a dark-grey background on hover */
+}
+
+/* For the available players cards */
+
+.card {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 5px;
+  margin-bottom: 20px;
+  background-color: #f9f9f9;
+  display: flex; /* Enable Flexbox */
+  justify-content: space-between; /* Space items evenly */
+  align-items: center; /* Align items vertically centered */
+}
+
+.card img {
+  width: 60px;
+  height: auto;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 15px;
+}
+
+.username {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.challengeButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  margin-right: 10px;
+}
+
+.challengeButton:hover {
+  background-color: #0056b3;
+}
+
+.message-card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+.accept-button,.deny-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.deny-button {
+  background-color: #f44336;
+}
+
+

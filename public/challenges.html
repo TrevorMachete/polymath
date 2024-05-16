@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+    <head>
+        <title>Polymath</title>
+        <link rel="stylesheet" type="text/css" href="styles.css">
+
+                <!-- Includes the jQuery library for DOM manipulation and event handling -->
+<!-- Latest jQuery version -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-messaging.js"></script>
+<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.css" />
+        
+        <script src="firebaseConfig.js"></script>
+        <script src="auth.js"></script>
+        <script src="displayObservers.js"></script>
+        <script src="displayAvailablePlayers.js"></script>
+        
+    </head>
+
+    <body>
+
+        <!--section one-->
+        <div class="navigation">
+
+            <div class="heading">
+                <h1>Polymath</h1>
+                <p>Unleash Your Inner Genius</p>
+            </div>
+
+            <hr>
+            
+            <div id="nav-bar">              
+                <ul>
+                    <li><a  href="index.html">Home</a></li>
+                    <li><a href="app.html">Game</a></li>
+                    <li ><a href="challenges.html" class="active">Player Challenges</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="help.html">Help</a></li>
+                  </ul>
+            </div>
+
+        </div>
+
+        <!--section two-->
+        <div class="observer-list">
+
+            <div class="observer">
+                
+            </div>
+
+        </div>
+
+        <!--section three-->
+        <div class="challenges">
+
+            <div id="availablePlayers" class="challenge">
+
+                <h3>Available Players</h3>
+
+            </div>
+
+            <div id="publicChallenges" class="challenge">
+                <h3>Public Challenges</h3>
+            </div>
+
+            <div id="privateChallenges" class="challenge">
+                <h3>Private Challenges</h3>
+            </div>
+
+        </div>
+
+        <button onclick="topFunction()" id="myBtn" title="Go to top">Back to top</button>
+
+    </body>
+
+    <footer>
+        <div class="footer">
+
+            <div id="declarations">
+
+                <p>Powered by Firebase<br>
+                Graphics by Microsoft Design<br>
+                The Trivia Api<br></p>
+
+            </div>
+
+            <div id="socials">
+                <br>
+                Catch the developer
+                <br><br>
+                <a href="https://www.linkedin.com/in/trevor-machete-62636b127/">LinkedIn</a><br>
+                <a href="https://github.com/TrevorMachete/">GitHub</a><br>
+                <a href="https://twitter.com/trevormachete">Twitter</a><br>
+            </div>
+
+        </div>
+
+    </footer>
+</html>

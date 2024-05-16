@@ -1,173 +1,111 @@
 <!DOCTYPE html>
-<html lang="en">
-
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
         <title>Polymath</title>
-        <link rel="icon" type="image/x-icon" href="icons/fav.ico">
-
-        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" type="text/css" href="styles.css">
 
         <!-- Includes the jQuery library for DOM manipulation and event handling -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-messaging.js"></script>
-        <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.css" />
-        
+<!-- Latest jQuery version -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-        <script src="firebaseConfig.js"></script> <!--Firebase configuration-->
-        <script src="script.js"></script> <!--Script for handling game logic-->
-        <script src="auth.js"></script> <!--Script for handling authentication-->
-        <script src="roundDisplay.js"></script> <!--Script for displaying current round-->
-        <script src="playerOneResultHandler.js"></script> <!--Script for handling round results-->
-        <script src="playerTwoResultHandler.js"></script> <!--Script for handling round results-->
-        <script src="matchChallenger.js"></script> <!--Script for matching challengers-->
-        <script src="messages.js"></script>
-        <script src="notification.js"></script>
-        
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-messaging.js"></script>
+<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.css" />
+
        
+        <script src="firebaseConfig.js"></script>
+        <script src="auth.js"></script>
+        <script src="ui.js"></script>
+        <script src="script.js"></script>
+        <script src="roundDisplay.js"></script>   
+        <script src="retrieveMessages.js"></script>
+        <script src="handleAnswerSubmission.js"></script>
+        <script src="questionsCollection.js"></script>
+        <script src="displayObservers.js"></script><!--Script for handling round results-->
 
     </head>
 
     <body>
 
-        <div class="landingPageContent">
+        <!--section one-->
+        <div class="navigation">
 
+            <div class="heading">
+                <h1>Polymath</h1>
+                <p>Unleash Your Inner Genius</p>
+            </div>
 
-
-        <div class="landingPage">
-
-
-            <div class="navigation">
-
-                <div id="menu">              
-                    <ul>
-                        <li><a class="active" href="index.html">Home</a></li>
-                        <li><a href="app.html">Game</a></li>
-                        <li ><a href="contact.html">About</a></li>
-                      </ul>
-                </div>
+            <hr color="black">
             
+            <div id="nav-bar">              
+                <ul>
+                    <li><a  href="index.html" class="active">Home</a></li>
+                    <li><a href="app.html" >Game</a></li>
+                    <li ><a href="challenges.html">Player Challenges</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="help.html">Help</a></li>
+                  </ul>
+            </div>
 
-                <div id="logo">
-                    <img src="images/logo.jpeg" style="width: 100px; height: 100px;">
+        </div>
+
+      <hr color="black">
+
+      
+
+      <div class="midElement">
+
+        <p>"Wisdom is not a product of schooling but of the lifelong attempt to acquire it." <br><br>-Albert Einstein</p>
+
+      </div>
+
+        <!--Get questions-->
+        <div class="playNowButton">
+            <a href="app.html"><button id="playNowButton">Play Now</button></a>
+        </div>
+
+        <div class="features">
+            <div id="one">
+
+                <div id="imageOne">
+                <img src="../images/sc.png" style="border: 15px solid; height: 300px; float: left;">
+                </div>
+                <div id="textOne">
+                    <h1 style="color: rgb(68, 4, 4)">Challenge other players from around your circle or as far out as another country and have fun getting smarter.</h1>
+                </div>
+            </div>
+
+            <div id="two">
+
+                
+                <div id="imageTwo">
+                <img src="../images/sc2.png" style="border: 15px solid; height: 300px; float: right; margin-top: 100px;">
                 </div>
 
-               
-                <div id="log">
-                        <img src="images/th.jpeg" style="width: 50px; height: 50px;">
-                </div>  
-        </div>
-
-        <div id="tag">
-            <h1>Who's smarter than who?</h1>
-        </div>
-
-        <div class="playButton">
-            <button id="playButton" class="playButton"><a href="app.html">Play Now</a></button>
             </div>
+        </div>
+
+            <div id="textTwo" style="margin-top: 100px;">
+                <p style="font-size: 50px; font-weight: bolder; margin-top: 100px;">Choose a category. Risk level. The Limit of Questions. Go for Multiple Rounds.</p>
+            </div>
+
+            <div id="textThree">
+                <p style="font-size: 50px; font-weight: bolder; margin-top: 100px;color: rgb(0, 0, 100);" >Get your results. See how you did. Compare with others, and go again.</p>
+
+                <div id="imageThree">
+                <img src="../images/sc3.png" style="border: 15px solid; height: 300px; float: left;">
+                <p style="font-size: 50px; font-weight: bolder; margin-top: 100px;color: rgb(40, 43, 1);">Chat with your mate as you play</p>
+                </div>
+
+                <div id="imageFour">
+                <img src="../images/sc4.png" style="border: 15px solid; height: 300px; float: right;"></div>
+                <div id="textFour">
+                <p style="font-size: 50px; font-weight: bolder; margin-top: 100px; color: rgb(116, 4, 4);">Log in and out using your  social media accounts.</p></div>           
 
     </div>
-
-    <div clas="features">
-
-        <div class="feature">
-            <div id="image1">
-                <img src="images/categories.jpeg" style=" width:100%; height: 300px;">
-            </div>
-
-            <div id="text1">
-                <hr>
-                <h2>Choose from a variety of categories to test your knowledge in different fields</h2>
-                <hr>
-
-            </div>
-        </div>
-
-        <div class="feature">
-
-            <div id="text2">
-
-                <hr>
-                <h2>The Polymath quiz app offers different difficulty levels, catering to players of all knowledge levels where even the novice can build up to higher levels of knowledge. </h2>
-                <hr>
-            </div>
-
-            <div id="image2">
-                <img src="images/difficulty.jpeg" style="width: 100%; height: 300px;">
-            </div>
-        </div>
-
-            <div class="feature">
-                <div id="image1">
-                    <img src="images/safety.jpeg" style="width: 100%; height: 300px;">
-                </div>
-    
-                <div id="text1">
-
-                    <hr>
-
-                <h2>User data privacy is paramount, ensuring that personal information is securely stored safely. No third party data sharing</h2>
-
-                <hr>
-    
-                </div>
-            </div>
-
-                <div class="feature">
-
-                    <div id="text2">
-                        <hr>
-                        <h2>The app provides user authentication, allowing sign-ups via multiple social media accounts for a seamless and personalized experience.</h2>
-                        <hr>
-                    </div>
-
-                    <div id="image2">
-                        <img src="images/auth.jpeg" style="width: 100%; height: 300px;">
-                    </div>
-        
-
-                </div>
-            </div>
-<hr>
-            <div id="aboutApp">
-                <h4>The inspiration for this project came from a love for trivia and a desire to create a platform where knowledge can be tested in a fun and engaging way. The journey a few weeks back as a portfolio project for ALX school. I worked diligently to bring this idea to life. You can find more about me on my respective <a href="https://www.linkedin.com/in/trevor-machete-62636b127/">LinkedIn</a>, <a href="https://github.com/TrevorMachete/polymath">GitHub</a>, and <a href="https://twitter.com/trevormachete">Twitter</a> profiles. The entire project is open-sourced and available on GitHub for anyone interested in the behind-the-scenes of building a quiz game app. <br><br><i>-- Macs Machete</i></h4>
-        </div>
-   
-
-    </div>
-
- </div>
 
     </body>
-
-    <footer>
-        <div class="footer">
-
-            <div id="declarations">
-
-                <p>Powered by Firebase<br>
-                Graphics by Microsoft Design<br>
-                The Trivia Api<br></p>
-
-            </div>
-
-            <div id="socials">
-                <br>
-                Catch the developer
-                <br><br>
-                <a href="https://www.linkedin.com/in/trevor-machete-62636b127/">LinkedIn</a><br>
-                <a href="https://github.com/TrevorMachete/">GitHub</a><br>
-                <a href="https://twitter.com/trevormachete">Twitter</a><br>
-            </div>
-
-        </div>
-
-    </footer>
 
 </html>

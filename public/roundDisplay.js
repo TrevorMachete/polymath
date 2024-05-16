@@ -9,7 +9,7 @@ function handleRoundDisplay() {
       if (firebase.auth().currentUser) {
         // If a user is currently logged in, increment the round and update the display
         currentRound++;
-        document.getElementById('currentRoundDisplay').innerText = 'Round: ' + currentRound;
+        document.getElementById('currentRoundDisplay').innerText = 'Round ' + currentRound;
       } else {
         console.log('User not logged in');
       }

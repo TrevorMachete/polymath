@@ -1,62 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
-
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
         <title>Polymath</title>
-        <link rel="icon" type="image/x-icon" href="icons/fav.ico">
-
-        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" type="text/css" href="styles.css">
 
         <!-- Includes the jQuery library for DOM manipulation and event handling -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <!-- Latest jQuery version -->
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
         <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
         <script src="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-messaging.js"></script>
         <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.css" />
-        
 
-        <script src="firebaseConfig.js"></script> <!--Firebase configuration-->
-        <script src="script.js"></script> <!--Script for handling game logic-->
-        <script src="auth.js"></script> <!--Script for handling authentication-->
-        <script src="roundDisplay.js"></script> <!--Script for displaying current round-->
-        <script src="playerOneResultHandler.js"></script> <!--Script for handling round results-->
-        <script src="playerTwoResultHandler.js"></script> <!--Script for handling round results-->
-        <script src="matchChallenger.js"></script> <!--Script for matching challengers-->
-        <script src="messages.js"></script>
-        <script src="notification.js"></script>
-        
-       
+        <script src="firebaseConfig.js"></script>
+        <script src="auth.js"></script>
+        <script src="ui.js"></script>
+        <script src="script.js"></script>
+        <script src="roundDisplay.js"></script>
+        <script src="retrieveMessages.js"></script>
+        <script src="handleAnswerSubmission.js"></script>
+        <script src="questionsCollection.js"></script>
+        <script src="displayObservers.js"></script><!--Script for handling round results-->
 
     </head>
 
     <body>
-        <div class="navigation" style="background-color: rgb(113, 113, 214);">
-
-            <div id="menu" >              
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a class="active" href="app.html">Game</a></li>
-                    <li ><a href="contact.html">About</a></li>
-                  </ul>
-            </div>
-        
-
-            <div id="logo">
-                <img src="images/logo.jpeg" style="width: 100px; height: 100px;">
-            </div>
-
-           
-            <div id="log">
-                    <img src="images/th.jpeg" style="width: 50px; height: 50px;">
-            </div>  
-    </div>
-
-        <hr>
 
         <script>
             // The declarations that are here are accessed by multiple js files
@@ -70,138 +40,202 @@
 
         </script>
 
-<div id="filters">
-    <!-- Table for organizing filters and their headings -->
-        <table id="filtersTable">
-            <!-- Table header row -->
-            <tr>
-                <th>Difficulty</th>
-                <th>Category</th>
-                <th>Limit</th>
-            </tr>
-            <!-- Table data row for filters -->
-            <tr>
-                <!-- Dropdown for selecting difficulty level -->
-                <td>
-                <select id="difficulty" class="filterSelection">
-                <option value="easy"> Easy </option>
-                <option value="medium"> Medium </option>
-                <option value="hard"> Hard </option>
+        <!--section one-->
+        <div class="navigation">
+
+            <div class="heading">
+                <h1>Polymath</h1>
+                <p>Unleash Your Inner Genius</p>
+            </div>
+
+            <hr>
+            
+            <div id="nav-bar">              
+                <ul>
+                    <li><a  href="index.html">Home</a></li>
+                    <li><a href="app.html" class="active">Game</a></li>
+                    <li ><a href="challenges.html">Player Challenges</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="help.html">Help</a></li>
+                  </ul>
+            </div>
+
+        </div>
+
+
+
+        <!--section two-->
+        <div id="observers" class="observer-list">
+
+
+        </div>
+
+        <!--section three-->
+        <div id="filters">
+
+            <form>
+                <label for="categories">Category</label>
+                <select id="categories">
+                    <option value="music">Music</option>
+                    <option value="sport_and_leisure">Sport and Leisure</option>
+                    <option value="film_and_tv">Film and TV</option>
+                    <option value="arts_and_literature">Arts and Literature</option>
+                    <option value="history">History</option>
+                    <option value="society_and_culture">Society and Culture</option>
+                    <option value="science">Science</option>
+                    <option value="geography">Geography</option>
+                    <option value="food_and_drink">Food and Drink</option>
+                    <option value="general_knowledge">General Knowledge</option>
+                </select> 
+            </form>
+
+            <form>
+                <label for="difficulty">Difficulty</label>
+                <select id="difficulty">
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
                 </select>
-                </td>
+            </form>
 
-                <!-- Dropdown for selecting category -->
-                <td>
-                <select id="categories" class="filterSelection">
-                <option value="music">Music</option>
-                <option value="sport_and_leisure">Sport and Leisure</option>
-                <option value="film_and_tv">Film and TV</option>
-                <option value="arts_and_literature">Arts and Literature</option>
-                <option value="history">History</option>
-                <option value="society_and_culture">Society and Culture</option>
-                <option value="science">Science</option>
-                <option value="geography">Geography</option>
-                <option value="food_and_drink">Food and Drink</option>
-                <option value="general_knowledge">General Knowledge</option>
+            <form>
+                <label for="limit">Limit</label>
+                <select id="limit">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
                 </select>
-                </td>
+            </form>
+            
+        </div>
 
-                <!-- Dropdown for selecting limit -->
-                <td>
-                <select id="limit" class="filterSelection">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                <option value="13">13</option>
-                <option value="14">14</option>
-                <option value="15">15</option>
-                <option value="16">16</option>
-                <option value="17">17</option>
-                <option value="18">18</option>
-                <option value="19">19</option>
-                <option value="20">20</option>
-                </select>
-                </td>
-            </tr>
-        </table>
-    </div>
-        
-        <!-- Container for the main content area -->
-        <div class="actionArea" style="background-color: rgb(165, 178, 212);">
+        <!--section four-->
+        <div class="avatars">
 
-            <!-- Container for player two's section -->
-            <div class="playerOne">
+            <div class="playerOneContainer">
 
-                <h2>Player</h2>
-
-                <!--Set an avatar for the player-->
-                <div class="playerAvatar">
-                    <img id="playerOneAvatar" src="" alt="avatar" style="width: 100px; height: 100px; border-radius: 50%;">
-                </div>
+                <img id="playerOneAvatar" src="../icons/avatar.jpeg" alt="Avatar" class="avatar">
 
                 <div id="playerOneName" class="playerName">
-                    
+                  <h4>.</h4>
                 </div>
 
-                <div class="controlButtons">
+                <div id="controlButtons">
                     <button id="playerOneLoginLogoutButton" class="loginLogoutButton" onclick="toggleLoader()">Login | Register</button>
-                </div>
 
+                    <button id="playerOneRestartButton" class="yieldButton">Restart</button>
+                </div>
 
                 <!--Firebase UI container-->
                 <div id="firebaseui-auth-container"></div>
-
-
-                <!--Display the countdown for the answering player-->
-                <div id="playerOneCountdownTimer" class="countdownTimer">
-                    <h5>Timer</h5>
-                </div>
-
-                <p id="playerOneScoreHistory">Score</p>
-                
+              
             </div>
 
-            <!--Line dividing player section area and interaction area-->
-            <hr class="verticalLine">
-
-            <!-- Container for the communication board -->
-            <div id="userActionArea">
-                <!-- Container for the filters -->
-
+                <!--Set an element for countdown timer-->
+                <div class="countdownTimer">
 
                 <!--Display current round-->
                 <div id="currentRoundDisplay">
-                    
-                    ************************
+                   
                 </div>
 
-                <!-- Button for getting questions -->
-                <button id="getQuestionsButton" onclick="getQuestions(); resetPlayerOneScore();">Get Questions</button>
+                    <div id="countdownWarning">
+                        
+                    </div>
 
-                <!-- Title for the communication board -->
-                <p id="title">Communication Board</p>
-
-
-                <!-- Container for displaying text output -->
-                <div id="textOutput">
-                    <select id="selectOutput" size="5"></select>
+                    <div id="timer">
+                    00:00
+                    </div>
                 </div>
+
+            <div class="playerTwoContainer">
+
+                <img id="playerTwoAvatar" src="../icons/avatar.jpeg" alt="Avatar" class="avatar">
+                <div id="playerTwoName" class="playerName">
+                  <h4>.</h4>
+                </div>
+
+                <div id="controlButtons">
+                    <button id="playerTwoLoginLogoutButton" class="loginLogoutButton" onclick="toggleLoader()">Login | Register</button>
+
+                    <button id="playerTwoRestartButton" class="yieldButton">Restart</button>
+                </div>
+
+                <!--Firebase UI container-->
+                <div id="firebaseui-auth-container"></div>
             </div>
 
-
-                
-            </div>
         </div>
-   
+
+        <!--Get questions-->
+        <div class="getQuestionsButton">
+            <button id="getQuestionsButton" onclick="getQuestions(); ">Start Game</button>
+        </div>
+
+        <hr>
+
+        <!--section five-->
+        <div class="game">
+
+<!--sub section-->
+<div class="scoreboardP1">
+
+    <div class="displayButtonsP1">
+        <button id="scoreButtonP1" class="active">Show Scores</button>
+        <button id="chatButtonP1">Show Chat</button>
+    </div>
+
+    <div id="playerOneScoreHistory" class="boxP1">
+        scores
+    </div>
+
+    <div id="challengeButtons" class="challengeButtons">
+        <button id="acceptButton">Accept</button>
+        <button id="denyButton">Deny</button>
+    </div>
+
+    <div id="chatBoxP1" class="boxP1">
+        chat box
+    </div>
+</div>
+
+            <!--sub section-->
+            <div id="textOutput" class="textOutput">
+               
+            </div>
+
+<!--sub section-->
+<div class="scoreboardP2">
+
+    <div class="displayButtonsP2">
+        <button id="scoreButtonP2" class="active">Show Scores</button>
+        <button id="chatButtonP2">Show Chat</button>
+    </div>
+
+    <div id="playerTwoScoreHistory" class="boxP2">
+        scores
+    </div>
+
+    <div id="chatBoxP2" class="boxP2">
+        chat box
+    </div>
+</div>
+            
+</div>
+
+        </div>
+
+        <button onclick="topFunction()" id="myBtn" title="Go to top">Back to top</button>
+        
     </body>
 
     <footer>
@@ -227,9 +261,4 @@
         </div>
 
     </footer>
-
-    <footer>
-        <!-- Footer section, currently empty -->
-    </footer>
-
 </html>

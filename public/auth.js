@@ -4,21 +4,22 @@ var db = firebase.firestore();
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
         // User is signed in.
-        var avatar = user.photoURL || 'icons/avatar.jpeg';
+        var avatar = user.photoURL || '../icons/avatar.jpeg';
         var username = user.displayName;
 
         document.getElementById('playerOneName').innerText = username;
         document.getElementById('playerOneAvatar').src = avatar;
         document.getElementById('playerOneLoginLogoutButton').innerText = 'Log Out';
 
-        // Set 'loggedIn' field to true in Firestore
+        // Set 'loggedIn' and 'available' fields to true in Firestore
         db.collection('users').doc(user.uid).update({
-            loggedIn: true
+            loggedIn: true,
+            available: true
         });
     } else {
         // User is signed out.
         document.getElementById('playerOneName').innerText = 'Not Logged In';
-        document.getElementById('playerOneAvatar').src = 'icons/avatar.jpeg';
+        document.getElementById('playerOneAvatar').src = '../icons/avatar.jpeg';
         document.getElementById('playerOneLoginLogoutButton').innerText = 'Log in | Register';
 
     }
@@ -39,18 +40,20 @@ var uiConfig = {
                 db.collection('users').doc(authResult.user.uid).set({
                     username: username,
                     loggedIn: true,
-                    avatar: authResult.user.photoURL || 'icons/avatar.jpeg'
+                    available: true,
+                    avatar: authResult.user.photoURL || '../icons/avatar.jpeg'
                 }).then(function() {
                     alert('Registration successful!');
                     document.getElementById('playerOneName').innerText = username;
-                    document.getElementById('playerOneAvatar').src = authResult.user.photoURL || 'icons/avatar.jpeg';
+                    document.getElementById('playerOneAvatar').src = authResult.user.photoURL || '../icons/avatar.jpeg';
                 }).catch(function(error) {
                     console.error('Error writing document: ', error);
                 });
             } else {
                 // Existing user logic here
                 db.collection('users').doc(authResult.user.uid).update({
-                    loggedIn: true
+                    loggedIn: true,
+                    available: true
                 });
             }
             // Change the button text to 'Log Out'
@@ -82,20 +85,21 @@ var uiConfig = {
 var ui = new firebaseui.auth.AuthUI(firebase.auth());
 
 document.addEventListener('DOMContentLoaded', (event) => {
-    document.getElementById('playerOneAvatar').src = 'icons/avatar.jpeg';
+    document.getElementById('playerOneAvatar').src = '../icons/avatar.jpeg';
     var button = document.getElementById('playerOneLoginLogoutButton');
     if (button) {
         button.addEventListener('click', function() {
             if (firebase.auth().currentUser) {
                 var currentUserUid = firebase.auth().currentUser.uid; // Store uid before signing out
                 firebase.auth().signOut().then(function() {
-                    // Set 'loggedIn' field to false in Firestore
+                    // Set 'loggedIn' and 'available' fields to false in Firestore
                     db.collection('users').doc(currentUserUid).update({
-                        loggedIn: false
+                        loggedIn: false,
+                        available: false
                     }).then(function() {
                         button.innerText = 'Log in | Register';
                         document.getElementById('playerOneName').innerText = '';
-                        document.getElementById('playerOneAvatar').src = 'icons/avatar.jpeg';
+                        document.getElementById('playerOneAvatar').src = '../icons/avatar.jpeg';
                         alert('Logout successful!');
                         console.log('User logged out');
                     }).catch(function(error) {
