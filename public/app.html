@@ -20,8 +20,10 @@
         <script src="script.js"></script>
         <script src="roundDisplay.js"></script>
         <script src="retrieveMessages.js"></script>
-        <script src="handleAnswerSubmission.js"></script>
-        <script src="questionsCollection.js"></script>
+      
+
+        <script src="scoreDisplay.js"></script>
+        <script src="chatsHandler.js"></script>
         <script src="displayObservers.js"></script><!--Script for handling round results-->
 
     </head>
@@ -36,7 +38,7 @@
 
             // Initialize lastRoundDisplayed to 0
             let lastRoundDisplayed = 0;
-            console.log('Initialized lastRoundDisplayed:', lastRoundDisplayed);
+            
 
         </script>
 
@@ -203,8 +205,17 @@
         <button id="denyButton">Deny</button>
     </div>
 
+    <!--Chats, notifications and messages display-->
     <div id="chatBoxP1" class="boxP1">
-        chat box
+
+        <div id="chatContentP1" class="chatContent">
+            <!-- other content -->
+        </div>
+        <div class="chat-input-container">
+            <textarea id="chatInput" class="chat-input" placeholder="Type a message..."></textarea>
+            <button id="sendButton" class="send-button">Send</button>
+        </div>
+        
     </div>
 </div>
 
@@ -216,18 +227,24 @@
 <!--sub section-->
 <div class="scoreboardP2">
 
-    <div class="displayButtonsP2">
-        <button id="scoreButtonP2" class="active">Show Scores</button>
-        <button id="chatButtonP2">Show Chat</button>
+    <div class="playerScoreHistory">
+        <!--Display the score for player one-->
+        <div id="playerOneScores">
+
+            <label id="playerOneLabel">username</label>
+            <div id="playerOneScore">**</div>
+
+        </div>
+
+        <!--Display the score for player two-->
+        <div id="playerTwoScores">
+
+            <label id="playerTwoLabel">username</label>
+            <div id="playerTwoScore">**</div>
+                    
+        </div>
     </div>
 
-    <div id="playerTwoScoreHistory" class="boxP2">
-        scores
-    </div>
-
-    <div id="chatBoxP2" class="boxP2">
-        chat box
-    </div>
 </div>
             
 </div>

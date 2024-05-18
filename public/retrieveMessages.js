@@ -29,16 +29,16 @@ function getCurrentUser() {
 function fetchMessagesForCurrentUser() {
     const db = firebase.firestore();
     const username = getCurrentUser();
-    const chatBoxP1 = document.getElementById('chatBoxP1');
-    const chatBoxP2 = document.getElementById('chatBoxP2');
+    const chatContentP1 = document.getElementById('chatContentP1');
+    //const chatContentP2 = document.getElementById('chatContentP2');
 
 
     // Fetch challenge messages for the current user
     db.collection('challenges').where('receiver', '==', username).onSnapshot((querySnapshot) => {
         querySnapshot.forEach((doc) => {
             const challengeData = doc.data();
-            createMessageCard(challengeData, chatBoxP1, 'challenge');
-            createMessageCard(challengeData, chatBoxP2, 'challenge');
+            createMessageCard(challengeData, chatContentP1, 'challenge');
+            //createMessageCard(challengeData, chatContentP2, 'challenge');
         });
     });
 
@@ -46,8 +46,8 @@ function fetchMessagesForCurrentUser() {
     db.collection('confirmations').where('receiver', '==', username).onSnapshot((querySnapshot) => {
         querySnapshot.forEach((doc) => {
             const confirmationData = doc.data();
-            createMessageCard(confirmationData, chatBoxP1, 'confirmation');
-            createMessageCard(confirmationData, chatBoxP2, 'confirmation');
+            createMessageCard(confirmationData, chatContentP1, 'confirmation');
+            //createMessageCard(confirmationData, chatContentP2, 'confirmation');
         });
     });
 }
@@ -77,8 +77,8 @@ window.onload = function() {
         // Hide the buttons and the message when the denyButton is clicked
         denyButton.style.display = 'none';
         acceptButton.style.display = 'none';
-        chatBoxP1.innerHTML = '';
-        chatBoxP2.innerHTML = '';
+        chatContentP1.innerHTML = '';
+        //chatContentP2.innerHTML = '';
     
         // Get the current user's username
         const username = getCurrentUser();
@@ -105,8 +105,8 @@ window.onload = function() {
         // Hide the buttons and the message when the acceptButton is clicked
         denyButton.style.display = 'none';
         acceptButton.style.display = 'none';
-        chatBoxP1.innerHTML = '';
-        chatBoxP2.innerHTML = '';
+        chatContentP1.innerHTML = '';
+        //chatContentP2.innerHTML = '';
     
         // Get the current user's username
         const username = getCurrentUser();
@@ -129,7 +129,11 @@ window.onload = function() {
                 const challengeId = username + ' vs ' + doc.data().sender;
                 db.collection('ongoingChallenges').doc(challengeId).set({
                     player1: username,
-                    player2: doc.data().sender
+                    player2: doc.data().sender,
+                    questions: [],  // Add an empty questions array
+                    chats: [],  // Add an empty chats array
+                    playerOneScores: [],  // Add an empty scores array
+                    playerTwoScores: []  // Add an empty scores array
                 }).then(() => {
                     // After the ongoing challenge is created, update the available status of the users in the users collection to false
                     db.collection('users').where('username', '==', username).get().then((querySnapshot) => {
@@ -164,10 +168,5 @@ window.onload = function() {
             });
         });
     });
-   
-
-
 
 };
-
-

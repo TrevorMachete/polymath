@@ -1,3 +1,4 @@
+document.addEventListener('DOMContentLoaded', function() {
 // Initialize player scores and turn
 let playerOneScoreHistory = [];
 let playerTwoScoreHistory = [];
@@ -32,3 +33,4 @@ function handleAnswerSubmission(question, userAnswer, questionDiv) {
     playerOneTurn = !playerOneTurn;
 
 }
+});
