@@ -101,7 +101,7 @@ window.onload = function() {
     });
     
 
-    acceptButton.addEventListener('click', function() {
+    acceptButton.addEventListener('click', async function() {
         // Hide the buttons and the message when the acceptButton is clicked
         denyButton.style.display = 'none';
         acceptButton.style.display = 'none';
@@ -112,61 +112,138 @@ window.onload = function() {
         const username = getCurrentUser();
     
         // Update the status of any challenge document where the current user's username matches the value of the receiver field
-        db.collection('challenges').where('receiver', '==', username).get().then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                db.collection('challenges').doc(doc.id).update({
-                    status: 'accepted'
-                });
+        const challengesSnapshot = await db.collection('challenges').where('receiver', '==', username).get();
+        challengesSnapshot.forEach(async (doc) => {
+            await db.collection('challenges').doc(doc.id).update({
+                status: 'accepted'
+            });
     
-                // Send the notification 'Your challenge was accepted' to the Firebase confirmations collection
-                db.collection('confirmations').add({
-                    sender: username,
-                    receiver: doc.data().sender,
-                    message: 'Your challenge was accepted'
-                });
+            // Send the notification 'Your challenge was accepted' to the Firebase confirmations collection
+            db.collection('confirmations').add({
+                sender: username,
+                receiver: doc.data().sender,
+                message: 'Your challenge was accepted'
+            });
     
-                // Create a new document in the ongoingChallenges collection
-                const challengeId = username + ' vs ' + doc.data().sender;
-                db.collection('ongoingChallenges').doc(challengeId).set({
-                    player1: username,
-                    player2: doc.data().sender,
-                    questions: [],  // Add an empty questions array
-                    chats: [],  // Add an empty chats array
-                    playerOneScores: [],  // Add an empty scores array
-                    playerTwoScores: []  // Add an empty scores array
-                }).then(() => {
-                    // After the ongoing challenge is created, update the available status of the users in the users collection to false
-                    db.collection('users').where('username', '==', username).get().then((querySnapshot) => {
-                        querySnapshot.forEach((doc) => {
-                            db.collection('users').doc(doc.id).update({
-                                available: false
-                            });
-                        });
-                    });
-                    db.collection('users').where('username', '==', doc.data().sender).get().then((querySnapshot) => {
-                        querySnapshot.forEach((doc) => {
-                            db.collection('users').doc(doc.id).update({
-                                available: false
-                            });
+            // Fetch the avatars of the users
+            let player1Avatar = "";
+            let player2Avatar = "";
     
-                            // Fetch the avatar and username of the sender
-                            const senderAvatar = doc.data().avatar;
-                            const senderUsername = doc.data().username;
+            const user1Snapshot = await db.collection('users').where('username', '==', username).get();
+            user1Snapshot.forEach((doc) => {
+                player1Avatar = doc.data().avatar;
+            });
     
-                            // Get the playerTwoAvatar and playerTwoName elements
-                            const playerTwoAvatar = document.getElementById('playerTwoAvatar');
-                            const playerTwoName = document.getElementById('playerTwoName');
+            const user2Snapshot = await db.collection('users').where('username', '==', doc.data().sender).get();
+            user2Snapshot.forEach((doc) => {
+                player2Avatar = doc.data().avatar;
+            });
     
-                            // Set the src attribute of the playerTwoAvatar element to the avatar of the sender
-                            playerTwoAvatar.src = senderAvatar;
+            // Create a new document in the ongoingChallenges collection
+            const challengeId = username + ' vs ' + doc.data().sender;
+            await db.collection('ongoingChallenges').doc(challengeId).set({
+                player1: username,
+                player2: doc.data().sender,
+                player1Avatar: player1Avatar,
+                player2Avatar: player2Avatar,
+                questions: [],  // Add an empty questions array
+                chats: [],  // Add an empty chats array
+                currentRound: "", // Add an empty currentRound field
+                playerOneScores: [],  // Add an empty scores array
+                playerTwoScores: [],  // Add an empty scores array
+                timestamp: firebase.firestore.FieldValue.serverTimestamp() || 'PENDING'  // Add the timestamp here
+            });
     
-                            // Set the innerHTML of the playerTwoName element to the username of the sender
-                            playerTwoName.innerHTML = senderUsername;
-                        });
-                    });
+            // After the ongoing challenge is created, update the available status of the users in the users collection to false
+            const user1UpdateSnapshot = await db.collection('users').where('username', '==', username).get();
+            user1UpdateSnapshot.forEach((doc) => {
+                db.collection('users').doc(doc.id).update({
+                    available: false
                 });
             });
+    
+            const user2UpdateSnapshot = await db.collection('users').where('username', '==', doc.data().sender).get();
+            user2UpdateSnapshot.forEach((doc) => {
+                db.collection('users').doc(doc.id).update({
+                    available: false
+                });
+    
+                // Fetch the avatar and username of the sender
+                const senderAvatar = doc.data().avatar;
+                const senderUsername = doc.data().username;
+    
+                // Get the playerOneAvatar, playerOneName, playerTwoAvatar and playerTwoName elements
+                const playerOneAvatar = document.getElementById('playerOneAvatar');
+                const playerOneName = document.getElementById('playerOneName');
+                const playerTwoAvatar = document.getElementById('playerTwoAvatar');
+                const playerTwoName = document.getElementById('playerTwoName');
+    
+                // Set the src attribute of the playerOneAvatar and playerTwoAvatar elements to the avatars of the players
+                playerOneAvatar.src = player1Avatar;
+                playerTwoAvatar.src = senderAvatar;
+    
+                // Set the innerHTML of the playerOneName and playerTwoName elements to the usernames of the players
+                playerOneName.innerHTML = username;
+                playerTwoName.innerHTML = senderUsername;
+            });
+    
+            // Clear the localStorage data related to currentRoundDisplay
+            localStorage.removeItem('currentRound');
+    
+            // Set the currentRoundDisplay element in the UI to zero
+            document.getElementById('currentRoundDisplay').innerText = 'Round 0';
+
+        // Refresh the page
+        location.reload();
         });
     });
+    
+    [playerOneRestartButton, playerTwoRestartButton].forEach(button => {
+        button.addEventListener('click', async function() {
+            // Get the current user's username
+            const username = getCurrentUser();
+            
+    
+            // Get the ongoing challenge where the current user's username matches the value of either the player1 field or the player2 field
+            const challengesSnapshot = await db.collection('ongoingChallenges').where('player1', '==', username).get();
+            challengesSnapshot.forEach(async (doc) => {
+                // Clear all the fields and arrays in the challenge document
+                await db.collection('ongoingChallenges').doc(doc.id).update({
+                    player1: username,
+                    player2: doc.data().player2,
+                    questions: [],  // Clear the questions array
+                    currentRound: "", // Clear the currentRound field
+                    playerOneScores: [],  // Clear the scores array
+                    playerTwoScores: [],  // Clear the scores array
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp() || 'PENDING'  // Update the timestamp
+                });
+            });
+    
+            const challengesSnapshot2 = await db.collection('ongoingChallenges').where('player2', '==', username).get();
+            challengesSnapshot2.forEach(async (doc) => {
+                // Clear all the fields and arrays in the challenge document
+                await db.collection('ongoingChallenges').doc(doc.id).update({
+                    player1: doc.data().player1,
+                    player2: username,
+                    questions: [],  // Clear the questions array
+                    currentRound: "", // Clear the currentRound field
+                    playerOneScores: [],  // Clear the scores array
+                    playerTwoScores: [],  // Clear the scores array
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp() || 'PENDING'  // Update the timestamp
+                });
+            });
+    
+            // Clear the localStorage data related to currentRoundDisplay
+            localStorage.removeItem('currentRound');
+    
+            // Set the currentRoundDisplay element in the UI to zero
+            document.getElementById('currentRoundDisplay').innerText = 'Round 0';
+
+                    // Refresh the page
+        location.reload();
+        });
+    });
+    
+    
 
 };

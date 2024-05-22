@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('limit').value = localStorage.getItem('limit');
     }
 
-    document.getElementById('getQuestionsButton').addEventListener('click', function() {
+    document.getElementById('getQuestionsButtonP1').addEventListener('click', function() {
 
                 // Check if the user is authenticated
                 if (!firebase.auth().currentUser) {
@@ -88,6 +88,53 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }, 1000);
     });
+
+    function formatTime(seconds) {
+        let minutes = Math.floor(seconds / 60);
+        seconds %= 60;
+        return (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+    }   
+    
+
+
+
+    document.getElementById('getQuestionsButtonP2').addEventListener('click', function() {
+
+        // Check if the user is authenticated
+        if (!firebase.auth().currentUser) {
+            console.error('User is not authenticated');
+            return;
+        }
+
+        getQuestions().then(questions => {
+            displayQuestions(questions);
+        }).catch(error => {
+            console.error('Error fetching questions:', error);
+        });
+
+document.getElementById('timer').innerText = '00:00';
+// Get the countdown warning and timer elements
+let countdownWarning = document.getElementById('countdownWarning');
+let timer = document.getElementById('timer');
+
+let countdown = 5;
+countdownWarning.innerHTML = 'Your game begins in<br><br>';
+timer.innerText = formatTime(countdown);
+
+let countdownInterval = setInterval(function() {
+    countdown--;
+    if (countdown > 0) {
+        timer.innerText = formatTime(countdown);
+    } else {
+        // Clear the countdown warning and reset the timer
+        countdownWarning.innerText = '';
+        timer.innerText = '00:00';
+        clearInterval(countdownInterval);
+        startCountdownTimer();
+
+    }
+}, 1000);
+});
     
     function formatTime(seconds) {
         let minutes = Math.floor(seconds / 60);
@@ -96,6 +143,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }   
     
 });
+
+
+
+
+
+
 
 function getQuestions() {
     return new Promise((resolve, reject) => {
@@ -121,7 +174,7 @@ function getQuestions() {
             if (data && Array.isArray(data)) {
                 setTimeout(function() {
                     displayQuestions(data);
-                }, 5000);
+                }, 0);
 
                 // Get the ongoing challenges where the current user is either player1 or player2
                 let player1Query = db.collection("ongoingChallenges").where("player1", "==", username);
@@ -141,7 +194,9 @@ function getQuestions() {
                                     userAnswer: null,  // to be updated later
                                     incorrectAnswers: question.incorrectAnswers,  // Save the answer options
                                     served: false,  // to be updated later
+
                                 });
+                                
                             });
 
                             // Update the questions array in Firestore
@@ -175,73 +230,6 @@ function shuffleArray(array) {
         [array[i], array[j]] = [array[j], array[i]]; // Swap elements
     }
 }
-
-// Function to handle answer submission
-function handleAnswerSubmission(question, selectedAnswer, questionDiv) {
-    let userId = firebase.auth().currentUser.uid;  // Get the current user's ID
-    let username = firebase.auth().currentUser.displayName; // Get the current user's username
-
-    // Find the ongoing challenge document(s) where the current user is either player1 or player2
-    let player1Query = db.collection("ongoingChallenges").where("player1", "==", username);
-    let player2Query = db.collection("ongoingChallenges").where("player2", "==", username);
-
-    Promise.all([player1Query.get(), player2Query.get()]).then((querySnapshots) => {
-        querySnapshots.forEach((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                let data = doc.data().questions || [];
-                let questionIndex = data.findIndex(q => q.questionId === question.questionId);
-
-                if (questionIndex!== -1) {
-                    // Check if the selected answer matches the correct answer
-                    if (selectedAnswer === question.correctAnswer) {
-                        // Determine which scores array to update based on the username match
-                        let scoresToUpdate;
-                        if (username === doc.data().player1) {
-                            scoresToUpdate = "playerOneScores";
-                        } else if (username === doc.data().player2) {
-                            scoresToUpdate = "playerTwoScores";
-                        }
-
-                        // Increment the score for the current user
-                        // Assuming 'scores' is an array of objects with 'userId' and 'points'
-                        let currentUserScore = doc.data()[scoresToUpdate].find(score => score.userId === userId);
-                        if (currentUserScore) {
-                            currentUserScore.points += 1; // Add 1 point to the current user's score
-                        } else {
-                            // If no score entry exists for the current user, add a new one
-                            doc.ref.update({
-                                [scoresToUpdate]: firebase.firestore.FieldValue.arrayUnion({
-                                    username: username,
-                                    points: 1
-                                })
-                            });
-                        }
-
-                        // Optionally, log success or show a message to the user
-                        console.log(`Score in ${scoresToUpdate.charAt(0).toUpperCase() + scoresToUpdate.slice(1)} incremented.`);
-                    }
-
-                    // Update the userAnswer field with the selected answer
-                    data[questionIndex].userAnswer = selectedAnswer;
-
-                    // Update the questions array in Firestore
-                    doc.ref.update({
-                        questions: data
-                    }).then(() => {
-                        console.log("User answer and score successfully updated!");
-                        // Optionally, remove the questionDiv from the DOM here if needed
-                    }).catch((error) => {
-                        console.error("Error updating user answer and score: ", error);
-                    });
-                }
-            });
-        });
-    });
-}
-
-
-
-
 
 // Function to display questions and handle answer submission
 function displayQuestions() {
@@ -300,6 +288,141 @@ function displayQuestions() {
 }
 
 
+// Function to handle answer submission
+function handleAnswerSubmission(question, selectedAnswer, questionDiv) {
+    let userId = firebase.auth().currentUser.uid;  // Get the current user's ID
+    let username = firebase.auth().currentUser.displayName; // Get the current user's username
+
+    // Find the ongoing challenge document(s) where the current user is either player1 or player2
+    let player1Query = db.collection("ongoingChallenges").where("player1", "==", username);
+    let player2Query = db.collection("ongoingChallenges").where("player2", "==", username);
+
+    Promise.all([player1Query.get(), player2Query.get()]).then((querySnapshots) => {
+        querySnapshots.forEach((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                let data = doc.data().questions || [];
+                let questionIndex = data.findIndex(q => q.questionId === question.questionId);
+    
+                if (questionIndex !== -1) {
+                    // Determine which scores array to update based on the username match
+                    let scoresToUpdate;
+                    if (username === doc.data().player1) {
+                        scoresToUpdate = "playerOneScores";
+                    } else if (username === doc.data().player2) {
+                        scoresToUpdate = "playerTwoScores";
+                    }
+    
+                // Get the scores array
+                let scoresArray = doc.data()[scoresToUpdate];
+                // Find the score objects for the current user
+                let currentUserScores = scoresArray.filter(score => score.username === username);
+
+                if (currentUserScores.length > 0) {
+                    // Get the most recent score entry for the current user
+                    let mostRecentScore = currentUserScores[currentUserScores.length - 1];
+
+                    // Check if the selected answer matches the correct answer
+                    if (selectedAnswer === question.correctAnswer) {
+                        if (gameRound.getCurrentRound() === mostRecentScore.Round) {
+                            // If the current round is equal to the last round, increment the points
+                            mostRecentScore.points += 1;
+                        } else if (gameRound.getCurrentRound() > mostRecentScore.Round) {
+                            // If the current round is greater than the last round added to the scoresArray
+                            // Add a new entry with the current round and 1 point
+                            scoresArray.push({
+                                username: username,
+                                points: 1,
+                                Round: gameRound.getCurrentRound()
+                            });
+                        }
+                    } else { // The answer is incorrect
+                        if (gameRound.getCurrentRound() > mostRecentScore.Round) {
+                            // If the current round is greater than the last round
+                            // Add a new entry with the current round and 0 points
+                            scoresArray.push({
+                                username: username,
+                                points: 0,
+                                Round: gameRound.getCurrentRound()
+                            });
+                        }
+                        // If the current round is equal to the last round, do nothing (points remain the same)
+                    }
+                } else {
+                    // If no score entry exists for the current user, add a new one
+                    scoresArray.push({
+                        username: username,
+                        points: selectedAnswer === question.correctAnswer ? 1 : 0,
+                        Round: gameRound.getCurrentRound()
+                    });
+                }
+
+                // Update the scores array in Firestore
+                doc.ref.update({
+                    [scoresToUpdate]: scoresArray
+                }).then(() => {
+                    console.log(`Score in ${scoresToUpdate.charAt(0).toUpperCase() + scoresToUpdate.slice(1)} incremented.`);
+                }).catch((error) => {
+                    console.error("Error updating score: ", error);
+                });
+
+
+/** 
+// Initialize an empty object to store the scores for each player
+let playerScores = {};
+
+// Iterate over the scores array
+scoresArray.forEach(score => {
+    // If an entry for the current player does not exist in playerScores, create one
+    if (!playerScores[score.username]) {
+        playerScores[score.username] = {};
+    }
+
+    // If an entry for the current round does not exist for the current player in playerScores, create one with a value of 0
+    if (!playerScores[score.username][score.Round]) {
+        playerScores[score.username][score.Round] = 0;
+    }
+
+    // Add the points of the current score to the corresponding round for the current player in playerScores
+    playerScores[score.username][score.Round] += score.points;
+});
+
+// Now let's display the scores on the screen
+
+let scoresDiv = document.getElementById('scores');
+
+// Clear the scores div
+scoresDiv.innerHTML = '';
+
+// Iterate over playerScores and create HTML for each player's scores
+for (let username in playerScores) {
+    let playerDiv = document.createElement('div');
+    playerDiv.innerHTML = `<h2>${username}'s Scores:</h2>`;
+    for (let round in playerScores[username]) {
+        playerDiv.innerHTML += `<p>Round ${round}: ${playerScores[username][round]} points</p>`;
+    }
+    scoresDiv.appendChild(playerDiv);
+}*/
+
+    
+                    // Update the userAnswer field with the selected answer
+                    data[questionIndex].userAnswer = selectedAnswer;
+    
+                    // Update the questions array in Firestore
+                    doc.ref.update({
+                        questions: data
+                    }).then(() => {
+                        console.log("User answer and score successfully updated!");
+                        // Optionally, remove the questionDiv from the DOM here if needed
+                    }).catch((error) => {
+                        console.error("Error updating user answer and score: ", error);
+                    });
+                }
+            });
+        });
+    });
+    
+    
+}
 
 
 // Function to start the countdown timer
@@ -318,14 +441,19 @@ function startCountdownTimer() {
             document.getElementById('textOutput').innerText = 'Your time has elapsed';
         }
     }, 1000);
+
+
 }
+
 
 function formatTime(seconds) {
     let minutes = Math.floor(seconds / 60);
     seconds %= 60;
     return (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
-}
 
-    // Retrieve auth state after page refresh
+               
+}
+   
+   // Retrieve auth state after page refresh
     const storedAuthState = JSON.parse(localStorage.getItem('authState'));
 

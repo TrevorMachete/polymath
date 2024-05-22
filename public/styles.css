@@ -4,31 +4,46 @@ body {
     background-position: center center;
     background-attachment: fixed;
     background-size: cover;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+
+  .gameContent {
+    width: 80%;
+    margin-left: 10%;
+  }
+
+  .navigation {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-image: linear-gradient(180deg, rgb(31, 24, 59), rgb(178, 223, 182));
   }
 
   .heading {
-    text-align: center;
+    text-align: left;
     color: #feb47b;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    margin-top: 0px;
+    margin-top: -30px;
+    margin-left: 5px;
   }
 
   .heading h1 {
-    text-align: center;
+    text-align: left;
     font-size: 50px;
     font-weight: bold;
-    color: #feb47b;
+    color: #ffffff;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     text-decoration: underline;
+    font-family: 'Times New Roman', Times, serif;
   }
 
   .heading p {
     margin-top: -30px;
-    color: #d4742a;
+    color: #dbd1cb;
     font-size: 18px;
     font-weight: bolder;
     text-shadow: 2px 0px 4px rgba(1, 1, 1, 1);
+    font-family: 'Times New Roman', Times, serif;
   }
 
   ul
@@ -41,7 +56,7 @@ body {
       }
       
       li {
-        float: left;
+        float: right;
         border-right:1px solid #bbb;
       }
       
@@ -51,9 +66,9 @@ body {
       
       li a {
         display: block;
-        color: rgb(0, 0, 0);
+        color: rgb(255, 255, 255);
         text-align: center;
-        padding: 14px 16px;
+        padding: 10px 16px;
         text-decoration: none;
       }
       
@@ -69,8 +84,9 @@ body {
 /* List styling */
 ul, li {
 
-    margin-top: -5px;
+    margin-top: 15px;
     padding: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 
@@ -107,6 +123,7 @@ ul, li {
     background-color: rgba(252, 252, 252, 0.5); /* 50% transparent */
     margin-top: 10px;
     position: static;
+    
   
 }
 
@@ -185,11 +202,7 @@ ul, li {
      text-align: center;
    }
  
-.getQuestionsButton {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+
 
 .features {
   text-align: center;
@@ -223,8 +236,14 @@ ul, li {
   margin-left: 10px;
 }
 
+.getQuestionsBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-#getQuestionsButton {
+
+.getQuestionsButton {
     background: linear-gradient(to right, #ff105f, #ffad06);
     color: white;
     border: none;
@@ -237,7 +256,8 @@ ul, li {
     transition-duration: 0.4s;
     cursor: pointer;
     border-radius: 50px;
-  
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 #getQuestionsButton:hover {
@@ -284,16 +304,21 @@ ul, li {
     grid-template-columns: 33.3% 33.3% 33.3%;
     text-align: center;
     margin-top: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
 
   form {
     width: auto;
-    margin: 0;
+    margin: 0px;
     padding: 0px;
     border: 1px solid #cccccc;
     border-radius: 0px;
-    background-color: #f8f8f8;
+    background-color: #eeecec;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: bold;
+
 }
+
 
 label {
     display: block;
@@ -307,11 +332,12 @@ select {
     border: 1px solid #04AA6D;
     background-color: #04AA6D;
     margin-bottom: 20px;
- 
+    font-size: medium;
 }
   
   /* Styling for the player avatars with a circular border */
   .avatar {
+    margin-top: 15px;
     width: 100px;
     height: 100px;
     border-radius: 50%;
@@ -332,6 +358,7 @@ select {
     padding-left: 20px;
     padding-right: 20px;
     border-radius: 50px;
+    font-weight: bold;
 }
 
 .playerName h4 {
@@ -344,6 +371,11 @@ select {
     justify-content: center;
     place-items: center;
     margin-top: 10px;
+    background-color: #f7fbff;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-image: linear-gradient(180deg, rgb(9, 2, 37), rgb(219, 241, 220));
+
+ 
 }
 
 
@@ -356,9 +388,12 @@ select {
     color: white;
     cursor: pointer;
     transition: background 0.5s ease;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+ 
 }
 
-#controlButtons button:hover {
+#controlButtons button:hover, #refreshButton:hover, #getQuestionsButtonP1:hover, #getQuestionsButtonP2:hover {
     background: linear-gradient(to right, #ffad06, #ff105f);
 }
 
@@ -383,14 +418,17 @@ select {
 
 #currentRoundDisplay {
   font-size: 26px;
-  color: rgb(255, 255, 255);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: rgb(175, 173, 173);
   font-weight: bold;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
   #timer {
     width: 300px;
     height: 100px;
-    border: 2px solid #d6ec0a;
+    border: 2px solid #84c0f1;
     padding: 10px;
     border-radius: 20%;
     display: flex;
@@ -399,12 +437,26 @@ select {
     font-size: 6em;
     color: rgb(163, 4, 4);
     background-color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#refreshButton {
+  padding: 10px 20px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 50px;
+  background: linear-gradient(to right, #105cff, #4dff06);
+  color: white;
+  cursor: pointer;
+  transition: background 0.5s ease;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 
 .game {
     display: grid;
-    grid-template-columns: 25% 50% 25%;
+    grid-template-columns: 28% 44% 28%;
 }
   
   /* Styling for the player scores with a shadow effect */
@@ -425,9 +477,55 @@ select {
     background-color: rgba(255, 255, 255, 0.8);
     text-align: center;
   }
-  
 
-  
+#chatsLabel {
+    text-align: center;
+    background-color: rgb(1, 8, 15);
+    font-size: x-large;
+    margin-bottom: 10px;
+    color: white;
+    padding-top:10px ;
+    padding-bottom:10px ;
+    width: 100%;
+    box-shadow: 0px 12px 4px 4px rgba(255, 255, 255, 0.5);
+  } 
+ 
+#scoresLabel {
+  text-align: center;
+  background-color: rgb(1, 8, 15);
+  font-size: x-large;
+  margin-bottom: 10px;
+  color: white;
+  padding-top:10px ;
+  padding-bottom:10px ;
+  width: 100%;
+  box-shadow: 0px 12px 4px 4px rgba(255, 255, 255, 0.5);
+}  
+
+.playerLabels {
+  background-color: #172001;
+  border: none;
+  padding: 5px;
+  color: white;
+  font-weight: bold;
+}
+
+#playerOneLabel {
+  margin-right: 5px;
+}
+
+#playerTwoLabel {
+  margin-left: 5px;
+}
+
+#playerOneScore {
+  margin-right: 5px;
+}
+
+#playerTwoScore {
+  margin-left: 5px;
+}
+
 #chatBoxP1::-webkit-scrollbar {
     width: 10px;
   }
@@ -443,7 +541,7 @@ select {
   width: 100%;
   height: 400px;
   border: 1px solid #feb47b;
-  border-radius: 5px;
+  border-radius: 0px;
   margin-bottom: 10px;
   display: flex;
   flex-direction: column;
@@ -453,6 +551,9 @@ select {
   flex-grow: 1;
   overflow-y: scroll;
   height: 330px;
+  margin-top: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .chat-input-container {
@@ -487,7 +588,7 @@ select {
 
   /* Styling for the scoreboard with a box around it */
 .scoreboardP1 {
-    border: 1px solid #feb47b;
+    border: 1px solid #ffffff;
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 10px;
@@ -522,6 +623,7 @@ select {
     margin-bottom: 10px;
     display: grid;
     grid-template-columns: 50% 50%;
+
 }
 
 
@@ -529,6 +631,7 @@ select {
     background-color: transparent;
     border: 1px solid #feb47b;
     height: 30px;
+    font-weight: bold;
 }
 
 #scoreButtonP1:hover, #chatButtonP1:hover {
@@ -599,7 +702,7 @@ select {
 
   /* Styling for the scoreboard with a box around it */
 .scoreboardP2 {
-    border: 1px solid #feb47b;
+    border: 1px solid #ffffff;
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 10px;

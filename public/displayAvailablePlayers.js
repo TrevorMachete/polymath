@@ -95,7 +95,7 @@ function createUserCard(userData, container) {
 //Fetch ongoing challenges and display in the public challenges section
 function fetchOngoingChallenges() {
     const db = firebase.firestore();
-    const publicChallengesElement = document.getElementById('publicChallenges');
+    const publicChallengesElement = document.getElementById('privateChallenges');
 
     db.collection('ongoingChallenges').get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {

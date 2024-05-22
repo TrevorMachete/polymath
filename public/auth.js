@@ -10,6 +10,7 @@ firebase.auth().onAuthStateChanged(function(user) {
         document.getElementById('playerOneName').innerText = username;
         document.getElementById('playerOneAvatar').src = avatar;
         document.getElementById('playerOneLoginLogoutButton').innerText = 'Log Out';
+        document.getElementById('playerTwoLoginLogoutButton').innerText = 'Log Out';
 
         // Set 'loggedIn' and 'available' fields to true in Firestore
         db.collection('users').doc(user.uid).update({
@@ -21,6 +22,7 @@ firebase.auth().onAuthStateChanged(function(user) {
         document.getElementById('playerOneName').innerText = 'Not Logged In';
         document.getElementById('playerOneAvatar').src = '../icons/avatar.jpeg';
         document.getElementById('playerOneLoginLogoutButton').innerText = 'Log in | Register';
+        document.getElementById('playerTwoLoginLogoutButton').innerText = 'Log in | Register';
 
     }
 });
@@ -58,9 +60,11 @@ var uiConfig = {
             }
             // Change the button text to 'Log Out'
             document.getElementById('playerOneLoginLogoutButton').innerText = 'Log Out';
+            document.getElementById('playerTwoLoginLogoutButton').innerText = 'Log Out';
             alert('Login successful!');
             console.log('User logged in');
             return false;
+            
         },
         uiShown: function() {
             // The widget is rendered.
@@ -116,6 +120,40 @@ document.addEventListener('DOMContentLoaded', (event) => {
         console.error('Element with ID "playerOneLoginLogoutButton" not found');
     }
 });
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    document.getElementById('playerTwoAvatar').src = '../icons/avatar.jpeg';
+    var button = document.getElementById('playerTwoLoginLogoutButton');
+    if (button) {
+        button.addEventListener('click', function() {
+            if (firebase.auth().currentUser) {
+                var currentUserUid = firebase.auth().currentUser.uid; // Store uid before signing out
+                firebase.auth().signOut().then(function() {
+                    // Set 'loggedIn' and 'available' fields to false in Firestore
+                    db.collection('users').doc(currentUserUid).update({
+                        loggedIn: false,
+                        available: false
+                    }).then(function() {
+                        button.innerText = 'Log in | Register';
+                        document.getElementById('playerTwoName').innerText = '';
+                        document.getElementById('playerTwoAvatar').src = '../icons/avatar.jpeg';
+                        alert('Logout successful!');
+                        console.log('User logged out');
+                    }).catch(function(error) {
+                        console.error('Error updating document: ', error);
+                    });
+                }).catch(function(error) {
+                    console.error('Error signing out: ', error);
+                });
+            } else {
+                ui.start('#firebaseui-auth-container', uiConfig);
+            }
+        });
+    } else {
+        console.error('Element with ID "playerTwoLoginLogoutButton" not found');
+    }
+});
+
 
 function toggleLoader() {
     var loader = document.getElementById('loader');

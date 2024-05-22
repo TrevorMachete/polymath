@@ -104,6 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                         // Scroll to the bottom
                         document.getElementById('chatContentP1').scrollTop = document.getElementById('chatContentP1').scrollHeight;
+                        
                     });
                 });
             });

@@ -17,15 +17,22 @@
         <script src="firebaseConfig.js"></script>
         <script src="auth.js"></script>
         <script src="ui.js"></script>
-        <script src="script.js"></script>
         <script src="roundDisplay.js"></script>
+        <script src="script.js"></script>
+
+        <script src="displayDummyQuestions.js"></script>
+
         <script src="retrieveMessages.js"></script>
+
+
       
 
+
         <script src="scoreDisplay.js"></script>
+        
         <script src="chatsHandler.js"></script>
         <script src="displayObservers.js"></script><!--Script for handling round results-->
-
+        <script src="refresh.js"></script>
     </head>
 
     <body>
@@ -33,12 +40,8 @@
         <script>
             // The declarations that are here are accessed by multiple js files
 
-            // Initialize current round
-            let currentRound = 0;
-
             // Initialize lastRoundDisplayed to 0
             let lastRoundDisplayed = 0;
-            
 
         </script>
 
@@ -50,16 +53,16 @@
                 <p>Unleash Your Inner Genius</p>
             </div>
 
-            <hr>
+        
             
             <div id="nav-bar">              
                 <ul>
-                    <li><a  href="index.html">Home</a></li>
-                    <li><a href="app.html" class="active">Game</a></li>
-                    <li ><a href="challenges.html">Player Challenges</a></li>
-                    <li><a href="about.html">About</a></li>
                     <li><a href="help.html">Help</a></li>
-                  </ul>
+                    <li><a href="about.html">About</a></li>
+                    <li ><a href="challenges.html">Player Challenges</a></li>
+                    <li><a href="app.html" class="active">Game</a></li>
+                    <li><a  href="index.html">Home</a></li>
+                </ul>
             </div>
 
         </div>
@@ -69,9 +72,9 @@
         <!--section two-->
         <div id="observers" class="observer-list">
 
-
         </div>
 
+        <div class="gameContent">
         <!--section three-->
         <div id="filters">
 
@@ -94,7 +97,7 @@
             <form>
                 <label for="difficulty">Difficulty</label>
                 <select id="difficulty">
-                    <option value="easy">Easy</option>
+                    <option value="easy" class="option">Easy</option>
                     <option value="medium">Medium</option>
                     <option value="hard">Hard</option>
                 </select>
@@ -137,6 +140,10 @@
                     <button id="playerOneRestartButton" class="yieldButton">Restart</button>
                 </div>
 
+                <div class="getQuestionsBtn">
+                    <button id="getQuestionsButtonP1" onclick="getQuestions(); " class="getQuestionsButton">Start Game</button>
+                </div>
+
                 <!--Firebase UI container-->
                 <div id="firebaseui-auth-container"></div>
               
@@ -147,7 +154,7 @@
 
                 <!--Display current round-->
                 <div id="currentRoundDisplay">
-                   
+
                 </div>
 
                     <div id="countdownWarning">
@@ -157,7 +164,10 @@
                     <div id="timer">
                     00:00
                     </div>
+
+                    <button id="refreshButton">Refresh</button>
                 </div>
+
 
             <div class="playerTwoContainer">
 
@@ -172,15 +182,14 @@
                     <button id="playerTwoRestartButton" class="yieldButton">Restart</button>
                 </div>
 
+                <div class="getQuestionsBtn">
+                    <button id="getQuestionsButtonP2" onclick="getQuestions();" class="getQuestionsButton">Start Game</button>
+                </div>
+
                 <!--Firebase UI container-->
                 <div id="firebaseui-auth-container"></div>
             </div>
 
-        </div>
-
-        <!--Get questions-->
-        <div class="getQuestionsButton">
-            <button id="getQuestionsButton" onclick="getQuestions(); ">Start Game</button>
         </div>
 
         <hr>
@@ -191,19 +200,21 @@
 <!--sub section-->
 <div class="scoreboardP1">
 
-    <div class="displayButtonsP1">
+    <!--Mark the chats area-->
+    <div id="chatsLabel">
+        Chats
+    </div>
+
+    <!--<div class="displayButtonsP1">
         <button id="scoreButtonP1" class="active">Show Scores</button>
         <button id="chatButtonP1">Show Chat</button>
     </div>
-
-    <div id="playerOneScoreHistory" class="boxP1">
-        scores
-    </div>
-
+-->
     <div id="challengeButtons" class="challengeButtons">
         <button id="acceptButton">Accept</button>
         <button id="denyButton">Deny</button>
     </div>
+
 
     <!--Chats, notifications and messages display-->
     <div id="chatBoxP1" class="boxP1">
@@ -221,26 +232,39 @@
 
             <!--sub section-->
             <div id="textOutput" class="textOutput">
+
+                <div id="dummyTextOutput">
+                    <!--Dummy text output--></div>
                
             </div>
 
 <!--sub section-->
 <div class="scoreboardP2">
 
+    <!--Mark the scores area-->
+    <div id="scoresLabel">
+        Scores
+    </div>
+
     <div class="playerScoreHistory">
         <!--Display the score for player one-->
         <div id="playerOneScores">
 
-            <label id="playerOneLabel">username</label>
-            <div id="playerOneScore">**</div>
+            <label id="playerOneLabel" class="playerLabels">username</label>
+            <div id="scoreRoundP1" class="scoreRound"> <span class="roundText"></span><span class="points"></span></div>
+
+            <div id="playerOneScore"></div>
 
         </div>
 
         <!--Display the score for player two-->
-        <div id="playerTwoScores">
+        <div id="playerTwoScores" >
+            <label id="playerTwoLabel" class="playerLabels">username</label>
 
-            <label id="playerTwoLabel">username</label>
-            <div id="playerTwoScore">**</div>
+            <div id="scoreRoundP2" class="scoreRound"> <span class="roundText"></span><span class="points"></span></div>
+
+            
+            <div id="playerTwoScore"></div>
                     
         </div>
     </div>
@@ -252,7 +276,8 @@
         </div>
 
         <button onclick="topFunction()" id="myBtn" title="Go to top">Back to top</button>
-        
+
+
     </body>
 
     <footer>

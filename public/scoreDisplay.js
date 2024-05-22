@@ -1,19 +1,3 @@
-firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-        console.log('User is signed in:', user.uid);
-        let username = user.displayName; // Assuming displayName contains the username
-
-        // Fetch and display scores for player1
-        displayPlayerOneScores(username);
-
-        // Fetch and display scores for player2
-        displayPlayerTwoScores(username);
-    } else {
-        console.log('No user is signed in.');
-    }
-});
-
-
 function displayPlayerOneScores(username) {
     // Query for challenges where the current user is player1
     let playerOneQuery = db.collection("ongoingChallenges").where("player1", "==", username);
@@ -23,23 +7,57 @@ function displayPlayerOneScores(username) {
             const data = doc.data();
             const playerOneUsername = data.player1;
             const playerTwoUsername = data.player2;
+            const playerOneAvatar = data.player1Avatar;
+            const playerTwoAvatar = data.player2Avatar;
             const playerOneScores = data.playerOneScores || [];
             const playerTwoScores = data.playerTwoScores || [];
 
-            // Find the score for player1 and player2
-            const playerOneScore = playerOneScores.find(score => score.username === username)?.points || 0;
-            const playerTwoScore = playerTwoScores.find(score => score.username === playerTwoUsername)?.points || 0;
+            // Iterate over the scores for player1 and player2
+            playerOneScores.forEach((score, index) => {
+                if (score.username === username) {
+                    // Create a new div for each score
+                    let div = document.createElement("div");
+                    div.textContent = "Round " + (index + 1) + ": " + score.points;
 
-            // Display the scores for player1 and player2
-            document.getElementById("playerOneScore").textContent = playerOneScore;
-            document.getElementById("playerTwoScore").textContent = playerTwoScore;
+                    div.style.border = "1px solid white";
+                    div.style.marginBottom= "5px";
+                    div.style.backgroundColor = "white";
+                    div.style.padding = "5px 5px 5px 5px";
+
+                    document.getElementById("playerOneScore").appendChild(div);
+                }
+            });
+
+            playerTwoScores.forEach((score, index) => {
+                if (score.username === playerTwoUsername) {
+                    // Create a new div for each score
+                    let div = document.createElement("div");
+                    div.textContent = "Round " + (index + 1) + ": " + score.points;
+
+                    div.style.border = "1px solid white";
+                    div.style.marginBottom= "5px";
+                    div.style.backgroundColor = "white";
+                    div.style.padding = "5px 5px 5px 5px";
+
+                    document.getElementById("playerTwoScore").appendChild(div);
+                }
+            });
+
+            // Display the avatars and names for player1 and player2
+            document.getElementById("playerOneAvatar").src = playerOneAvatar;
+            document.getElementById("playerTwoAvatar").src = playerTwoAvatar;
+            document.getElementById("playerOneName").textContent = playerOneUsername;
+            document.getElementById("playerTwoName").textContent = playerTwoUsername;
             document.getElementById("playerOneLabel").textContent = playerOneUsername;
             document.getElementById("playerTwoLabel").textContent = playerTwoUsername;
+
+            
         });
     }).catch((error) => {
         console.error("Error retrieving scores for player1: ", error);
     });
 }
+
 
 function displayPlayerTwoScores(username) {
     // Query for challenges where the current user is player2
@@ -50,30 +68,53 @@ function displayPlayerTwoScores(username) {
             const data = doc.data();
             const playerOneUsername = data.player1;
             const playerTwoUsername = data.player2;
+            const playerOneAvatar = data.player1Avatar;
+            const playerTwoAvatar = data.player2Avatar;
             const playerOneScores = data.playerOneScores || [];
             const playerTwoScores = data.playerTwoScores || [];
 
-            // Find the score for player1 and player2
-            const playerOneScore = playerOneScores.find(score => score.username === playerOneUsername)?.points || 0;
-            const playerTwoScore = playerTwoScores.find(score => score.username === username)?.points || 0;
+            // Iterate over the scores for player1 and player2
+            playerOneScores.forEach((score, index) => {
+                if (score.username === playerOneUsername) {
+                    // Create a new div for each score
+                    let div = document.createElement("div");
+                    div.textContent = "Round " + (index + 1) + ": " + score.points;
 
-            // Display the scores for player1 and player2
-            document.getElementById("playerOneScore").textContent = playerOneScore;
-            document.getElementById("playerTwoScore").textContent = playerTwoScore;
+                    div.style.border = "1px solid white";
+                    div.style.marginBottom= "5px";
+                    div.style.backgroundColor = "white";
+                    div.style.padding = "5px 5px 5px 5px";
+
+                    document.getElementById("playerOneScore").appendChild(div);
+                }
+            });
+
+            playerTwoScores.forEach((score, index) => {
+                if (score.username === username) {
+                    // Create a new div for each score
+                    let div = document.createElement("div");
+                    div.textContent = "Round " + (index + 1) + ": " + score.points;
+
+                    div.style.border = "1px solid white";
+                    div.style.marginBottom= "5px";
+                    div.style.backgroundColor = "white";
+                    div.style.padding = "5px 5px 5px 5px";
+
+                    document.getElementById("playerTwoScore").appendChild(div);
+                }
+            });
+
+            // Display the avatars and names for player1 and player2
+            document.getElementById("playerOneAvatar").src = playerOneAvatar;
+            document.getElementById("playerTwoAvatar").src = playerTwoAvatar;
+            document.getElementById("playerOneName").textContent = playerOneUsername;
+            document.getElementById("playerTwoName").textContent = playerTwoUsername;
             document.getElementById("playerOneLabel").textContent = playerOneUsername;
             document.getElementById("playerTwoLabel").textContent = playerTwoUsername;
+            document.getElementById("currentRoundDisplay").textContent = Round;
+
         });
     }).catch((error) => {
         console.error("Error retrieving scores for player2: ", error);
     });
 }
-
-
-firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-      console.log('User is signed in:', user.uid);
-      displayScores(); // Call displayScores here
-    } else {
-      console.log('No user is signed in.');
-    }
-});
