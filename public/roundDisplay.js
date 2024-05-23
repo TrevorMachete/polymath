@@ -13,7 +13,6 @@ firebase.auth().onAuthStateChanged(function(user) {
   }
 });
 
-
 let gameRound = {
   currentRound: localStorage.getItem('currentRound') || 0,
   incrementRound: function() {

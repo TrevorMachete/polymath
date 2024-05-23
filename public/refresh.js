@@ -9,4 +9,3 @@ refreshButton.addEventListener('click', function() {
     location.reload();
     });
 });
-

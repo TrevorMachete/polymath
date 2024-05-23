@@ -3,18 +3,17 @@
         <title>Polymath</title>
         <link rel="stylesheet" type="text/css" href="styles.css">
 
-        <!-- Includes the jQuery library for DOM manipulation and event handling -->
-<!-- Latest jQuery version -->
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+                <!-- Includes the jQuery library for DOM manipulation and event handling -->
+        <!-- Latest jQuery version -->
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-<script src="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-messaging.js"></script>
-<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.css" />
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-messaging.js"></script>
+        <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.css" />
 
-       
         <script src="firebaseConfig.js"></script>
         <script src="auth.js"></script>
         <script src="ui.js"></script>
@@ -37,8 +36,6 @@
                 <p>Unleash Your Inner Genius</p>
             </div>
 
-        
-            
             <div id="nav-bar">              
                 <ul>
                     <li><a href="help.html">Help</a></li>
@@ -51,60 +48,121 @@
 
         </div>
 
-      <hr color="black">
+    <div class="bodyContent">
 
-      
+        <div class="triangle">
+            <div class="midElement">
 
-      <div class="midElement">
-
-        <p>"Wisdom is not a product of schooling but of the lifelong attempt to acquire it." <br><br>-Albert Einstein</p>
-
-      </div>
-
-        <!--Get questions-->
-        <div class="playNowButton">
-            <a href="app.html"><button id="playNowButton">Play Now</button></a>
+                <p>Welcome to the ultimate battle of wits.<br>Play alone or challenge your friends and expand your knowledge. <br>🏆</p>
+        
+                </div>
         </div>
 
-        <div class="features">
-            <div id="one">
+                    <!--Get questions-->
+            <div class="playNowButton">
+                    <a href="app.html"><button id="playNowButton">Play Now</button></a>
+             </div>
 
-                <div id="imageOne">
-                <img src="../images/sc.png" style="border: 15px solid; height: 300px; float: left;">
+             <div class="features">
+
+                <div class="featureGroup1">
+
+                    <div class="bundle1">
+
+                        <h2 id="feature1Label" class="featureLabel">Real-time chat feature</h2>
+
+                        <div id="feature1Image"><img id="feature1Image" src="../images/chats.png"></div>
+
+                        <div id="feature1Text"><p class="featurePar">Chat with your friends and opponents securely</p></div>
+                    </div>
+
+                    <div class="bundle2">
+
+                        <h2 class="featureLabel">User-friendly interface</h2>
+
+                        <div id="feature2Image"><video width="100%" height="350px" controls autoplay muted>
+                            <source src="../videos/showcase.mp4" type="video/mp4">
+                            </video></div>
+
+                        <div id="feature2Text"><p class="featurePar">So you can only sweat about finding the correct answer.</p></div>
+                    </div>
+
+                    <div class="bundle3">
+
+                        <h2 id="feature3Label" class="featureLabel">Live scores</h2>
+
+                        <div id="feature3Image"><img id="feature3Image" src="../images/scores.png"></div>
+
+                        <div id="feature3Text"><p class="featurePar">Refresh and view your scores and your opponent's.</p></div>
+                    </div>
+                 
                 </div>
-                <div id="textOne">
-                    <h1 style="color: rgb(68, 4, 4)">Challenge other players from around your circle or as far out as another country and have fun getting smarter.</h1>
-                </div>
-            </div>
 
-            <div id="two">
+                <div class="featureGroup2">
 
-                
-                <div id="imageTwo">
-                <img src="../images/sc2.png" style="border: 15px solid; height: 300px; float: right; margin-top: 100px;">
-                </div>
+                    <div class="bundle4">
+                        <div id="feature4Image"><h1 class="featureLabelG2">Real life benefits.</h1></div>
 
-            </div>
-        </div>
+                        <div id="feature4Text"><h3 class="featureParG2">Quizzes can help you stay confident, competitive and sharper than your peers.</h3></div>
+                    </div>
 
-            <div id="textTwo" style="margin-top: 100px;">
-                <p style="font-size: 50px; font-weight: bolder; margin-top: 100px;">Choose a category. Risk level. The Limit of Questions. Go for Multiple Rounds.</p>
-            </div>
+                    <div class="bundle5">
+                        <div id="feature5Image"><h1 class="featureLabelG2">Ideal and Classic.</h1></div>
 
-            <div id="textThree">
-                <p style="font-size: 50px; font-weight: bolder; margin-top: 100px;color: rgb(0, 0, 100);" >Get your results. See how you did. Compare with others, and go again.</p>
+                        <div id="feature5Text"><h3 class="featureParG2">Quizzes have been widely used for fun, knowledge testing and gathering since ancient times.</h3></div>
+                    </div>
 
-                <div id="imageThree">
-                <img src="../images/sc3.png" style="border: 15px solid; height: 300px; float: left;">
-                <p style="font-size: 50px; font-weight: bolder; margin-top: 100px;color: rgb(40, 43, 1);">Chat with your mate as you play</p>
                 </div>
 
-                <div id="imageFour">
-                <img src="../images/sc4.png" style="border: 15px solid; height: 300px; float: right;"></div>
-                <div id="textFour">
-                <p style="font-size: 50px; font-weight: bolder; margin-top: 100px; color: rgb(116, 4, 4);">Log in and out using your  social media accounts.</p></div>           
+                <div class="featureGroup3">
+
+                    <div class="bundle6">
+                        <div id="feature6Image"><h1 class="featureLabelG3">The Power of Teams.</h1></div>
+
+                        <div id="feature6Text"><h3 class="featureParG3">Team quizzes can be a fantastic way to build teamwork and communication skills. Discussing answers, strategizing, and celebrating together.</h3></div>
+                    </div>
+
+                    <div class="bundle7">
+                        <div id="feature7Image"><h1 class="featureLabelG3">Beyond the General.</h1></div>
+
+                        <div id="feature7Text"><h3 class="featureParG3">While general knowledge quizzes are popular, there's a whole world of niche quizzes out there, so get hooked.</h3></div>
+                    </div>
+
+                </div>
+
+
+             </div>
 
     </div>
+
+    <footer>
+        <div class="footer">
+
+            <div id="declarations">
+
+                <p>Powered by Firebase<br>
+                Graphics by Microsoft Design<br>
+                The Trivia Api<br></p>
+
+                <h3>Developed by Macs Machete</h3>
+                <p>&#xA9; Machete Capital (Pty) Ltd</p>
+                <p><a href="mailto:machetecapital@gmail.com">Contact Support</a>
+                </p>
+
+            </div>
+
+            <div id="socials">
+                <br>
+                Catch the developer
+                <br><br>
+                <a href="https://www.linkedin.com/in/trevor-machete-62636b127/">LinkedIn</a><br>
+                <a href="https://github.com/TrevorMachete/">GitHub</a><br>
+                <a href="https://twitter.com/trevormachete">Twitter</a><br>
+            </div>
+
+        </div>
+
+    </footer>
 
     </body>
 

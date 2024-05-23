@@ -50,14 +50,12 @@ function displayPlayerOneScores(username) {
             document.getElementById("playerTwoName").textContent = playerTwoUsername;
             document.getElementById("playerOneLabel").textContent = playerOneUsername;
             document.getElementById("playerTwoLabel").textContent = playerTwoUsername;
-
             
         });
     }).catch((error) => {
         console.error("Error retrieving scores for player1: ", error);
     });
 }
-
 
 function displayPlayerTwoScores(username) {
     // Query for challenges where the current user is player2

@@ -154,7 +154,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 });
 
-
 function toggleLoader() {
     var loader = document.getElementById('loader');
     if (loader) {

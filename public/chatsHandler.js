@@ -1,11 +1,39 @@
 document.addEventListener('DOMContentLoaded', function() {
 
+    // Function to convert timestamp to "time ago" format
+    function timeAgo(date) {
+        let seconds = Math.floor((new Date() - date) / 1000);
+
+        let interval = seconds / 31536000;
+        if (interval > 1) {
+            return Math.floor(interval) + " years ago";
+        }
+        interval = seconds / 2592000;
+        if (interval > 1) {
+            return Math.floor(interval) + " months ago";
+        }
+        interval = seconds / 86400;
+        if (interval > 1) {
+            return Math.floor(interval) + " days ago";
+        }
+        interval = seconds / 3600;
+        if (interval > 1) {
+            return Math.floor(interval) + " hours ago";
+        }
+        interval = seconds / 60;
+        if (interval > 1) {
+            return Math.floor(interval) + " minutes ago";
+        }
+        return Math.floor(seconds) + " seconds ago";
+    }
+
     // Function to send chat messages and save them in Firebase
     function sendChatMessage() {
         let userId = firebase.auth().currentUser.uid;  // Get the current user's ID
         let username = firebase.auth().currentUser.displayName; // Get the current user's username
         let chatInput = document.getElementById('chatInput'); // Get the chat input element
-        let message = chatInput.value; // Get the text from the chat input
+        let message = chatInput.value; // Get the text from the chat input  
+        let timestamp = Date.now();       
 
         // Get the ongoing challenges where the current user is either player1 or player2
         let player1Query = db.collection("ongoingChallenges").where("player1", "==", username);
@@ -19,7 +47,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Add the new message to the chats array
                     chats.push({
                         username: username,
-                        message: message
+                        message: message,
+                        time: timestamp,
                     });
 
                     // Update the chats array in Firestore
@@ -75,6 +104,9 @@ document.addEventListener('DOMContentLoaded', function() {
                         // Display each chat message
                         chats.forEach(chat => {
                             let chatDiv = document.createElement('div');
+                            let date = new Date(chat.time);
+                            let timeAgoString = timeAgo(date);
+                            
 
                             // Style the chat message based on who sent it
                             if (chat.username === username) {
@@ -86,6 +118,13 @@ document.addEventListener('DOMContentLoaded', function() {
                                 chatDiv.style.marginBottom = '10px';
                                 chatDiv.style.marginRight = '5px';
                                 chatDiv.style.color = 'white';
+                                chatDiv.style.boxShadow = '2px 2px 4px rgba(0, 0, 0, 0.5)';
+                                chatDiv.style.transition = 'transform 0.5s ease-out';
+                                chatDiv.style.transform = 'scale(0)';
+
+                                window.setTimeout(function() {
+                                    chatDiv.style.transform = 'scale(1)';
+                                }, 100); // delay for the pop-in effect
 
                             } else {
                                 chatDiv.style.textAlign = 'left';
@@ -95,12 +134,18 @@ document.addEventListener('DOMContentLoaded', function() {
                                 chatDiv.style.float = 'left';
                                 chatDiv.style.marginBottom = '10px';
                                 chatDiv.style.marginLeft= '5px';
+                                chatDiv.style.boxShadow = '2px 2px 4px rgba(0, 0, 0, 0.5)';
+                                chatDiv.style.transition = 'transform 0.5s ease-out';
+                                chatDiv.style.transform = 'scale(0)';
+
+                                window.setTimeout(function() {
+                                    chatDiv.style.transform = 'scale(1)';
+                                }, 100); // delay for the pop-in effect
                             }
 
-                            chatDiv.innerHTML = `<p style="margin-left:5px; margin-right: 5px;"><strong>${chat.username}:</strong> ${chat.message}</p>`;
+                            chatDiv.innerHTML = `<p style="margin-left:5px; margin-right: 5px;"><strong>${chat.username}</strong> <span style="font-size:14px; color:darkgrey;">${timeAgoString}</span> <br>${chat.message}</p>`;
                             document.getElementById('chatContentP1').appendChild(chatDiv);
                         });
-
 
                         // Scroll to the bottom
                         document.getElementById('chatContentP1').scrollTop = document.getElementById('chatContentP1').scrollHeight;

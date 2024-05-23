@@ -95,9 +95,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
     }   
     
-
-
-
     document.getElementById('getQuestionsButtonP2').addEventListener('click', function() {
 
         // Check if the user is authenticated
@@ -143,11 +140,6 @@ let countdownInterval = setInterval(function() {
     }   
     
 });
-
-
-
-
-
 
 
 function getQuestions() {
@@ -222,8 +214,6 @@ function getQuestions() {
     });
 }
 
-
-
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -265,12 +255,32 @@ function displayQuestions() {
                                 answerButton.textContent = answer;
                                 answerButton.addEventListener('click', function() {
                                     handleAnswerSubmission(question, answerButton.textContent, questionDiv);
+
                                 });
                                 answersDiv.appendChild(answerButton);
+
+                                //Style the answers element
+                                answerButton.style.backgroundColor = 'blue';
+                                answerButton.style.color = 'white';
+                                answerButton.style.fontSize = '14px';
+                                answerButton.style.padding = '5px';
+                                answerButton.style.boxShadow = '2px 2px 4px rgba(0, 0, 0, 0.5)';
                             });
 
                             questionDiv.appendChild(answersDiv);
                             document.getElementById('textOutput').appendChild(questionDiv);
+
+                            //Style the questions element
+                            questionDiv.style.backgroundColor = 'orange';
+                            questionDiv.style.paddingTop = '5px';
+                            questionDiv.style.paddingBottom = '5px';
+                            questionDiv.style.marginBottom = '10px';
+                            questionDiv.style.borderRadius = '10px';
+                            questionDiv.style.boxShadow = '2px 2px 4px rgba(0, 0, 0, 0.5)';
+                            questionDiv.style.textShadow = '2px 2px 4px rgba(0, 0, 0, 0.5)';
+
+
+
 
                             // Update the served field to true
                             question.served = true;
@@ -286,7 +296,6 @@ function displayQuestions() {
         });
     });
 }
-
 
 // Function to handle answer submission
 function handleAnswerSubmission(question, selectedAnswer, questionDiv) {
@@ -424,7 +433,6 @@ for (let username in playerScores) {
     
 }
 
-
 // Function to start the countdown timer
 function startCountdownTimer() {
     let timer = document.getElementById('timer');
@@ -445,15 +453,12 @@ function startCountdownTimer() {
 
 }
 
-
 function formatTime(seconds) {
     let minutes = Math.floor(seconds / 60);
     seconds %= 60;
     return (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
-
-               
+            
 }
    
    // Retrieve auth state after page refresh
     const storedAuthState = JSON.parse(localStorage.getItem('authState'));
-

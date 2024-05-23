@@ -15,7 +15,6 @@ firebase.auth().onAuthStateChanged(function(user) {
     }
 });
 
-
 function displayDummyP1(username) {
     // Query for challenges where the current user is player1
     let playerOneQuery = db.collection("ongoingChallenges").where("player1", "==", username);
@@ -114,7 +113,6 @@ function displayDummyP1(username) {
         console.error("Error retrieving dummy questions for player1: ", error);
     });
 }
-
 
 function displayDummyP2(username) {
     // Query for challenges where the current user is player2
