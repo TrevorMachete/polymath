@@ -1,10 +1,15 @@
-<!DOCTYPE html>
+<!DOCTYPE html lang="en">
     <head>
-        <title>Polymath</title>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Home - Polymath</title>
+        
+        <link rel="icon" type="image/x-icon" href="https://firebasestorage.googleapis.com/v0/b/polymathquest00.appspot.com/o/icons%2Ffav.ico?alt=media&token=919c53dd-ebd1-4107-8cea-523b7e055bc2">
+
         <link rel="stylesheet" type="text/css" href="styles.css">
 
-                <!-- Includes the jQuery library for DOM manipulation and event handling -->
-        <!-- Latest jQuery version -->
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
         <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
@@ -15,14 +20,9 @@
         <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.css" />
 
         <script src="firebaseConfig.js"></script>
-        <script src="auth.js"></script>
+        <script src="index.js"></script>
         <script src="ui.js"></script>
-        <script src="script.js"></script>
-        <script src="roundDisplay.js"></script>   
-        <script src="retrieveMessages.js"></script>
-        <script src="handleAnswerSubmission.js"></script>
-        <script src="questionsCollection.js"></script>
-        <script src="displayObservers.js"></script><!--Script for handling round results-->
+        <script src="music.js"></script>
 
     </head>
 
@@ -32,28 +32,60 @@
         <div class="navigation">
 
             <div class="heading">
-                <h1>Polymath</h1>
+                <a  href="index.html" ><h1>Polymath</h1></a>
                 <p>Unleash Your Inner Genius</p>
+     
             </div>
+            
+            <div class="menus">
+                <div class="hamnPlay">   
+                    <!-- Added hamburger icon -->
+                    <div class="hamburger" id="hamburger">
+                        <div class="line"></div>
+                        <div class="line"></div>
+                        <div class="line"></div>
+                    </div>
+                    
+                    <div id="play">   
+                    <!--Add game soundtrack-->
+                    <body onclick="playAudio()">
+                        <audio id="myAudio" controls controlsList="nodownload" autoplay loop>
+                            <source src="../music/gaming.mp3" type="audio/mpeg">
+                        </audio>
+                    </div>
+        
 
-            <div id="nav-bar">              
-                <ul>
-                    <li><a href="help.html">Help</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li ><a href="challenges.html">Player Challenges</a></li>
-                    <li><a href="app.html" >Game</a></li>
-                    <li><a  href="index.html" class="active">Home</a></li>
-                </ul>
+                    </div>
+            
+            <!-- Bundle navigation and sound button-->       
+            <div class="navnBtn">
+                <div id="nav-bar">
+                    <ul>                        
+                        <li><a href="help.html">Help</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="challenges.html">Player Challenges</a></li>
+                        <li><a href="app.html">Game</a></li>
+                        <li><a href="index.html" class="active">Home</a></li>
+
+                    </ul>
+                </div>
+
+                <div id="soundButtonDiv">
+                    <audio id="myAudio" src="https://firebasestorage.googleapis.com/v0/b/polymathquest00.appspot.com/o/music%2Fgaming.mp3?alt=media&token=4fe1deb0-2585-4dec-8610-44a9da7fcc50"></audio>
+                    <button id="soundButton">Music</button>
             </div>
-
+            </div>
+            </div>
+        
         </div>
+        
 
     <div class="bodyContent">
 
         <div class="triangle">
-            <div class="midElement">
+            <div id="midElement" class="midElement">
 
-                <p>Welcome to the ultimate battle of wits.<br>Play alone or challenge your friends and expand your knowledge. <br>🏆</p>
+                <p>Welcome to the ultimate battle of wits.<br>Go to Player Challenges. Pick an opponent. Expand your knowledge. <br>🏆</p>
         
                 </div>
         </div>
@@ -67,13 +99,24 @@
 
                 <div class="featureGroup1">
 
+                    <div class="dummyBundle">
                     <div class="bundle1">
 
-                        <h2 id="feature1Label" class="featureLabel">Real-time chat feature</h2>
+                        <h2 id="feature1Label" class="featureLabel">Real-time chat</h2>
 
-                        <div id="feature1Image"><img id="feature1Image" src="../images/chats.png"></div>
+                        <div id="feature1Image"><img id="feature1Image" src="https://firebasestorage.googleapis.com/v0/b/polymathquest00.appspot.com/o/images%2Fchats.png?alt=media&token=79e7c2e0-c5f2-44e1-b0b5-bb4583a72ffe"></div>
 
                         <div id="feature1Text"><p class="featurePar">Chat with your friends and opponents securely</p></div>
+                    </div>
+
+                    <div class="dummyBundle3">
+
+                        <h2 id="feature3Label" class="featureLabel">Live scores</h2>
+
+                        <div id="feature3Image"><img id="feature3Image" src="https://firebasestorage.googleapis.com/v0/b/polymathquest00.appspot.com/o/images%2Fscores.png?alt=media&token=fdb4eed0-0d16-43ac-97a0-80f3a791bb8c"></div>
+
+                        <div id="feature3Text"><p class="featurePar">Refresh and view your scores and your opponent's.</p></div>
+                    </div>
                     </div>
 
                     <div class="bundle2">
@@ -81,7 +124,7 @@
                         <h2 class="featureLabel">User-friendly interface</h2>
 
                         <div id="feature2Image"><video width="100%" height="350px" controls autoplay muted>
-                            <source src="../videos/showcase.mp4" type="video/mp4">
+                            <source src="https://hhfirebasestorage.googleapis.com/v0/b/polymathquest00.appspot.com/o/videos%2F2024-05-24%2015-13-03.mp4?alt=media&token=5005179b-3b4a-47aa-aee5-42da64e42976" type="video/mp4">
                             </video></div>
 
                         <div id="feature2Text"><p class="featurePar">So you can only sweat about finding the correct answer.</p></div>
@@ -91,7 +134,7 @@
 
                         <h2 id="feature3Label" class="featureLabel">Live scores</h2>
 
-                        <div id="feature3Image"><img id="feature3Image" src="../images/scores.png"></div>
+                        <div id="feature3Image"><img id="feature3Image" src="https://firebasestorage.googleapis.com/v0/b/polymathquest00.appspot.com/o/images%2Fscores.png?alt=media&token=fdb4eed0-0d16-43ac-97a0-80f3a791bb8c"></div>
 
                         <div id="feature3Text"><p class="featurePar">Refresh and view your scores and your opponent's.</p></div>
                     </div>
@@ -135,35 +178,58 @@
 
     </div>
 
+    <button onclick="topFunction()" id="myBtn" title="Go to top">Back to top</button>
+</body>
     <footer>
         <div class="footer">
 
-            <div id="declarations">
+            <div class="declarations">
 
-                <p>Powered by Firebase<br>
-                Graphics by Microsoft Design<br>
-                The Trivia Api<br></p>
+                <div id="declarations">
 
-                <h3>Developed by Macs Machete</h3>
-                <p>&#xA9; Machete Capital (Pty) Ltd</p>
-                <p><a href="mailto:machetecapital@gmail.com">Contact Support</a>
-                </p>
+                    <p>Powered by Firebase<br>
+                    Graphics by Microsoft Design<br>
+                    The Trivia Api<br></p>
 
+                    <h3>Developed by Macs Machete</h3>
+                    <p>&#xA9; 2024, Machete Capital (Pty) Ltd</p>
+
+                </div>
+
+                <div id="contact">
+
+                    <p>Contact Us</p>
+                    
+                    <p><a href="mailto:machetecapital@gmail.com">Contact Support</a>
+                    </p>
+                    <p>2461<br>Tswelopele X8<br>Tembisa<br>1632</p>
+                </div>
+                
             </div>
 
-            <div id="socials">
-                <br>
-                Catch the developer
-                <br><br>
-                <a href="https://www.linkedin.com/in/trevor-machete-62636b127/">LinkedIn</a><br>
-                <a href="https://github.com/TrevorMachete/">GitHub</a><br>
-                <a href="https://twitter.com/trevormachete">Twitter</a><br>
+            <div class="socials">
+
+                <div id="socials">
+
+                    <p>Catch the developer</p>
+
+                    <p><a href="https://www.linkedin.com/in/trevor-machete-62636b127/">LinkedIn</a></p>
+                    <p><a href="https://github.com/TrevorMachete/">GitHub</a></p>
+                    <p><a href="https://twitter.com/trevormachete">Twitter</a></p>
+                    <br>
+                </div>
+
+                <div id="legals">
+                    <p>Legal</p>
+                    <p><a href="tos.html">Terms of Service</a></p>
+                    <p><a href="pp.html">Privacy Policy</a></p>
+                    <p><a href="cookies.html">Cookies Policy</a></p>
+                </div>
+
             </div>
 
         </div>
 
     </footer>
-
-    </body>
 
 </html>

@@ -4,11 +4,13 @@ var db = firebase.firestore();
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
         // User is signed in.
-        var avatar = user.photoURL || '../icons/avatar.jpeg';
+        var avatar = user.photoURL || 'https://firebasestorage.googleapis.com/v0/b/polymathquest00.appspot.com/o/icons%2Favatar.jpeg?alt=media&token=d01a9969-314c-4589-afe0-87fcc2e4fe8c';
         var username = user.displayName;
 
         document.getElementById('playerOneName').innerText = username;
         document.getElementById('playerOneAvatar').src = avatar;
+        document.getElementById('playerTwoName').innerText = username;
+        document.getElementById('playerTwoAvatar').src = avatar;
         document.getElementById('playerOneLoginLogoutButton').innerText = 'Log Out';
         document.getElementById('playerTwoLoginLogoutButton').innerText = 'Log Out';
 
@@ -20,7 +22,9 @@ firebase.auth().onAuthStateChanged(function(user) {
     } else {
         // User is signed out.
         document.getElementById('playerOneName').innerText = 'Not Logged In';
-        document.getElementById('playerOneAvatar').src = '../icons/avatar.jpeg';
+        document.getElementById('playerOneAvatar').src = 'https://firebasestorage.googleapis.com/v0/b/polymathquest00.appspot.com/o/icons%2Favatar.jpeg?alt=media&token=d01a9969-314c-4589-afe0-87fcc2e4fe8c';
+        document.getElementById('playerTwoName').innerText = 'Not Logged In';
+        document.getElementById('playerTwoAvatar').src = 'https://firebasestorage.googleapis.com/v0/b/polymathquest00.appspot.com/o/icons%2Favatar.jpeg?alt=media&token=d01a9969-314c-4589-afe0-87fcc2e4fe8c';
         document.getElementById('playerOneLoginLogoutButton').innerText = 'Log in | Register';
         document.getElementById('playerTwoLoginLogoutButton').innerText = 'Log in | Register';
 
@@ -43,11 +47,11 @@ var uiConfig = {
                     username: username,
                     loggedIn: true,
                     available: true,
-                    avatar: authResult.user.photoURL || '../icons/avatar.jpeg'
+                    avatar: authResult.user.photoURL || 'https://firebasestorage.googleapis.com/v0/b/polymathquest00.appspot.com/o/icons%2Favatar.jpeg?alt=media&token=d01a9969-314c-4589-afe0-87fcc2e4fe8c'
                 }).then(function() {
                     alert('Registration successful!');
                     document.getElementById('playerOneName').innerText = username;
-                    document.getElementById('playerOneAvatar').src = authResult.user.photoURL || '../icons/avatar.jpeg';
+                    document.getElementById('playerOneAvatar').src = authResult.user.photoURL || 'https://firebasestorage.googleapis.com/v0/b/polymathquest00.appspot.com/o/icons%2Favatar.jpeg?alt=media&token=d01a9969-314c-4589-afe0-87fcc2e4fe8c';
                 }).catch(function(error) {
                     console.error('Error writing document: ', error);
                 });
@@ -75,21 +79,21 @@ var uiConfig = {
     signInFlow: 'popup',
     signInOptions: [
         firebase.auth.EmailAuthProvider.PROVIDER_ID,
-        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+        //firebase.auth.GoogleAuthProvider.PROVIDER_ID,
         firebase.auth.FacebookAuthProvider.PROVIDER_ID,
         firebase.auth.TwitterAuthProvider.PROVIDER_ID,
         firebase.auth.GithubAuthProvider.PROVIDER_ID
     ],
-    tosUrl: '<YOUR_TOS_URL>',
+    tosUrl: 'pp.html',
     privacyPolicyUrl: function() {
-        window.location.assign('<YOUR_PRIVACY_POLICY_URL>');
+        window.location.assign('tos.html');
     }
 };
 
 var ui = new firebaseui.auth.AuthUI(firebase.auth());
 
 document.addEventListener('DOMContentLoaded', (event) => {
-    document.getElementById('playerOneAvatar').src = '../icons/avatar.jpeg';
+    document.getElementById('playerOneAvatar').src = 'https://firebasestorage.googleapis.com/v0/b/polymathquest00.appspot.com/o/icons%2Favatar.jpeg?alt=media&token=d01a9969-314c-4589-afe0-87fcc2e4fe8c';
     var button = document.getElementById('playerOneLoginLogoutButton');
     if (button) {
         button.addEventListener('click', function() {
@@ -103,7 +107,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     }).then(function() {
                         button.innerText = 'Log in | Register';
                         document.getElementById('playerOneName').innerText = '';
-                        document.getElementById('playerOneAvatar').src = '../icons/avatar.jpeg';
+                        document.getElementById('playerOneAvatar').src = 'https://firebasestorage.googleapis.com/v0/b/polymathquest00.appspot.com/o/icons%2Favatar.jpeg?alt=media&token=d01a9969-314c-4589-afe0-87fcc2e4fe8c';
                         alert('Logout successful!');
                         console.log('User logged out');
                     }).catch(function(error) {
@@ -122,7 +126,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 
 document.addEventListener('DOMContentLoaded', (event) => {
-    document.getElementById('playerTwoAvatar').src = '../icons/avatar.jpeg';
+    document.getElementById('playerTwoAvatar').src = 'https://firebasestorage.googleapis.com/v0/b/polymathquest00.appspot.com/o/icons%2Favatar.jpeg?alt=media&token=d01a9969-314c-4589-afe0-87fcc2e4fe8c';
     var button = document.getElementById('playerTwoLoginLogoutButton');
     if (button) {
         button.addEventListener('click', function() {
@@ -136,7 +140,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     }).then(function() {
                         button.innerText = 'Log in | Register';
                         document.getElementById('playerTwoName').innerText = '';
-                        document.getElementById('playerTwoAvatar').src = '../icons/avatar.jpeg';
+                        document.getElementById('playerTwoAvatar').src = 'https://firebasestorage.googleapis.com/v0/b/polymathquest00.appspot.com/o/icons%2Favatar.jpeg?alt=media&token=d01a9969-314c-4589-afe0-87fcc2e4fe8c';
                         alert('Logout successful!');
                         console.log('User logged out');
                     }).catch(function(error) {

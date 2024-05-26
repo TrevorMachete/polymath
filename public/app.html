@@ -1,10 +1,15 @@
-<!DOCTYPE html>
+<!DOCTYPE html lang="en">
     <head>
-        <title>Polymath</title>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <title>Game - Polymath</title>
+
         <link rel="stylesheet" type="text/css" href="styles.css">
 
-        <!-- Includes the jQuery library for DOM manipulation and event handling -->
-        <!-- Latest jQuery version -->
+        <link rel="icon" type="image/x-icon" href="https://firebasestorage.googleapis.com/v0/b/polymathquest00.appspot.com/o/icons%2Ffav.ico?alt=media&token=919c53dd-ebd1-4107-8cea-523b7e055bc2" alt="fav">
+
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
         <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
@@ -15,25 +20,27 @@
         <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.css" />
 
         <script src="firebaseConfig.js"></script>
-        <script src="auth.js"></script>
+        <script src="index.js"></script>
         <script src="ui.js"></script>
+        <script src="auth.js"></script>
         <script src="roundDisplay.js"></script>
         <script src="script.js"></script>
         <script src="displayDummyQuestions.js"></script>
         <script src="retrieveMessages.js"></script>
         <script src="scoreDisplay.js"></script>
         <script src="chatsHandler.js"></script>
-        <script src="displayObservers.js"></script><!--Script for handling round results-->
         <script src="refresh.js"></script>
+        <script src="music.js"></script>
+
     </head>
 
     <body>
 
         <script>
-            // The declarations that are here are accessed by multiple js files
+        // The declarations that are here are accessed by multiple js files
 
-            // Initialize lastRoundDisplayed to 0
-            let lastRoundDisplayed = 0;
+        // Initialize lastRoundDisplayed to 0
+        let lastRoundDisplayed = 0;
 
         </script>
 
@@ -41,25 +48,52 @@
         <div class="navigation">
 
             <div class="heading">
-                <h1>Polymath</h1>
+                <a  href="index.html" ><h1>Polymath</h1></a>
                 <p>Unleash Your Inner Genius</p>
+     
             </div>
-
-        
             
-            <div id="nav-bar">              
-                <ul>
-                    <li><a href="help.html">Help</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li ><a href="challenges.html">Player Challenges</a></li>
-                    <li><a href="app.html" class="active">Game</a></li>
-                    <li><a  href="index.html">Home</a></li>
-                </ul>
+            <div class="menus">
+                <div class="hamnPlay">   
+                    <!-- Added hamburger icon -->
+                    <div class="hamburger" id="hamburger">
+                        <div class="line"></div>
+                        <div class="line"></div>
+                        <div class="line"></div>
+                    </div>
+                    
+                    <div id="play">   
+                    <!--Add game soundtrack-->
+                    <body onclick="playAudio()">
+                        <audio id="myAudio" controls controlsList="nodownload" autoplay loop>
+                            <source src="../music/gaming.mp3" type="audio/mpeg">
+                        </audio>
+                    </div>
+        
+
+                    </div>
+            
+            <!-- Bundle navigation and sound button-->       
+            <div class="navnBtn">
+                <div id="nav-bar">
+                    <ul>                        
+                        <li><a href="help.html">Help</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="challenges.html">Player Challenges</a></li>
+                        <li><a href="app.html" class="active">Game</a></li>
+                        <li><a href="index.html" >Home</a></li>
+
+                    </ul>
+                </div>
+
+                <div id="soundButtonDiv">
+                    <audio id="myAudio" src="https://firebasestorage.googleapis.com/v0/b/polymathquest00.appspot.com/o/music%2Fgaming.mp3?alt=media&token=4fe1deb0-2585-4dec-8610-44a9da7fcc50"></audio>
+                    <button id="soundButton">Music</button>
             </div>
-
+            </div>
+            </div>
+        
         </div>
-
-
 
         <!--section two-->
         <div id="observers" class="observer-list">
@@ -120,7 +154,7 @@
 
             <div class="playerOneContainer">
 
-                <img id="playerOneAvatar" src="../icons/avatar.jpeg" alt="Avatar" class="avatar">
+                <img id="playerOneAvatar" src="https://firebasestorage.googleapis.com/v0/b/polymathquest00.appspot.com/o/icons%2Favatar.jpeg?alt=media&token=d01a9969-314c-4589-afe0-87fcc2e4fe8c" alt="avatar" class="avatar">
 
                 <div id="playerOneName" class="playerName">
                   <h4>.</h4>
@@ -135,24 +169,23 @@
                 <div class="getQuestionsBtn">
                     <button id="getQuestionsButtonP1" onclick="getQuestions(); " class="getQuestionsButton">Start Game</button>
                 </div>
-
-                <!--Firebase UI container-->
-                <div id="firebaseui-auth-container"></div>
               
             </div>
 
                 <!--Set an element for countdown timer-->
                 <div class="countdownTimer">
 
-                <!--Display current round-->
-                <div id="currentRoundDisplay">
+                    <!--Display current round-->
+                    <div id="currentRoundDisplay">
 
-                </div>
+                    </div>
 
+                    <!--Display the countdown warning-->
                     <div id="countdownWarning">
                         
                     </div>
 
+                    <!--Display the countdown timer-->
                     <div id="timer">
                     00:00
                     </div>
@@ -162,7 +195,7 @@
 
             <div class="playerTwoContainer">
 
-                <img id="playerTwoAvatar" src="../icons/avatar.jpeg" alt="Avatar" class="avatar">
+                <img id="playerTwoAvatar" src="https://firebasestorage.googleapis.com/v0/b/polymathquest00.appspot.com/o/icons%2Favatar.jpeg?alt=media&token=d01a9969-314c-4589-afe0-87fcc2e4fe8c" alt="Avatar" class="avatar">
                 <div id="playerTwoName" class="playerName">
                   <h4>.</h4>
                 </div>
@@ -177,91 +210,97 @@
                     <button id="getQuestionsButtonP2" onclick="getQuestions();" class="getQuestionsButton">Start Game</button>
                 </div>
 
-                <!--Firebase UI container-->
-                <div id="firebaseui-auth-container"></div>
             </div>
 
         </div>
 
-        <hr>
+    <hr>
 
-        <!--section five-->
-        <div class="game">
+    <!--Firebase UI container-->
+    <div id="firebaseui-auth-container"></div>
 
-<!--sub section-->
-<div class="scoreboardP1">
-
-    <!--Mark the chats area-->
-    <div id="chatsLabel">
-        Chats
-    </div>
-
-    <!--<div class="displayButtonsP1">
-        <button id="scoreButtonP1" class="active">Show Scores</button>
-        <button id="chatButtonP1">Show Chat</button>
-    </div>
--->
-    <div id="challengeButtons" class="challengeButtons">
-        <button id="acceptButton">Accept</button>
-        <button id="denyButton">Deny</button>
-    </div>
-
-    <!--Chats, notifications and messages display-->
-    <div id="chatBoxP1" class="boxP1">
-
-        <div id="chatContentP1" class="chatContent">
-            <!-- other content -->
-        </div>
-        <div class="chat-input-container">
-            <textarea id="chatInput" class="chat-input" placeholder="Type a message..."></textarea>
-            <button id="sendButton" class="send-button"><img src="../icons/send.png"></button>
-        </div>
-        
-    </div>
-</div>
+    <!--section five-->
+    <div class="game">
 
         <!--sub section-->
-        <div id="textOutput" class="textOutput">
+        <div class="scoreboardP1">
 
-        <div id="dummyTextOutput">
-        <!--Dummy text output--></div>
+                <!--Toggle element visibilty-->
+                <div class="displayButtonsP1">
+                    <button id="chatButtonP1">Chats</button>
+                    <button id="questionsButtonP1" class="active">Quiz</button>
+                    <button id="scoreButtonP1">Scores</button>
+                </div>
+
+                <div id="challengeButtons" class="challengeButtons">
+                    <button id="acceptButton">Accept</button>
+                    <button id="denyButton">Deny</button>
+                </div>
+
+                   <!--Chats, notifications and messages display-->
+                   <div id="chatBoxP1" class="boxP1">
+
+                    <!--Mark the chats area-->
+                    <div id="chatsLabel">
+                        Chats
+                    </div>
+                
+                    <div id="chatContentP1" class="chatContent">
+                     <!-- other content -->
+ 
+                    </div>
+                    <div class="chat-input-container">
+                    <textarea id="chatInput" class="chat-input" placeholder="Type a message..."></textarea>
+                    <button id="sendButton" class="send-button"><img src="https://firebasestorage.googleapis.com/v0/b/polymathquest00.appspot.com/o/icons%2Fsend.png?alt=media&token=c13a21fb-232c-4b1a-8e7f-dfaa1591b878" alt="send"></button>
+                    </div>
+
+                                
+                </div>
+  
+            </div>
+
+                <!--sub section-->
+                <div id="textOutput" class="textOutput">
+
+                    <div id="dummyTextOutput">
+                    <!--Dummy text output-->
+                    </div>
                
-        </div>
+                </div>
 
-<!--sub section-->
-<div class="scoreboardP2">
+        <!--sub section-->
+        <div class="scoreboardP2"> 
 
-    <!--Mark the scores area-->
-    <div id="scoresLabel">
-        Scores
+            <div id="playerScoreHistory" class="playerScoreHistory">
+
+                    <!--Mark the scores area-->
+                    <div id="scoresLabel">
+                        Scores
+                    </div>
+
+                <div class="theScores">
+                    <!--Display the score for player one-->
+                    <div id="playerOneScores">
+
+                        <label id="playerOneLabel" class="playerLabels">username</label>
+                        <div id="scoreRoundP1" class="scoreRound"> <span class="roundText"></span><span class="points"></span></div>
+
+                        <div id="playerOneScore"></div>
+                    </div>
+
+                    <!--Display the score for player two-->
+                    <div id="playerTwoScores" >
+                        <label id="playerTwoLabel" class="playerLabels">username</label>
+
+                        <div id="scoreRoundP2" class="scoreRound"> <span class="roundText"></span><span class="points"></span></div>
+
+                        
+                        <div id="playerTwoScore"></div>          
+                    </div>
+                </div>
+            </div>
+        </div>  
     </div>
-
-    <div class="playerScoreHistory">
-        <!--Display the score for player one-->
-        <div id="playerOneScores">
-
-            <label id="playerOneLabel" class="playerLabels">username</label>
-            <div id="scoreRoundP1" class="scoreRound"> <span class="roundText"></span><span class="points"></span></div>
-
-            <div id="playerOneScore"></div>
-
-        </div>
-
-        <!--Display the score for player two-->
-        <div id="playerTwoScores" >
-            <label id="playerTwoLabel" class="playerLabels">username</label>
-
-            <div id="scoreRoundP2" class="scoreRound"> <span class="roundText"></span><span class="points"></span></div>
-
-            
-            <div id="playerTwoScore"></div>
-                    
-        </div>
-    </div>
-
-</div>
-            
-</div>
 
        <button onclick="topFunction()" id="myBtn" title="Go to top">Back to top</button>
 
@@ -271,26 +310,49 @@
     <footer>
         <div class="footer">
 
-            <div id="declarations">
+            <div class="declarations">
 
-                <p>Powered by Firebase<br>
-                Graphics by Microsoft Design<br>
-                The Trivia Api<br></p>
+                <div id="declarations">
 
-                <h3>Developed by Macs Machete</h3>
-                <p>&#xA9; Machete Capital (Pty) Ltd</p>
-                <p><a href="mailto:machetecapital@gmail.com">Contact Support</a>
-                </p>
+                    <p>Powered by Firebase<br>
+                    Graphics by Microsoft Design<br>
+                    The Trivia Api<br></p>
 
+                    <h3>Developed by Macs Machete</h3>
+                    <p>&#xA9; 2024, Machete Capital (Pty) Ltd</p>
+
+                </div>
+
+                <div id="contact">
+
+                    <p>Contact Us</p>
+                    
+                    <p><a href="mailto:machetecapital@gmail.com">Contact Support</a>
+                    </p>
+                    <p>2461<br>Tswelopele X8<br>Tembisa<br>1632</p>
+                </div>
+                
             </div>
 
-            <div id="socials">
-                <br>
-                Catch the developer
-                <br><br>
-                <a href="https://www.linkedin.com/in/trevor-machete-62636b127/">LinkedIn</a><br>
-                <a href="https://github.com/TrevorMachete/">GitHub</a><br>
-                <a href="https://twitter.com/trevormachete">Twitter</a><br>
+            <div class="socials">
+
+                <div id="socials">
+
+                    <p>Catch the developer</p>
+
+                    <p><a href="https://www.linkedin.com/in/trevor-machete-62636b127/">LinkedIn</a></p>
+                    <p><a href="https://github.com/TrevorMachete/">GitHub</a></p>
+                    <p><a href="https://twitter.com/trevormachete">Twitter</a></p>
+                    <br>
+                </div>
+
+                <div id="legals">
+                    <p>Legal</p>
+                    <p><a href="tos.html">Terms of Service</a></p>
+                    <p><a href="pp.html">Privacy Policy</a></p>
+                    <p><a href="cookies.html">Cookies Policy</a></p>
+                </div>
+
             </div>
 
         </div>
