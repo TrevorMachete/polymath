@@ -56,8 +56,24 @@ function createUserCard(userData, container) {
 
     // Add event listener to the button
     button.addEventListener('click', () => {
+        const currentUser = getCurrentUser(); // Function that returns the current user's username
+
+        if (!currentUser) {
+            // No user is signed in, show an alert
+            alert('Please log in or Register');
+            return;
+        }
+
+        // Change the button color to grey
+        button.style.backgroundColor = 'grey';
+
+        // After 60 seconds, change the color back to #007bff
+        setTimeout(() => {
+            button.style.backgroundColor = '#007bff';
+        }, 60000); // 60000 milliseconds = 60 seconds
+
         const db = firebase.firestore();
-        const sender = getCurrentUser(); // Function that returns the current user's username
+        const sender = currentUser;
         const receiver = userData.username;
         const status = 'pending';
         const message = `You have been challenged by ${sender}. Do you accept or deny?`;
@@ -91,6 +107,7 @@ function createUserCard(userData, container) {
 
     container.appendChild(card);
 }
+
 
 //Fetch ongoing challenges and display in the public challenges section
 function fetchOngoingChallenges() {

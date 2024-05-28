@@ -56,7 +56,7 @@ function displayDummyP1(username) {
                                     if (!question.served) {
                                         qDiv.style.textAlign = 'right';
                                         qDiv.style.backgroundColor = 'red';
-                                        qDiv.style.borderRadius = '5px';
+                                        qDiv.style.borderRadius = '10px';
                                         qDiv.style.width= '98%';
                                         qDiv.style.float = 'right';
                                         qDiv.style.marginBottom = '10px';
@@ -66,7 +66,7 @@ function displayDummyP1(username) {
                                     } else {
                                         qDiv.style.textAlign = 'left';
                                         qDiv.style.backgroundColor = 'white';
-                                        qDiv.style.borderRadius = '5px';
+                                        qDiv.style.borderRadius = '10px';
                                         qDiv.style.width= '98%';
                                         qDiv.style.float = 'left';
                                         qDiv.style.marginBottom = '10px';

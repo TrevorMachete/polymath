@@ -29,28 +29,36 @@ function getCurrentUser() {
 function fetchMessagesForCurrentUser() {
     const db = firebase.firestore();
     const username = getCurrentUser();
-    const chatContentP1 = document.getElementById('chatContentP1');
-    //const chatContentP2 = document.getElementById('chatContentP2');
-
+    const textOutput = document.getElementById('textOutput');
 
     // Fetch challenge messages for the current user
-    db.collection('challenges').where('receiver', '==', username).onSnapshot((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-            const challengeData = doc.data();
-            createMessageCard(challengeData, chatContentP1, 'challenge');
-            //createMessageCard(challengeData, chatContentP2, 'challenge');
-        });
-    });
+    db.collection('challenges')
+     .where('receiver', '==', username)
+     .where('status', '==', 'pending')
+     .onSnapshot((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+              const challengeData = doc.data();
+              createMessageCard(challengeData, textOutput, 'challenge');
+          });
+      });
 
     // Fetch confirmation messages for the current user
-    db.collection('confirmations').where('receiver', '==', username).onSnapshot((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-            const confirmationData = doc.data();
-            createMessageCard(confirmationData, chatContentP1, 'confirmation');
-            //createMessageCard(confirmationData, chatContentP2, 'confirmation');
-        });
-    });
+    db.collection('confirmations')
+     .where('receiver', '==', username)
+     .where('status', '==', 'unseen')
+     .onSnapshot((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+              const confirmationData = doc.data();
+              createMessageCard(confirmationData, textOutput, 'confirmation');
+
+              // Update the status of the confirmation document to 'seen'
+              db.collection('confirmations').doc(doc.id).update({
+                  status: 'seen'
+              });
+          });
+      });
 }
+
 
 function createMessageCard(messageData, container, messageType) {
     const card = document.createElement('div');
@@ -122,8 +130,13 @@ window.onload = function() {
             db.collection('confirmations').add({
                 sender: username,
                 receiver: doc.data().sender,
-                message: 'Your challenge was accepted'
+                message: 'Your challenge was accepted',
+                status: 'unseen'
+                
+                
             });
+
+
     
             // Fetch the avatars of the users
             let player1Avatar = "";

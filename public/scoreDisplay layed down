@@ -1,0 +1,37 @@
+
+/** 
+// Initialize an empty object to store the scores for each player
+let playerScores = {};
+
+// Iterate over the scores array
+scoresArray.forEach(score => {
+    // If an entry for the current player does not exist in playerScores, create one
+    if (!playerScores[score.username]) {
+        playerScores[score.username] = {};
+    }
+
+    // If an entry for the current round does not exist for the current player in playerScores, create one with a value of 0
+    if (!playerScores[score.username][score.Round]) {
+        playerScores[score.username][score.Round] = 0;
+    }
+
+    // Add the points of the current score to the corresponding round for the current player in playerScores
+    playerScores[score.username][score.Round] += score.points;
+});
+
+// Now let's display the scores on the screen
+
+let scoresDiv = document.getElementById('scores');
+
+// Clear the scores div
+scoresDiv.innerHTML = '';
+
+// Iterate over playerScores and create HTML for each player's scores
+for (let username in playerScores) {
+    let playerDiv = document.createElement('div');
+    playerDiv.innerHTML = `<h2>${username}'s Scores:</h2>`;
+    for (let round in playerScores[username]) {
+        playerDiv.innerHTML += `<p>Round ${round}: ${playerScores[username][round]} points</p>`;
+    }
+    scoresDiv.appendChild(playerDiv);
+}*/

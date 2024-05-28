@@ -26,6 +26,8 @@ function getCurrentUser() {
     }
 }
 
+let answerButton;
+
 document.addEventListener('DOMContentLoaded', function() {
     // Set up event listeners to store selections in local storage
     document.getElementById('difficulty').addEventListener('change', function() {
@@ -55,6 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 // Check if the user is authenticated
                 if (!firebase.auth().currentUser) {
+                    alert('Please log in or Register')
                     console.error('User is not authenticated');
                     return;
                 }
@@ -226,6 +229,12 @@ function displayQuestions() {
     let userId = firebase.auth().currentUser.uid;  // Get the current user's ID
     let username = firebase.auth().currentUser.displayName; // Get the current user's username
 
+    // Create an audio object
+    let newQuestion = new Audio('https://firebasestorage.googleapis.com/v0/b/polymathquest00.appspot.com/o/music%2FnewQuestion.mp3?alt=media&token=823a823c-6ace-47b7-ab78-ac9dd7923ac0');
+
+        // Create an audio object
+    let answerAudio = new Audio('https://firebasestorage.googleapis.com/v0/b/polymathquest00.appspot.com/o/music%2FanswerSelect.mp3?alt=media&token=cf71ec56-0673-4200-8024-1a4825731cd1');
+
     // Get the ongoing challenges where the current user is either player1 or player2
     let player1Query = db.collection("ongoingChallenges").where("player1", "==", username);
     let player2Query = db.collection("ongoingChallenges").where("player2", "==", username);
@@ -240,6 +249,10 @@ function displayQuestions() {
                     data.forEach((question, index) => {
                         // Only display the question if the served field is false
                         if (!question.served) {
+                            
+                            // Play a sound when a new question comes in
+                            newQuestion.play();
+
                             let questionDiv = document.createElement('div');
                             questionDiv.innerHTML = `<p>${question.question}</p>`;
 
@@ -254,9 +267,17 @@ function displayQuestions() {
                                 let answerButton = document.createElement('button');
                                 answerButton.textContent = answer;
                                 answerButton.addEventListener('click', function() {
-                                    handleAnswerSubmission(question, answerButton.textContent, questionDiv);
+                                    
+                                handleAnswerSubmission(question, answerButton.textContent, questionDiv, answerButton);
+                                
+                                // Change the background color to green when clicked
+                                answerButton.style.backgroundColor = 'green';
+
+                                // Play a sound when clicked
+                                answerAudio.play();
 
                                 });
+
                                 answersDiv.appendChild(answerButton);
 
                                 //Style the answers element
@@ -268,6 +289,7 @@ function displayQuestions() {
                             });
 
                             questionDiv.appendChild(answersDiv);
+
                             document.getElementById('textOutput').appendChild(questionDiv);
 
                             //Style the questions element
@@ -278,9 +300,6 @@ function displayQuestions() {
                             questionDiv.style.borderRadius = '10px';
                             questionDiv.style.boxShadow = '2px 2px 4px rgba(0, 0, 0, 0.5)';
                             questionDiv.style.textShadow = '2px 2px 4px rgba(0, 0, 0, 0.5)';
-
-
-
 
                             // Update the served field to true
                             question.served = true;
@@ -297,8 +316,9 @@ function displayQuestions() {
     });
 }
 
+
 // Function to handle answer submission
-function handleAnswerSubmission(question, selectedAnswer, questionDiv) {
+function handleAnswerSubmission(question, selectedAnswer, userAnswer, questionDiv) {
     let userId = firebase.auth().currentUser.uid;  // Get the current user's ID
     let username = firebase.auth().currentUser.displayName; // Get the current user's username
 
@@ -325,6 +345,7 @@ function handleAnswerSubmission(question, selectedAnswer, questionDiv) {
                 let scoresArray = doc.data()[scoresToUpdate];
                 // Find the score objects for the current user
                 let currentUserScores = scoresArray.filter(score => score.username === username);
+                
 
                 if (currentUserScores.length > 0) {
                     // Get the most recent score entry for the current user
@@ -373,6 +394,8 @@ function handleAnswerSubmission(question, selectedAnswer, questionDiv) {
                 }).catch((error) => {
                     console.error("Error updating score: ", error);
                 });
+
+
 
 
 /** 
@@ -429,8 +452,6 @@ for (let username in playerScores) {
             });
         });
     });
-    
-    
 }
 
 // Function to start the countdown timer
