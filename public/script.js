@@ -176,7 +176,11 @@ function getQuestions() {
                 let player2Query = db.collection("ongoingChallenges").where("player2", "==", username);
 
                 Promise.all([player1Query.get(), player2Query.get()]).then((querySnapshots) => {
+                    let isInChallenge = false;
                     querySnapshots.forEach((querySnapshot) => {
+                        if (!querySnapshot.empty) {
+                            isInChallenge = true;
+                        }
                         querySnapshot.forEach((doc) => {
                             let questions = doc.data().questions || [];
 
@@ -189,9 +193,7 @@ function getQuestions() {
                                     userAnswer: null,  // to be updated later
                                     incorrectAnswers: question.incorrectAnswers,  // Save the answer options
                                     served: false,  // to be updated later
-
                                 });
-                                
                             });
 
                             // Update the questions array in Firestore
@@ -208,6 +210,32 @@ function getQuestions() {
                             });
                         });
                     });
+
+                    if (!isInChallenge) {
+
+                        // Create an audio object
+                        let getChallengeAudio = new Audio('https://firebasestorage.googleapis.com/v0/b/polymathquest00.appspot.com/o/music%2Fnotification.mp3?alt=media&token=71e7bb4f-e80c-472a-acc5-b3ba6d15c35f');
+
+                        let dialogBoxGetChallenge = document.getElementById('dialogBoxGetChallenge');
+
+                        // Get the closeDialogBoxStartGameBtn element
+                        let closeDialogBoxGetChallengeBtn = document.getElementById('closeDialogBoxGetChallengeBtn');
+
+                        getChallengeAudio.play();
+
+                        //Display the star game confirmation dialog
+                        dialogBoxGetChallenge.style.display = "block";
+
+                        // Add an event listener to the closeDialogBoxStartGameBtn
+                        closeDialogBoxGetChallengeBtn.addEventListener('click', function() {
+                            
+                            // Get the dialogBoxStartGame element
+                            let dialogBoxGetChallenge = document.getElementById('dialogBoxGetChallenge');
+
+                            // Set the display style of dialogBoxStartGame to 'none'
+                            dialogBoxGetChallenge.style.display = 'none';
+                        });
+                    }
                 });
             } else {
                 console.error("Data fetched from API is undefined or not an array.");
@@ -216,6 +244,7 @@ function getQuestions() {
         });
     });
 }
+
 
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -269,6 +298,8 @@ function displayQuestions() {
                                 answerButton.addEventListener('click', function() {
                                     
                                 handleAnswerSubmission(question, answerButton.textContent, questionDiv, answerButton);
+
+                                handleAnswerFeedback(question, answerButton.textContent, questionDiv, answerButton);
                                 
                                 // Change the background color to green when clicked
                                 answerButton.style.backgroundColor = 'green';

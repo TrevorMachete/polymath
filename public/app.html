@@ -31,6 +31,7 @@
         <script src="chatsHandler.js"></script>
         <script src="refresh.js"></script>
         <script src="music.js"></script>
+        <script src="handleAnswerFeedback.js"></script>
 
     </head>
 
@@ -149,7 +150,6 @@
 
         <!--section four-->
         <div class="avatars">
-
             <div class="playerOneContainer">
 
                 <img id="playerOneAvatar" src="https://firebasestorage.googleapis.com/v0/b/polymathquest00.appspot.com/o/icons%2Favatar.jpeg?alt=media&token=d01a9969-314c-4589-afe0-87fcc2e4fe8c" alt="avatar" class="avatar">
@@ -207,9 +207,7 @@
                 <div class="getQuestionsBtn">
                     <button id="getQuestionsButtonP2" onclick="getQuestions();" class="getQuestionsButton">Start Game</button>
                 </div>
-
             </div>
-
         </div>
 
     <hr>
@@ -225,7 +223,7 @@
 
                 <!--Toggle element visibilty-->
                 <div class="displayButtonsP1">
-                    <button id="chatButtonP1">Chats</button>
+                    <button id="chatButtonP1">Chats<sup id="chatCount"></sup></button>
                     <button id="questionsButtonP1" class="active">Quiz</button>
                     <button id="scoreButtonP1">Scores</button>
                 </div>
@@ -234,6 +232,33 @@
                     <button id="acceptButton">Accept</button>
                     <button id="denyButton">Deny</button>
                 </div>
+
+
+    <!--Get challenge notification box-->
+    <div id="dialogBoxGetChallenge" class="dialogBox">
+        <div id="dialogBoxGetChallengeContent" class="dialogBoxContent">
+            <p id="dialogBoxGetChallengeText" class="dialogBoxText"><p><b><u>For Single Player</u></b><br><br>
+
+                Go to Player Challenges (in menu) and click the challenge button next to your name, then come back here and accept.<br><br>
+
+                <u><b>For Multiplayer</b></u><br><br>
+
+                Challenge anyone by clicking the challenge button next to their name in Player Challenges.</p>
+
+            <button id="closeDialogBoxGetChallengeBtn" class="dialogBoxBtn">Close</button>
+        </div>
+    </div>
+
+    <!--Start game confirmation box-->
+    <div id="dialogBoxStartGame" class="dialogBox">
+        <div id="dialogBoxStartGameContent" class="dialogBoxContent">
+            <p id="dialogBoxStartGameText" class="dialogBoxText">Now you may start game!</p>
+            <p><strong>Good luck.</strong></p>
+            <button id="closeDialogBoxStartGameBtn" class="dialogBoxBtn">Close</button>
+        </div>
+    </div>
+
+    
 
                    <!--Chats, notifications and messages display-->
                    <div id="chatBoxP1" class="boxP1">
@@ -252,24 +277,19 @@
    
                     <button id="sendButton" class="send-button"><img src="https://firebasestorage.googleapis.com/v0/b/polymathquest00.appspot.com/o/icons%2Fsend.png?alt=media&token=c13a21fb-232c-4b1a-8e7f-dfaa1591b878" alt="send"></button>
                     </div>
-
-                                
+           
                 </div>
-  
             </div>
 
                 <!--sub section-->
                 <div id="textOutput" class="textOutput">
-
                     <div id="dummyTextOutput">
                     <!--Dummy text output-->
                     </div>
-               
                 </div>
 
         <!--sub section-->
         <div class="scoreboardP2"> 
-
             <div id="playerScoreHistory" class="playerScoreHistory">
 
                     <!--Mark the scores area-->

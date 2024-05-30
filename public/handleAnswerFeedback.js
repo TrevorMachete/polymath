@@ -1,11 +1,11 @@
-function handleAnswerSubmission(question, userAnswer, questionDiv) {
+function handleAnswerFeedback(question, userAnswer, questionDiv) {
     // Check if the user's answer is correct
     let isCorrect = userAnswer === question.correctAnswer;
 
     // Provide feedback to the user
     let feedbackMessage;
     if (isCorrect) {
-        feedbackMessage = 'Correct Well done.';
+        feedbackMessage = 'Your answer was: ' + userAnswer + '. ' +'Correct, well done';
     } else {
         feedbackMessage = `Incorrect. The correct answer was: ${question.correctAnswer}`;
     }

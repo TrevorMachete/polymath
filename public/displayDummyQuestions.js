@@ -19,6 +19,8 @@ function displayDummyP1(username) {
     // Query for challenges where the current user is player1
     let playerOneQuery = db.collection("ongoingChallenges").where("player1", "==", username);
 
+
+
     playerOneQuery.get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
 

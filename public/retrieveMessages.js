@@ -102,12 +102,16 @@ window.onload = function() {
                 db.collection('confirmations').add({
                     sender: username,
                     receiver: doc.data().sender,
-                    message: 'Your challenge was denied'
+                    message: 'Your challenge was denied. Maybe try someone else'
                 });
             });
         });
     });
-    
+
+    let dialogBoxStartGame = document.getElementById('dialogBoxStartGame');
+
+    // Get the closeDialogBoxStartGameBtn element
+    let closeDialogBoxStartGameBtn = document.getElementById('closeDialogBoxStartGameBtn');
 
     acceptButton.addEventListener('click', async function() {
         // Hide the buttons and the message when the acceptButton is clicked
@@ -118,7 +122,21 @@ window.onload = function() {
     
         // Get the current user's username
         const username = getCurrentUser();
-    
+
+        //Display the star game confirmation dialog
+        dialogBoxStartGame.style.display = "block";
+
+        // Add an event listener to the closeDialogBoxStartGameBtn
+        closeDialogBoxStartGameBtn.addEventListener('click', function() {
+            
+            // Get the dialogBoxStartGame element
+            let dialogBoxStartGame = document.getElementById('dialogBoxStartGame');
+
+            // Set the display style of dialogBoxStartGame to 'none'
+            dialogBoxStartGame.style.display = 'none';
+        });
+
+ 
         // Update the status of any challenge document where the current user's username matches the value of the receiver field
         const challengesSnapshot = await db.collection('challenges').where('receiver', '==', username).get();
         challengesSnapshot.forEach(async (doc) => {
@@ -130,10 +148,8 @@ window.onload = function() {
             db.collection('confirmations').add({
                 sender: username,
                 receiver: doc.data().sender,
-                message: 'Your challenge was accepted',
+                message: 'Your challenge was accepted. Now you can text your opponent in chats to agree on filters, number of rounds etc and start the game',
                 status: 'unseen'
-                
-                
             });
 
 

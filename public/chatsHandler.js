@@ -92,6 +92,9 @@ firebase.auth().onAuthStateChanged(function(user) {
     }
 });
 
+
+let shouldUpdateChatCount = true; // Initialize a flag to indicate whether chatCount should be updated
+
 function displayChats() {
     let userId = firebase.auth().currentUser.uid;  // Get the current user's ID
     let username = firebase.auth().currentUser.displayName; // Get the current user's username
@@ -114,21 +117,39 @@ function displayChats() {
                     // Filter chats to only include those that are unread
                     let unreadChats = chats.filter(chat => chat.status === "unread");
 
+                    // Get the chatBoxP1 and chatCount elements
+                    let chatBoxP1 = document.getElementById('chatBoxP1');
+                    let chatCount = document.getElementById('chatCount');
+
+                    // Update the chatCount to an asterisk if chatBoxP1 is not visible and shouldUpdateChatCount is true
+                    if (chatBoxP1.offsetHeight === 0 && shouldUpdateChatCount && unreadChats.length > 0) {
+                        chatCount.textContent = '*';
+                    }
+
+                    // Set shouldUpdateChatCount to false when a new chat message is added and chatBoxP1 is not visible
+                    if (chatBoxP1.offsetHeight === 0 && allChats.length > 0 && allChats[allChats.length - 1].status === "unread") {
+                        shouldUpdateChatCount = false;
+                    }
+
+                    // Set shouldUpdateChatCount to true and reset chatCount to blank when chatBoxP1 becomes visible
+                    if (chatBoxP1.offsetHeight !== 0) {
+                        shouldUpdateChatCount = true;
+                        chatCount.textContent = '';
+                    }
+
                     // Play a sound if there are new unread messages
                     if (unreadChats.length > 0) {
                         newChatAudio.play();
 
-                    // Change the background color of the button to green
+                        // Change the background color of the button to green
                         let chatButtonP1 = document.getElementById('chatButtonP1');
                         chatButtonP1.style.backgroundColor = 'orange';
                         
                         // Change the background color back after 30 seconds
                         setTimeout(function() {
-                        chatButtonP1.style.backgroundColor = ''; // Reset to original color
+                            chatButtonP1.style.backgroundColor = ''; // Reset to original color
                         }, 20000); // 20 seconds
                     }
-
-    
 
                     // Clear the chat content
                     document.getElementById('chatContentP1').innerHTML = '';
@@ -144,7 +165,7 @@ function displayChats() {
                             chatDiv.style.textAlign = 'right';
                             chatDiv.style.backgroundColor = 'green';
                             chatDiv.style.borderRadius = '5px';
-                            chatDiv.style.width= '90%';
+                            chatDiv.style.width= '80%';
                             chatDiv.style.float = 'right';
                             chatDiv.style.marginBottom = '10px';
                             chatDiv.style.marginRight = '5px';
@@ -162,7 +183,7 @@ function displayChats() {
                             chatDiv.style.textAlign = 'left';
                             chatDiv.style.backgroundColor = 'white';
                             chatDiv.style.borderRadius = '5px';
-                            chatDiv.style.width= '90%';
+                            chatDiv.style.width= '80%';
                             chatDiv.style.float = 'left';
                             chatDiv.style.marginBottom = '10px';
                             chatDiv.style.marginLeft= '5px';
@@ -206,10 +227,28 @@ function displayChats() {
             });
         });
     });
+
+    // Create a MutationObserver instance to watch for changes to the style attribute of chatBoxP1
+    let observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (mutation.attributeName === 'style') {
+                let chatBoxP1 = document.getElementById('chatBoxP1');
+                let chatCount = document.getElementById('chatCount');
+
+                // Reset chatCount to blank and set shouldUpdateChatCount to true when chatBoxP1 becomes visible
+                if (chatBoxP1.offsetHeight !== 0) {
+                    chatCount.textContent = '';
+                    shouldUpdateChatCount = true;
+                }
+            }
+        });
+    });
+
+    // Start observing the chatBoxP1 element for changes to the style attribute
+    let chatBoxP1 = document.getElementById('chatBoxP1');
+    observer.observe(chatBoxP1, { attributes: true, attributeFilter: ['style'] });
 }
 
-
-    // Call the displayChats function to display the chats
-    displayChats();
-
+// Call the displayChats function to display the chats
+displayChats();
 });
