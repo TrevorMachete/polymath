@@ -516,7 +516,7 @@ ul, li {
   /* For the filters menu */
   #filters {
     display: grid;
-    grid-template-columns: 33.3% 33.3% 33.3%;
+    grid-template-columns: 25% 25% 25% 25%;
     text-align: center;
     margin-top: 5px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -725,6 +725,7 @@ select {
   padding: 5px;
   color: white;
   font-weight: bold;
+  height: 40px;
 }
 
 #playerOneLabel {

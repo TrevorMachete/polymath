@@ -175,12 +175,16 @@ window.onload = function() {
                 player2: doc.data().sender,
                 player1Avatar: player1Avatar,
                 player2Avatar: player2Avatar,
-                questions: [],  // Add an empty questions array
-                chats: [],  // Add an empty chats array
-                currentRound: "", // Add an empty currentRound field
-                playerOneScores: [],  // Add an empty scores array
-                playerTwoScores: [],  // Add an empty scores array
-                timestamp: firebase.firestore.FieldValue.serverTimestamp() || 'PENDING'  // Add the timestamp here
+                questions: [],  
+                chats: [], 
+                categories: "",
+                difficulty: "",
+                limit: "",
+                gameRounds: "", 
+                playerOneScores: [], 
+                playerTwoScores: [],  
+                timestamp: firebase.firestore.FieldValue.serverTimestamp() || 'PENDING'  
+
             });
     
             // After the ongoing challenge is created, update the available status of the users in the users collection to false
@@ -241,7 +245,8 @@ window.onload = function() {
                     player1: username,
                     player2: doc.data().player2,
                     questions: [],  // Clear the questions array
-                    currentRound: "", // Clear the currentRound field
+                    currentRound: "0", // Clear the currentRound field
+                    nextRound: "1", // set the nextRound field
                     playerOneScores: [],  // Clear the scores array
                     playerTwoScores: [],  // Clear the scores array
                     timestamp: firebase.firestore.FieldValue.serverTimestamp() || 'PENDING'  // Update the timestamp
@@ -255,7 +260,8 @@ window.onload = function() {
                     player1: doc.data().player1,
                     player2: username,
                     questions: [],  // Clear the questions array
-                    currentRound: "", // Clear the currentRound field
+                    currentRound: "0", // Clear the currentRound field
+                    nextRound: "1", // set the nextRound field
                     playerOneScores: [],  // Clear the scores array
                     playerTwoScores: [],  // Clear the scores array
                     timestamp: firebase.firestore.FieldValue.serverTimestamp() || 'PENDING'  // Update the timestamp

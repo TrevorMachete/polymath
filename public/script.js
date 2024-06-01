@@ -211,6 +211,9 @@ function getQuestions() {
                         });
                     });
 
+                    // Clear the textOutput element for incoming questions
+                    document.getElementById('textOutput').innerHTML = '';
+
                     if (!isInChallenge) {
 
                         // Create an audio object
@@ -243,6 +246,7 @@ function getQuestions() {
             }
         });
     });
+
 }
 
 
@@ -273,7 +277,7 @@ function displayQuestions() {
             querySnapshot.forEach((doc) => {
                 let data = doc.data().questions || [];
 
-                document.getElementById('textOutput').innerHTML = '';
+
                 if (Array.isArray(data)) {
                     data.forEach((question, index) => {
                         // Only display the question if the served field is false
@@ -377,7 +381,6 @@ function handleAnswerSubmission(question, selectedAnswer, userAnswer, questionDi
                 // Find the score objects for the current user
                 let currentUserScores = scoresArray.filter(score => score.username === username);
                 
-
                 if (currentUserScores.length > 0) {
                     // Get the most recent score entry for the current user
                     let mostRecentScore = currentUserScores[currentUserScores.length - 1];

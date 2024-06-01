@@ -1,4 +1,6 @@
 function handleAnswerFeedback(question, userAnswer, questionDiv) {
+
+    
     // Check if the user's answer is correct
     let isCorrect = userAnswer === question.correctAnswer;
 
@@ -9,7 +11,6 @@ function handleAnswerFeedback(question, userAnswer, questionDiv) {
     } else {
         feedbackMessage = `Incorrect. The correct answer was: ${question.correctAnswer}`;
     }
-
 
     // Get the limit value from the input field
     let limitElement = document.getElementById('limit');

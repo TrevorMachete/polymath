@@ -20,9 +20,10 @@
         <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.css" />
 
         <script src="firebaseConfig.js"></script>
+        <script src="auth.js"></script>
+        <script src="filtersUpdate.js"></script>
         <script src="index.js"></script>
         <script src="ui.js"></script>
-        <script src="auth.js"></script>
         <script src="roundDisplay.js"></script>
         <script src="script.js"></script>
         <script src="displayDummyQuestions.js"></script>
@@ -32,6 +33,7 @@
         <script src="refresh.js"></script>
         <script src="music.js"></script>
         <script src="handleAnswerFeedback.js"></script>
+        <script src="declareWinner.js"></script>
 
     </head>
 
@@ -67,7 +69,7 @@
                     <!--Add game soundtrack-->
                     <body onclick="playAudio()">
                         <audio id="myAudio" controls controlsList="nodownload" autoplay loop>
-                            <source src="https://firebasestorage.googleapis.com/v0/b/polymathquest00.appspot.com/o/music%2Fgaming.mp3?alt=media&token=4fe1deb0-2585-4dec-8610-44a9da7fcc50" type="audio/mpeg">
+                            <source src="hhttps://firebasestorage.googleapis.com/v0/b/polymathquest00.appspot.com/o/music%2Fgaming.mp3?alt=media&token=4fe1deb0-2585-4dec-8610-44a9da7fcc50" type="audio/mpeg">
                         </audio>
                     </div>
         
@@ -143,6 +145,17 @@
                     <option value="10">10</option>
                     <option value="15">15</option>
                     <option value="20">20</option>
+                </select>
+            </form>
+
+            <form>
+                <label for="gameRounds">Rounds</label>
+                <select id="gameRounds">
+                    <option value=2>1 - 1</option>
+                    <option value=4>2 - 2</option>
+                    <option value=6>3 - 3</option>
+                    <option value=8>4 - 4</option>
+                    <option value=10>5 - 5</option>
                 </select>
             </form>
             
