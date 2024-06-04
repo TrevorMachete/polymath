@@ -69,13 +69,84 @@ firebase.auth().onAuthStateChanged(function(user) {
                             });
 
                             // Determine the winner
+                            let winner;
+                            let winnerMessage;
                             if (player1TotalPoints > player2TotalPoints) {
-                                alert(`${username} wins`);
+                                winner = updatedChallengeData.player1;
+                                winnerMessage = `${updatedChallengeData.player1} wins`;
                             } else if (player1TotalPoints < player2TotalPoints) {
-                                alert(`Opponent wins`);
+                                winner = updatedChallengeData.player2;
+                                winnerMessage = `${updatedChallengeData.player2} wins`;
                             } else {
-                                alert(`It's a tie`);
+                                winner = 'Tie';
+                                winnerMessage = `It's a tie`;
                             }
+
+                            // Create a document in the 'winnerSub' subcollection
+                            db.collection("ongoingChallenges").doc(docId).collection('winnerSub').doc('message').set({
+                                player1: updatedChallengeData.player1,
+                                player2: updatedChallengeData.player2,
+                                winner: winner,
+                                communication: winnerMessage,
+                                seen: 'false'
+                            }).then(() => {
+                                console.log("Document successfully written!");
+                            }).catch((error) => {
+                                console.error("Error writing document: ", error);
+                            });
+
+                            // Listen for changes in the 'winnerSub' subcollection's 'message' document
+                            db.collection("ongoingChallenges").doc(docId).collection('winnerSub').doc('message').onSnapshot((doc) => {
+                                if (doc.exists) {
+                                    let messageData = doc.data();
+
+                                    // Check if the message has been seen
+                                    if (messageData.seen === 'false') {
+                                        // Get the dialog box elements
+
+                                        // Create an audio object
+                                        let winnerConfirmationAudio = new Audio('https://firebasestorage.googleapis.com/v0/b/polymathquest00.appspot.com/o/music%2FwinnerConfirmation.mp3?alt=media&token=e669671a-fb2c-4b8b-81d7-cb9948cfde3c');
+
+                                        let dialogBoxWinnerConfirmation = document.getElementById('dialogBoxWinnerConfirmation');
+
+                                        let dialogBoxWinnerConfirmationText = document.getElementById('dialogBoxWinnerConfirmationText');
+
+                                        // Get the closeDialogBoxStartGameBtn element
+                                        let closeDialogBoxWinnerConfirmationBtn = document.getElementById('closeDialogBoxWinnerConfirmationBtn');
+
+                                        // Update the dialog box text
+                                        dialogBoxWinnerConfirmationText.textContent = messageData.communication;
+
+                                        // Display the dialog box
+                                        dialogBoxWinnerConfirmation.style.display = 'block';
+                                        //Play audio
+                                        winnerConfirmationAudio.play();
+
+                                        // Add an event listener to the closeDialogBoxStartGameBtn
+                                        closeDialogBoxWinnerConfirmationBtn.addEventListener('click', function() {
+                                            
+                                        // Get the dialogBoxWinnerConfirmation element
+                                        let dialogBoxWinnerConfirmation = document.getElementById('dialogBoxWinnerConfirmation');
+                                        
+
+                                        // Set the display style of dialogBoxWinnerConfirmation to 'none'
+                                        dialogBoxWinnerConfirmation.style.display = 'none';
+                                        
+                                        });
+
+                                        // Update the 'seen' field to 'true'
+                                        db.collection("ongoingChallenges").doc(docId).collection('winnerSub').doc('message').update({
+                                            seen: 'true'
+                                        }).then(() => {
+                                            console.log("Document successfully updated!");
+                                        }).catch((error) => {
+                                            console.error("Error updating document: ", error);
+                                        });
+                                    }
+                                } else {
+                                    console.log("No such document!");
+                                }
+                            });
                         } else {
                             console.log("No such document!");
                         }
@@ -90,4 +161,3 @@ firebase.auth().onAuthStateChanged(function(user) {
         console.log('No user is signed in.');
     }
 });
-

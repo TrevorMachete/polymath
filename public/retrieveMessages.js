@@ -152,8 +152,6 @@ window.onload = function() {
                 status: 'unseen'
             });
 
-
-    
             // Fetch the avatars of the users
             let player1Avatar = "";
             let player2Avatar = "";
