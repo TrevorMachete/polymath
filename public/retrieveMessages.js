@@ -122,21 +122,20 @@ window.onload = function() {
     
         // Get the current user's username
         const username = getCurrentUser();
-
+    
         //Display the star game confirmation dialog
         dialogBoxStartGame.style.display = "block";
-
+    
         // Add an event listener to the closeDialogBoxStartGameBtn
         closeDialogBoxStartGameBtn.addEventListener('click', function() {
             
             // Get the dialogBoxStartGame element
             let dialogBoxStartGame = document.getElementById('dialogBoxStartGame');
-
+    
             // Set the display style of dialogBoxStartGame to 'none'
             dialogBoxStartGame.style.display = 'none';
         });
-
- 
+    
         // Update the status of any challenge document where the current user's username matches the value of the receiver field
         const challengesSnapshot = await db.collection('challenges').where('receiver', '==', username).get();
         challengesSnapshot.forEach(async (doc) => {
@@ -151,7 +150,7 @@ window.onload = function() {
                 message: 'Your challenge was accepted. Now you can text your opponent in chats to agree on filters, number of rounds etc and start the game',
                 status: 'unseen'
             });
-
+    
             // Fetch the avatars of the users
             let player1Avatar = "";
             let player2Avatar = "";
@@ -167,7 +166,7 @@ window.onload = function() {
             });
     
             // Create a new document in the ongoingChallenges collection
-            const challengeId = username + ' vs ' + doc.data().sender;
+            const challengeId = username + ' -vs- ' + doc.data().sender;
             await db.collection('ongoingChallenges').doc(challengeId).set({
                 player1: username,
                 player2: doc.data().sender,
@@ -178,12 +177,20 @@ window.onload = function() {
                 categories: "",
                 difficulty: "",
                 limit: "",
+                currentRound: "0",
                 gameRounds: "", 
                 playerOneScores: [], 
                 playerTwoScores: [],  
                 timestamp: firebase.firestore.FieldValue.serverTimestamp() || 'PENDING'  
-
             });
+    
+            // Check the archivedChallenges collection for a matching document
+            const archivedChallengeSnapshot = await db.collection('archivedChallenges').doc(challengeId).get();
+            if (archivedChallengeSnapshot.exists) {
+                // If a matching document is found, copy its data into the ongoingChallenges document
+                const archivedChallengeData = archivedChallengeSnapshot.data();
+                await db.collection('ongoingChallenges').doc(challengeId).set(archivedChallengeData);
+            }
     
             // After the ongoing challenge is created, update the available status of the users in the users collection to false
             const user1UpdateSnapshot = await db.collection('users').where('username', '==', username).get();
@@ -191,6 +198,7 @@ window.onload = function() {
                 db.collection('users').doc(doc.id).update({
                     available: false
                 });
+                console.log('Update Result for user1:');
             });
     
             const user2UpdateSnapshot = await db.collection('users').where('username', '==', doc.data().sender).get();
@@ -198,6 +206,7 @@ window.onload = function() {
                 db.collection('users').doc(doc.id).update({
                     available: false
                 });
+                console.log('Update Result for user2:');
     
                 // Fetch the avatar and username of the sender
                 const senderAvatar = doc.data().avatar;
@@ -223,11 +232,12 @@ window.onload = function() {
     
             // Set the currentRoundDisplay element in the UI to zero
             document.getElementById('currentRoundDisplay').innerText = 'Round 0';
-
+    
         // Refresh the page
         location.reload();
         });
     });
+    
     
     [playerOneRestartButton, playerTwoRestartButton].forEach(button => {
         button.addEventListener('click', async function() {
