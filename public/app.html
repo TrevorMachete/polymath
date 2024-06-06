@@ -19,6 +19,9 @@
         <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-messaging.js"></script>
         <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.css" />
 
+        <!--Import confetti effect-->
+        <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+
         <script src="firebaseConfig.js"></script>
         <script src="auth.js"></script>
         <script src="filtersUpdate.js"></script>
@@ -33,7 +36,7 @@
         <script src="refresh.js"></script>
         <script src="music.js"></script>
         <script src="handleAnswerFeedback.js"></script>
-        <script src="declareWinner.js"></script>
+        <script type="module" src="declareWinner.js"></script>
 
     </head>
 
@@ -246,7 +249,6 @@
                     <button id="denyButton">Deny</button>
                 </div>
 
-
     <!--Get challenge notification box-->
     <div id="dialogBoxGetChallenge" class="dialogBox">
         <div id="dialogBoxGetChallengeContent" class="dialogBoxContent">
@@ -274,13 +276,13 @@
         <!--Winner confirmation box-->
         <div id="dialogBoxWinnerConfirmation" class="dialogBox">
             <div id="dialogBoxWinnerConfirmationContent" class="dialogBoxContent">
-                <p id="dialogBoxWinnerConfirmationText" class="dialogBoxText"></p>
+                <p id="dialogBoxWinnerConfirmationText" class="dialogBoxText">Billy Nkuna wins</p>
                 <button id="closeDialogBoxWinnerConfirmationBtn" class="dialogBoxBtn">Close</button>
             </div>
         </div>
 
-                   <!--Chats, notifications and messages display-->
-                   <div id="chatBoxP1" class="boxP1">
+                <!--Chats, notifications and messages display-->
+                <div id="chatBoxP1" class="boxP1">
 
                     <!--Mark the chats area-->
                     <div id="chatsLabel">

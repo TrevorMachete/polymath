@@ -95,13 +95,17 @@ firebase.auth().onAuthStateChanged(function(user) {
                                 console.error("Error writing document: ", error);
                             });
 
-                            // Listen for changes in the 'winnerSub' subcollection's 'message' document
+
+
+                            // Listen for changes in the 'winnerSub' subcollection's 'message' 
+
                             db.collection("ongoingChallenges").doc(docId).collection('winnerSub').doc('message').onSnapshot((doc) => {
                                 if (doc.exists) {
                                     let messageData = doc.data();
 
                                     // Check if the message has been seen
                                     if (messageData.seen === 'false') {
+
                                         // Get the dialog box elements
 
                                         // Create an audio object
@@ -122,16 +126,44 @@ firebase.auth().onAuthStateChanged(function(user) {
                                         //Play audio
                                         winnerConfirmationAudio.play();
 
+                                        // Add confetti
+                                        const end = Date.now() + (1 * 5000);
+                                        const colors = [
+                                        '#ffcc00',
+                                        '#ff9900',
+                                        '#ff6600',
+                                        '#ff3300',
+                                        '#ff0000'
+                                        ];
+                                        (function frame() {
+                                        confetti({
+                                            particleCount: 2,
+                                            angle: 60,
+                                            spread: 55,
+                                            origin: { x: 0 },
+                                            colors: colors
+                                        });
+                                        confetti({
+                                            particleCount: 2,
+                                            angle: 120,
+                                            spread: 55,
+                                            origin: { x: 1 },
+                                            colors: colors
+                                        });
+                                        if (Date.now() < end) {
+                                            requestAnimationFrame(frame);
+                                        }
+                                        }());
+
                                         // Add an event listener to the closeDialogBoxStartGameBtn
                                         closeDialogBoxWinnerConfirmationBtn.addEventListener('click', function() {
-                                            
-                                        // Get the dialogBoxWinnerConfirmation element
-                                        let dialogBoxWinnerConfirmation = document.getElementById('dialogBoxWinnerConfirmation');
-                                        
 
-                                        // Set the display style of dialogBoxWinnerConfirmation to 'none'
-                                        dialogBoxWinnerConfirmation.style.display = 'none';
-                                        
+                                            // Get the dialogBoxWinnerConfirmation element
+                                            let dialogBoxWinnerConfirmation = document.getElementById('dialogBoxWinnerConfirmation');
+
+                                            // Set the display style of dialogBoxWinnerConfirmation to 'none'
+                                            dialogBoxWinnerConfirmation.style.display = 'none';
+
                                         });
 
                                         // Update the 'seen' field to 'true'
@@ -147,6 +179,7 @@ firebase.auth().onAuthStateChanged(function(user) {
                                     console.log("No such document!");
                                 }
                             });
+
                         } else {
                             console.log("No such document!");
                         }
