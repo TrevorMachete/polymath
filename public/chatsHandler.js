@@ -94,7 +94,6 @@ firebase.auth().onAuthStateChanged(function(user) {
 
 
 let shouldUpdateChatCount = true; // Initialize a flag to indicate whether chatCount should be updated
-
 function displayChats() {
     let userId = firebase.auth().currentUser.uid;  // Get the current user's ID
     let username = firebase.auth().currentUser.displayName; // Get the current user's username
@@ -155,7 +154,7 @@ function displayChats() {
                     document.getElementById('chatContentP1').innerHTML = '';
 
                     // Display each chat message
-                    allChats.forEach(chat => {
+                    allChats.forEach((chat, index) => {
                         let chatDiv = document.createElement('div');
                         let date = new Date(chat.time);
                         let timeAgoString = timeAgo(date);
@@ -196,6 +195,48 @@ function displayChats() {
                                 }, 100); // delay for the pop-in effect
                             }
                         }
+
+                        // Add a click event listener for chat selection
+                        chatDiv.addEventListener('click', function() {
+                            // Highlight the selected chat
+                            this.style.backgroundColor = 'lightblue';
+                            // Store the selected chat index for reply or deletion
+                            selectedChatIndex = index;
+                        });
+
+                        // Add a contextmenu event listener for chat reply and deletion
+                        chatDiv.addEventListener('contextmenu', function(event) {
+                            event.preventDefault();
+                            // Show a custom context menu for reply and delete options
+                            let contextMenu = document.createElement('ul');
+                            let replyOption = document.createElement('li');
+                            let deleteOption = document.createElement('li');
+                            replyOption.textContent = 'Reply';
+                            deleteOption.textContent = 'Delete';
+                            contextMenu.appendChild(replyOption);
+                            contextMenu.appendChild(deleteOption);
+                            document.body.appendChild(contextMenu);
+                            contextMenu.style.top = `${event.clientY}px`;
+                            contextMenu.style.left = `${event.clientX}px`;
+
+                            // Add a click event listener for the reply option
+                            replyOption.addEventListener('click', function() {
+                                // Open a reply box with the selected chat message as the placeholder
+                                let replyBox = document.createElement('textarea');
+                                replyBox.placeholder = `Reply to ${allChats[selectedChatIndex].message}`;
+                                document.body.appendChild(replyBox);
+                            });
+
+                            // Add a click event listener for the delete option
+                            deleteOption.addEventListener('click', function() {
+                                // Delete the selected chat from the chats array
+                                chats.splice(selectedChatIndex, 1);
+                                // Update the chats in Firestore
+                                doc.ref.update({
+                                    chats: chats
+                                });
+                            });
+                        });
 
                         chatDiv.innerHTML = `<p style="margin-left:5px; margin-right: 5px;"><strong>${chat.username}</strong> <span id="${chat.time}" style="font-size:14px; color:darkgrey;">${timeAgoString}</span> <br>${chat.message}</p>`;
                         document.getElementById('chatContentP1').appendChild(chatDiv);

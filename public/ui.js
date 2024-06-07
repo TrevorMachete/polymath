@@ -86,4 +86,49 @@ function updateOnlineStatus(event) {
   }
 }
 
+document.addEventListener('DOMContentLoaded', (event) => {
+    let playerOneLoginLogoutButton = document.getElementById('playerOneLoginLogoutButton');
+    let playerTwoLoginLogoutButton = document.getElementById('playerTwoLoginLogoutButton');
+    let customLogin = document.getElementById('customLogin');
+    let customLoginButton = document.getElementById('customLoginButton');
+    let customLoginLabels = document.getElementById('customLoginLabels');
+    let customLoginForms = document.getElementById('customLoginForms');
+    let formOne = document.getElementById('formOne');
+    let formTwo = document.getElementById('formTwo');
+    let customLoginRegisterLabel = document.getElementById('customLoginRegisterLabel');
+    let customLoginLoginLabel = document.getElementById('customLoginLoginLabel');
 
+    playerOneLoginLogoutButton.addEventListener('click', function() {
+        customLogin.style.display = 'block';
+    });
+
+    playerTwoLoginLogoutButton.addEventListener('click', function() {
+        customLogin.style.display = 'block';
+    });
+
+    customLoginButton.addEventListener('click', function() {
+        customLoginLabels.style.display = 'grid';
+        customLoginForms.style.display = 'grid';
+        formOne.style.display = 'block';
+        customLoginLoginLabel.style.color = 'black';
+        customLoginLoginLabel.style.backgroundColor = 'white';
+    });
+
+    customLoginRegisterLabel.addEventListener('click', function() {
+        formTwo.style.display = 'block';
+        formOne.style.display = 'none';
+        customLoginRegisterLabel.style.color = 'black';
+        customLoginRegisterLabel.style.backgroundColor = 'white';
+        customLoginLoginLabel.style.color = '';
+        customLoginLoginLabel.style.backgroundColor = '';
+    });
+
+    customLoginLoginLabel.addEventListener('click', function() {
+        formOne.style.display = 'block';
+        formTwo.style.display = 'none';
+        customLoginLoginLabel.style.color = 'black';
+        customLoginLoginLabel.style.backgroundColor = 'white';
+        customLoginRegisterLabel.style.color = '';
+        customLoginRegisterLabel.style.backgroundColor = '';
+    });
+});

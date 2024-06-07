@@ -24,5 +24,4 @@ db.collection('ongoingChallenges').onSnapshot((snapshot) => {
     });
 });
 
-
 console.log('Player status updated');

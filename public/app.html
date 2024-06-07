@@ -38,6 +38,7 @@
         <script src="handleAnswerFeedback.js"></script>
         <script src="declareWinner.js"></script>
         <script src="updatePlayerStatus.js"></script>
+        <script src="autoLogout.js"></script>
 
     </head>
 
@@ -229,6 +230,33 @@
 
     <hr>
 
+    <!--Custom login UI-->
+    <div id="customLogin">
+        <button id="customLoginButton">
+            <img id="customLoginIcon" src="../icons/si.png">
+            <p>Sign in with <u></Sign>username</u></Sign></p>
+        </button>
+        
+        <div id="customLoginForm">
+            <div id="customLoginLabels">
+                <label id="customLoginRegisterLabel">Register</label>
+                <label id="customLoginLoginLabel">Login</label>
+            </div>
+
+            <div id="customLoginForms">
+                <div id="formOne">
+                    <input id="customLoginLoginForm" type="text" placeholder="Enter username to login"><br>
+                    <button id="customLoginSubmitButton">Login</button>
+                </div>
+
+                <div id="formTwo">
+                    <input id="customLoginRegisterForm" type="text" placeholder="Enter username to register"><br>
+                    <button id="customRegisterSubmitButton">Register</button>
+                </div>    
+            </div>
+        </div>
+    </div>
+
     <!--Firebase UI container-->
     <div id="firebaseui-auth-container"></div>
 
@@ -277,7 +305,7 @@
         <!--Winner confirmation box-->
         <div id="dialogBoxWinnerConfirmation" class="dialogBox">
             <div id="dialogBoxWinnerConfirmationContent" class="dialogBoxContent">
-                <p id="dialogBoxWinnerConfirmationText" class="dialogBoxText">Billy Nkuna wins</p>
+                <p id="dialogBoxWinnerConfirmationText" class="dialogBoxText"></p>
                 <button id="closeDialogBoxWinnerConfirmationBtn" class="dialogBoxBtn">Close</button>
             </div>
         </div>

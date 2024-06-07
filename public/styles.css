@@ -15,6 +15,113 @@ body {
     padding-bottom: 50px;
   }
 
+  /* Style the custom login element*/
+  #customLogin {
+    text-align: center;
+    display: none;
+  }
+
+  #customLoginButton {
+    font-weight: bold;
+    width: 312px;
+    border: 1px solid rgb(134, 132, 132);
+    outline: none;
+    background-color: rgb(221, 58, 58); 
+    color: white; 
+    cursor: pointer; 
+    padding: 5px; 
+    border-radius: 0px;
+    font-size: 18px;
+    margin: 0px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+
+  #customLoginIcon {
+    height: 20px;
+  }
+
+  #customLoginLabels {
+    display: none; /* Set to none by default, then set to grid by js */
+    grid-template-columns: 156px 156px;
+    text-align: center;
+    justify-content: center; 
+    align-items: center;     
+    margin: auto;         
+  }
+
+  #customLoginLabels label {
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    padding: 10px;
+    color: white;
+    background-color: rgb(63, 60, 60);
+  }
+
+  #customLoginForms {
+    display: none; /* Set to none by default, then set to grid by js */
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+
+  #formOne {
+    display: none;
+  }
+
+  #formTwo {
+    display: none;
+  }
+
+  #customLoginLoginForm {
+    width: 312px;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 0px;
+    border: 1px solid #ccc;
+    margin-bottom: 0px;
+    text-align: center;
+  }
+
+  #customLoginRegisterForm{
+    width: 312px;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 0px;
+    border: 1px solid #ccc;
+    margin-bottom: 0px;
+    text-align: center;
+  }
+
+#customLoginSubmitButton {
+    width: 312px;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 0px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+#customRegisterSubmitButton{
+  width: 312px;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 0px;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+#customLoginSubmitButton:hover,  #customRegisterSubmitButton:hover{
+    background-color: #01350c;
+}
+
   .aboutContent {
     background-color: white;
     padding-top: 5px;
